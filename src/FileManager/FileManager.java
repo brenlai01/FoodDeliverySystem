@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class FileManager {
     
-    // Method used to load all users in users.txt when starting the program
+    // Method used to load all users into their respective types in an ArrayList from users.txt when starting the program
     public static ArrayList<User> loadUsers(String filepath){
         ArrayList<User> users = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filepath))){

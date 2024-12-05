@@ -135,6 +135,8 @@ public class LoginFrame extends javax.swing.JFrame {
         String passwordGUI = new String (passwordtxt.getPassword());
         
         ArrayList<User> users = FileManager.loadUsers("users.txt");
+        
+        // Looping through ArrayList and forward them to their respective pages (admin -> AdminPage)
         for (User user : users) {
             if (usernameGUI.equals(user.getUsername()) && passwordGUI.equals(user.getPassword())) {
                 found = true;
@@ -157,6 +159,8 @@ public class LoginFrame extends javax.swing.JFrame {
         }
         if (!found) {
             JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
+            usernametxt.setText("");
+            passwordtxt.setText("");
         }
     }//GEN-LAST:event_LoginButtonActionPerformed
 
