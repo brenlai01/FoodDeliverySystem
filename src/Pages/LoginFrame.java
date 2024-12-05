@@ -1,11 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
+package Pages;
+import FileManager.*;
+import Models.*;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class LoginFrame extends javax.swing.JFrame {
-
     /**
      * Creates new form Login
      */
@@ -22,31 +21,23 @@ public class LoginFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
         MainPanel = new javax.swing.JPanel();
         WelcomePanel = new javax.swing.JPanel();
         WelcomeLabel = new javax.swing.JLabel();
         Credentials = new javax.swing.JPanel();
         Username = new javax.swing.JPanel();
-        username = new javax.swing.JTextField();
+        usernametxt = new javax.swing.JTextField();
         UsernameLabel = new javax.swing.JLabel();
         Password = new javax.swing.JPanel();
         PasswordLabel = new javax.swing.JLabel();
-        password = new javax.swing.JPasswordField();
+        passwordtxt = new javax.swing.JPasswordField();
         LoginPanel = new javax.swing.JPanel();
         LoginButton = new javax.swing.JButton();
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
-        MainPanel.setPreferredSize(new java.awt.Dimension(350, 500));
+        MainPanel.setPreferredSize(new java.awt.Dimension(350, 300));
 
         WelcomePanel.setPreferredSize(new java.awt.Dimension(350, 65));
 
@@ -77,13 +68,13 @@ public class LoginFrame extends javax.swing.JFrame {
         Username.setPreferredSize(new java.awt.Dimension(250, 50));
         Username.setLayout(new java.awt.BorderLayout(5, 5));
 
-        username.setPreferredSize(new java.awt.Dimension(65, 30));
-        username.addActionListener(new java.awt.event.ActionListener() {
+        usernametxt.setPreferredSize(new java.awt.Dimension(65, 30));
+        usernametxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameActionPerformed(evt);
+                usernametxtActionPerformed(evt);
             }
         });
-        Username.add(username, java.awt.BorderLayout.CENTER);
+        Username.add(usernametxt, java.awt.BorderLayout.CENTER);
 
         UsernameLabel.setBackground(new java.awt.Color(255, 255, 255));
         UsernameLabel.setText("Username");
@@ -98,8 +89,13 @@ public class LoginFrame extends javax.swing.JFrame {
         PasswordLabel.setText("Password");
         Password.add(PasswordLabel, java.awt.BorderLayout.PAGE_START);
 
-        password.setPreferredSize(new java.awt.Dimension(65, 30));
-        Password.add(password, java.awt.BorderLayout.PAGE_END);
+        passwordtxt.setPreferredSize(new java.awt.Dimension(65, 30));
+        passwordtxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordtxtActionPerformed(evt);
+            }
+        });
+        Password.add(passwordtxt, java.awt.BorderLayout.PAGE_END);
 
         Credentials.add(Password);
 
@@ -110,6 +106,11 @@ public class LoginFrame extends javax.swing.JFrame {
         LoginButton.setBackground(new java.awt.Color(204, 204, 204));
         LoginButton.setText("Login");
         LoginButton.setPreferredSize(new java.awt.Dimension(150, 30));
+        LoginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoginButtonActionPerformed(evt);
+            }
+        });
         LoginPanel.add(LoginButton);
 
         MainPanel.add(LoginPanel);
@@ -119,13 +120,45 @@ public class LoginFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
+    private void usernametxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernametxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_usernameActionPerformed
+    }//GEN-LAST:event_usernametxtActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void passwordtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordtxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_passwordtxtActionPerformed
+
+    private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
+        
+        boolean found = false;
+        String usernameGUI = usernametxt.getText();
+        String passwordGUI = new String (passwordtxt.getPassword());
+        
+        ArrayList<User> users = FileManager.loadUsers("users.txt");
+        for (User user : users) {
+            if (usernameGUI.equals(user.getUsername()) && passwordGUI.equals(user.getPassword())) {
+                found = true;
+                
+                if (user instanceof Admin){
+                    this.dispose();
+                    new AdminFrame().setVisible(true);
+                } else if (user instanceof Customer) {
+                    this.dispose();
+                    //new CustomerFrame().setVisible(true);
+                } else if (user instanceof Vendor) {
+                    this.dispose();
+                    //new VendorFrame().setVisible(true);
+                } else if (user instanceof DeliveryRunner) {
+                    this.dispose();
+                    //new DeliveryRunnerFrame().setVisible(true);
+                }
+                break;
+            }
+        }
+        if (!found) {
+            JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_LoginButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,8 +207,7 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JLabel UsernameLabel;
     private javax.swing.JLabel WelcomeLabel;
     private javax.swing.JPanel WelcomePanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JPasswordField password;
-    private javax.swing.JTextField username;
+    private javax.swing.JPasswordField passwordtxt;
+    private javax.swing.JTextField usernametxt;
     // End of variables declaration//GEN-END:variables
 }

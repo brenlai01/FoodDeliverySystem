@@ -14,9 +14,19 @@ public class Admin extends User{
                 return new Vendor(usr, pw, uid, balance);
             case "deliveryrunner":
                 return new DeliveryRunner(usr, pw, uid, balance);
-            case "maanger":
-                return new Manager(usr, pw, uid);  
+            case "manager":
+                return new Manager(usr, pw, uid);
+            default:
+                System.out.println("Invalid role specified.");
+                return null;
         }
     }
+    
+    public void topUpCredit(Customer customer, double amount) {
+        customer.addCredit(amount);
+        System.out.println("Credit topped up successfully for " + customer.getUsername());
+    }
+    
+    
     
 }

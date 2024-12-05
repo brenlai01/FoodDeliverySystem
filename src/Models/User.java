@@ -1,11 +1,11 @@
 package Models;
 
 public class User {
+    private String UID;
     private String username;
     private String password;
-    private String UID;
     
-    public User(String usr, String pw, String uid){
+    public User(String uid, String usr, String pw){
         this.setUsername(usr);
         this.setPassword(pw);
         this.setUID(uid);

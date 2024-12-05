@@ -1,0 +1,2 @@
+admin:A001:admin1:123123:0.0
+customer:C001:bren:123123:0.0
