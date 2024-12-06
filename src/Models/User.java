@@ -1,7 +1,7 @@
 package Models;
 
 public class User {
-    private String UID;
+    private String uid;
     private String username;
     private String password;
     
@@ -14,16 +14,25 @@ public class User {
     public String getUsername(){
         return username;
     }
-    public String getPassword(){
-        return password;
-    }
     public void setUsername(String usr){
         this.username = usr;
+    }
+    
+    public String getPassword(){
+        return password;
     }
     public void setPassword(String pw){
         this.password = pw;
     }
+    
+    public String getUid(){
+        return uid;
+    }
     public void setUID(String uid){
-        this.UID = uid;
+        this.uid = uid;
+    }
+    
+    public double getBalance() {
+        return 0.0; // Default balance for Admin & Manager in users.txt
     }
 }

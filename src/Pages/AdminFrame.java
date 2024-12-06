@@ -1,19 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Pages;
+import FileManager.CurrentUser;
+import Models.Admin;
 
-/**
- *
- * @author Grace
- */
 public class AdminFrame extends javax.swing.JFrame {
-
-    /**
-     * Creates new form AdminFrame
-     */
+        
+    private Admin admin;
+    
     public AdminFrame() {
+        this.admin = (Admin) CurrentUser.getLoggedInUser();
         initComponents();
     }
 
@@ -29,23 +23,33 @@ public class AdminFrame extends javax.swing.JFrame {
         MainPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         Admin = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        TopUp = new javax.swing.JPanel();
+        UserPanel = new javax.swing.JPanel();
+        CreateUserPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        TopUp1 = new javax.swing.JPanel();
+        CreateButton = new javax.swing.JButton();
+        TopUpPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        DeleteButton = new javax.swing.JButton();
+        TopUpPanel1 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        TopUpButton = new javax.swing.JButton();
+        CreateUserPanel1 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        UpdateButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        MainPanel.setPreferredSize(new java.awt.Dimension(250, 250));
+        MainPanel.setPreferredSize(new java.awt.Dimension(400, 200));
+        MainPanel.setRequestFocusEnabled(false);
         MainPanel.setLayout(new java.awt.BorderLayout());
 
-        Admin.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jPanel2.setPreferredSize(new java.awt.Dimension(400, 35));
+
+        Admin.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Admin.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Admin.setText("Admin Dashboard");
         Admin.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        Admin.setPreferredSize(new java.awt.Dimension(250, 25));
+        Admin.setPreferredSize(new java.awt.Dimension(400, 25));
         Admin.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -54,90 +58,148 @@ public class AdminFrame extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Admin, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Admin, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Admin, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addComponent(Admin, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
         MainPanel.add(jPanel2, java.awt.BorderLayout.NORTH);
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(250, 140));
+        UserPanel.setPreferredSize(new java.awt.Dimension(400, 80));
 
-        TopUp.setLayout(new java.awt.BorderLayout());
+        CreateUserPanel.setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setText("Manage User");
+        jLabel1.setText("Create New User");
         jLabel1.setToolTipText("");
         jLabel1.setPreferredSize(new java.awt.Dimension(130, 20));
         jLabel1.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        TopUp.add(jLabel1, java.awt.BorderLayout.NORTH);
+        CreateUserPanel.add(jLabel1, java.awt.BorderLayout.NORTH);
 
-        jButton1.setBackground(new java.awt.Color(204, 204, 204));
-        jButton1.setText("Manage");
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        CreateButton.setBackground(new java.awt.Color(204, 204, 204));
+        CreateButton.setText("Create");
+        CreateButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        CreateButton.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        CreateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                CreateButtonActionPerformed(evt);
             }
         });
-        TopUp.add(jButton1, java.awt.BorderLayout.PAGE_END);
+        CreateUserPanel.add(CreateButton, java.awt.BorderLayout.PAGE_END);
 
-        TopUp1.setLayout(new java.awt.BorderLayout());
+        TopUpPanel.setLayout(new java.awt.BorderLayout());
 
-        jLabel2.setText("Top-Up Customer Credit");
+        jLabel2.setText("Delete User");
         jLabel2.setToolTipText("");
         jLabel2.setPreferredSize(new java.awt.Dimension(130, 20));
         jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        TopUp1.add(jLabel2, java.awt.BorderLayout.NORTH);
+        TopUpPanel.add(jLabel2, java.awt.BorderLayout.NORTH);
 
-        jButton2.setBackground(new java.awt.Color(204, 204, 204));
-        jButton2.setText("Top-up");
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        DeleteButton.setBackground(new java.awt.Color(204, 204, 204));
+        DeleteButton.setText("Delete");
+        DeleteButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        DeleteButton.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        DeleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                DeleteButtonActionPerformed(evt);
             }
         });
-        TopUp1.add(jButton2, java.awt.BorderLayout.PAGE_END);
+        TopUpPanel.add(DeleteButton, java.awt.BorderLayout.PAGE_END);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TopUp1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TopUp, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(84, Short.MAX_VALUE))
+        TopUpPanel1.setLayout(new java.awt.BorderLayout());
+
+        jLabel4.setText("Top-Up Customer Credit");
+        jLabel4.setToolTipText("");
+        jLabel4.setPreferredSize(new java.awt.Dimension(130, 20));
+        jLabel4.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        TopUpPanel1.add(jLabel4, java.awt.BorderLayout.NORTH);
+
+        TopUpButton.setBackground(new java.awt.Color(204, 204, 204));
+        TopUpButton.setText("Top-up");
+        TopUpButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        TopUpButton.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        TopUpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TopUpButtonActionPerformed(evt);
+            }
+        });
+        TopUpPanel1.add(TopUpButton, java.awt.BorderLayout.PAGE_END);
+
+        CreateUserPanel1.setLayout(new java.awt.BorderLayout());
+
+        jLabel5.setText("Update User");
+        jLabel5.setToolTipText("");
+        jLabel5.setPreferredSize(new java.awt.Dimension(130, 20));
+        jLabel5.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        CreateUserPanel1.add(jLabel5, java.awt.BorderLayout.NORTH);
+
+        UpdateButton.setBackground(new java.awt.Color(204, 204, 204));
+        UpdateButton.setText("Update");
+        UpdateButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        UpdateButton.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        UpdateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateButtonActionPerformed(evt);
+            }
+        });
+        CreateUserPanel1.add(UpdateButton, java.awt.BorderLayout.PAGE_END);
+
+        javax.swing.GroupLayout UserPanelLayout = new javax.swing.GroupLayout(UserPanel);
+        UserPanel.setLayout(UserPanelLayout);
+        UserPanelLayout.setHorizontalGroup(
+            UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(UserPanelLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(UserPanelLayout.createSequentialGroup()
+                        .addComponent(TopUpPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(TopUpPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(UserPanelLayout.createSequentialGroup()
+                        .addComponent(CreateUserPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(CreateUserPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(TopUp, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(TopUp1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 24, Short.MAX_VALUE))
+        UserPanelLayout.setVerticalGroup(
+            UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(UserPanelLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CreateUserPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CreateUserPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TopUpPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TopUpPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
-        MainPanel.add(jPanel1, java.awt.BorderLayout.WEST);
+        MainPanel.add(UserPanel, java.awt.BorderLayout.WEST);
 
         getContentPane().add(MainPanel, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void CreateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateButtonActionPerformed
+        new CreateUserFrame().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_CreateButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_DeleteButtonActionPerformed
+
+    private void TopUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TopUpButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TopUpButtonActionPerformed
+
+    private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UpdateButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,14 +238,20 @@ public class AdminFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Admin;
+    private javax.swing.JButton CreateButton;
+    private javax.swing.JPanel CreateUserPanel;
+    private javax.swing.JPanel CreateUserPanel1;
+    private javax.swing.JButton DeleteButton;
     private javax.swing.JPanel MainPanel;
-    private javax.swing.JPanel TopUp;
-    private javax.swing.JPanel TopUp1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton TopUpButton;
+    private javax.swing.JPanel TopUpPanel;
+    private javax.swing.JPanel TopUpPanel1;
+    private javax.swing.JButton UpdateButton;
+    private javax.swing.JPanel UserPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

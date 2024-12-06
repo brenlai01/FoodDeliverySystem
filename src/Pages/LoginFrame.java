@@ -130,34 +130,33 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
         
-        boolean found = false;
         String usernameGUI = usernametxt.getText();
         String passwordGUI = new String (passwordtxt.getPassword());
         
         ArrayList<User> users = FileManager.loadUsers("users.txt");
+        User loggedInUser = null;
         
         // Looping through ArrayList and forward them to their respective pages (admin -> AdminPage)
         for (User user : users) {
             if (usernameGUI.equals(user.getUsername()) && passwordGUI.equals(user.getPassword())) {
-                found = true;
-                
-                if (user instanceof Admin){
-                    this.dispose();
-                    new AdminFrame().setVisible(true);
-                } else if (user instanceof Customer) {
-                    this.dispose();
-                    //new CustomerFrame().setVisible(true);
-                } else if (user instanceof Vendor) {
-                    this.dispose();
-                    //new VendorFrame().setVisible(true);
-                } else if (user instanceof DeliveryRunner) {
-                    this.dispose();
-                    //new DeliveryRunnerFrame().setVisible(true);
-                }
-                break;
+                loggedInUser = user;
             }
         }
-        if (!found) {
+        
+        // Bring users to their menu according to user type
+        if (loggedInUser != null) {
+            CurrentUser.setLoggedInUser(loggedInUser);
+            if (loggedInUser instanceof Admin) {
+                new AdminFrame().setVisible(true);
+            } else if (loggedInUser instanceof Customer) {
+                //new CustomerFrame().setVisible(true);
+            } else if (loggedInUser instanceof Vendor) {
+                //new VendorFrame().setVisible(true);
+            } else if (loggedInUser instanceof DeliveryRunner) {
+                //new DeliveryRunnerFrame().setVisible(true);
+            }
+            this.dispose();
+        } else {
             JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
             usernametxt.setText("");
             passwordtxt.setText("");

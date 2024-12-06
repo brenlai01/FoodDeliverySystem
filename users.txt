@@ -1,1 +1,3 @@
 admin:A001:admin1:123123:0.0
+vendor:V001:NasiLemak:123123:0.0
+customer:V002:Vendor2:123123:0.0

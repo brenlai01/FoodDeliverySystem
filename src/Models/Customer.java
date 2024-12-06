@@ -8,6 +8,7 @@ public class Customer extends User {
         this.balance = balance;
     }
 
+    @Override
     public double getBalance() {
         return balance;
     }

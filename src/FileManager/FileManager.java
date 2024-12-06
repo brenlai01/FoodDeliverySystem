@@ -39,6 +39,23 @@ public class FileManager {
         }
         return users;
     }
+    
+    // Method used to write newly created users to users.txt
+    public static void writeUsers(String filepath, ArrayList<User> users) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))) {
+            for (User user : users) {
+                String line = user.getClass().getSimpleName().toLowerCase() + ":" +
+                        user.getUid() + ":" +
+                        user.getUsername() + ":" +
+                        user.getPassword() + ":" +
+                        user.getBalance();
+                bw.write(line); // Write new user
+                bw.newLine(); // insert \n at the 
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 }
 
 

@@ -5,10 +5,12 @@
         <group>
             <file>file:/C:/Users/brenl/Downloads/FoodDeliverySystem/src/Pages/AdminFrame.java</file>
             <file>file:/C:/Users/brenl/Downloads/FoodDeliverySystem/src/Models/Customer.java</file>
+            <file>file:/C:/Users/brenl/Downloads/FoodDeliverySystem/users.txt</file>
             <file>file:/C:/Users/brenl/Downloads/FoodDeliverySystem/src/Main.java</file>
+            <file>file:/C:/Users/brenl/Downloads/FoodDeliverySystem/src/FileManager/FileManager.java</file>
             <file>file:/C:/Users/brenl/Downloads/FoodDeliverySystem/src/Pages/LoginFrame.java</file>
             <file>file:/C:/Users/brenl/Downloads/FoodDeliverySystem/src/Models/User.java</file>
-            <file>file:/C:/Users/brenl/Downloads/FoodDeliverySystem/src/Models/Vendor.java</file>
+            <file>file:/C:/Users/brenl/Downloads/FoodDeliverySystem/src/Pages/CreateUserFrame.java</file>
             <file>file:/C:/Users/brenl/Downloads/FoodDeliverySystem/src/Models/Admin.java</file>
         </group>
     </open-files>

@@ -9,6 +9,7 @@ public class Vendor extends User{
         this.setBalance(balance);
     }
     
+    @Override
     public double getBalance(){
         return balance;
     }
