@@ -35,6 +35,8 @@ public class CreateUserFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         passwordtxt = new javax.swing.JTextField();
         CreateUserButton = new javax.swing.JButton();
+        uidType = new javax.swing.JFormattedTextField();
+        ReturnButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,7 +60,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Admin, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -69,7 +71,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
 
         UserPanel.setPreferredSize(new java.awt.Dimension(400, 80));
 
-        UserType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Customer", "Vendor", "Delivery Runner", " " }));
+        UserType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Select>", "Customer", "Vendor", "Delivery Runner", " " }));
         UserType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UserTypeActionPerformed(evt);
@@ -80,6 +82,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
 
         jLabel2.setText("UserID");
 
+        uidtxt.setPreferredSize(new java.awt.Dimension(30, 30));
         uidtxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 uidtxtActionPerformed(evt);
@@ -109,29 +112,46 @@ public class CreateUserFrame extends javax.swing.JFrame {
             }
         });
 
+        uidType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uidTypeActionPerformed(evt);
+            }
+        });
+
+        ReturnButton.setText("Return");
+        ReturnButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReturnButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout UserPanelLayout = new javax.swing.GroupLayout(UserPanel);
         UserPanel.setLayout(UserPanelLayout);
         UserPanelLayout.setHorizontalGroup(
             UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UserPanelLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addGroup(UserPanelLayout.createSequentialGroup()
+                        .addComponent(uidType, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(uidtxt, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))
+                    .addComponent(UserType, 0, 1, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                 .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(UserPanelLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(UserType, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(uidtxt))
-                        .addGap(70, 70, 70)
-                        .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(usernametxt, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(passwordtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(UserPanelLayout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(CreateUserButton)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                    .addComponent(jLabel3)
+                    .addComponent(usernametxt, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(passwordtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(60, 60, 60))
+            .addGroup(UserPanelLayout.createSequentialGroup()
+                .addGap(108, 108, 108)
+                .addComponent(CreateUserButton)
+                .addGap(18, 18, 18)
+                .addComponent(ReturnButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         UserPanelLayout.setVerticalGroup(
             UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,20 +163,24 @@ public class CreateUserFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(UserType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(usernametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(usernametxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(UserPanelLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(uidtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(uidType, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(uidtxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(UserPanelLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(passwordtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(passwordtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(CreateUserButton)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CreateUserButton)
+                    .addComponent(ReturnButton))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         MainPanel.add(UserPanel, java.awt.BorderLayout.WEST);
@@ -167,7 +191,15 @@ public class CreateUserFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void UserTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserTypeActionPerformed
-        // TODO add your handling code here:
+        String usertypeGUI = UserType.getSelectedItem().toString();
+        
+        String prefix = switch (usertypeGUI.toLowerCase()) {
+            case "customer" -> "C";
+            case "vendor" -> "V";
+            case "delivery runner" -> "D";
+            default -> "";
+        };
+        uidType.setText(prefix);
     }//GEN-LAST:event_UserTypeActionPerformed
 
     private void uidtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uidtxtActionPerformed
@@ -184,7 +216,9 @@ public class CreateUserFrame extends javax.swing.JFrame {
 
     private void CreateUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateUserButtonActionPerformed
         
-        String uidGUI = uidtxt.getText();
+        String uidPrefix = uidType.getText();
+        String uidNum = uidtxt.getText();
+        String fulluid = uidPrefix + uidNum;
         String usernameGUI = usernametxt.getText();
         String passwordGUI = passwordtxt.getText();
         String usertypeGUI = UserType.getSelectedItem().toString();
@@ -192,14 +226,19 @@ public class CreateUserFrame extends javax.swing.JFrame {
         
         ArrayList<User> users = FileManager.loadUsers("users.txt");
         
+        if (usertypeGUI.equals("<Select>") || uidNum.isEmpty() || usernameGUI.equals("") || passwordGUI.equals("")) {
+            JOptionPane.showMessageDialog(this, "Please select a user type.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         for (User user : users){
-            if (uidGUI.equals(user.getUid())) {
+            if (fulluid.equals(user.getUid())) {
                 JOptionPane.showMessageDialog(null, "User with this UserID has already been created.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
         
-        User newUser = admin.createUser(usertypeGUI, uidGUI, usernameGUI, passwordGUI, balance);
+        User newUser = admin.createUser(usertypeGUI, fulluid, usernameGUI, passwordGUI, balance);
         
         if (newUser != null) {
             users.add(newUser);
@@ -209,8 +248,18 @@ public class CreateUserFrame extends javax.swing.JFrame {
             usernametxt.setText("");
             passwordtxt.setText("");
         }
+        new AdminFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_CreateUserButtonActionPerformed
+
+    private void uidTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uidTypeActionPerformed
+        
+    }//GEN-LAST:event_uidTypeActionPerformed
+
+    private void ReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnButtonActionPerformed
+        new AdminFrame().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ReturnButtonActionPerformed
 
     
     
@@ -255,6 +304,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
     private javax.swing.JLabel Admin;
     private javax.swing.JButton CreateUserButton;
     private javax.swing.JPanel MainPanel;
+    private javax.swing.JButton ReturnButton;
     private javax.swing.JPanel UserPanel;
     private javax.swing.JComboBox<String> UserType;
     private javax.swing.JLabel jLabel1;
@@ -263,6 +313,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField passwordtxt;
+    private javax.swing.JFormattedTextField uidType;
     private javax.swing.JTextField uidtxt;
     private javax.swing.JTextField usernametxt;
     // End of variables declaration//GEN-END:variables

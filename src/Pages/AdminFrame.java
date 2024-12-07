@@ -36,10 +36,12 @@ public class AdminFrame extends javax.swing.JFrame {
         CreateUserPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         UpdateButton = new javax.swing.JButton();
+        LogoutButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(400, 250));
 
-        MainPanel.setPreferredSize(new java.awt.Dimension(400, 200));
+        MainPanel.setPreferredSize(new java.awt.Dimension(400, 220));
         MainPanel.setRequestFocusEnabled(false);
         MainPanel.setLayout(new java.awt.BorderLayout());
 
@@ -68,7 +70,7 @@ public class AdminFrame extends javax.swing.JFrame {
 
         MainPanel.add(jPanel2, java.awt.BorderLayout.NORTH);
 
-        UserPanel.setPreferredSize(new java.awt.Dimension(400, 80));
+        UserPanel.setPreferredSize(new java.awt.Dimension(400, 150));
 
         CreateUserPanel.setLayout(new java.awt.BorderLayout());
 
@@ -146,21 +148,33 @@ public class AdminFrame extends javax.swing.JFrame {
         });
         CreateUserPanel1.add(UpdateButton, java.awt.BorderLayout.PAGE_END);
 
+        LogoutButton.setText("Logout");
+        LogoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LogoutButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout UserPanelLayout = new javax.swing.GroupLayout(UserPanel);
         UserPanel.setLayout(UserPanelLayout);
         UserPanelLayout.setHorizontalGroup(
             UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UserPanelLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(UserPanelLayout.createSequentialGroup()
-                        .addComponent(TopUpPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(TopUpPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(UserPanelLayout.createSequentialGroup()
+                                .addComponent(TopUpPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(TopUpPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(UserPanelLayout.createSequentialGroup()
+                                .addComponent(CreateUserPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(CreateUserPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(UserPanelLayout.createSequentialGroup()
-                        .addComponent(CreateUserPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(CreateUserPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(142, 142, 142)
+                        .addComponent(LogoutButton)))
                 .addContainerGap(62, Short.MAX_VALUE))
         );
         UserPanelLayout.setVerticalGroup(
@@ -174,7 +188,9 @@ public class AdminFrame extends javax.swing.JFrame {
                 .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(TopUpPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TopUpPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(LogoutButton)
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         MainPanel.add(UserPanel, java.awt.BorderLayout.WEST);
@@ -200,6 +216,11 @@ public class AdminFrame extends javax.swing.JFrame {
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_UpdateButtonActionPerformed
+
+    private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButtonActionPerformed
+        new LoginFrame().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_LogoutButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,6 +263,7 @@ public class AdminFrame extends javax.swing.JFrame {
     private javax.swing.JPanel CreateUserPanel;
     private javax.swing.JPanel CreateUserPanel1;
     private javax.swing.JButton DeleteButton;
+    private javax.swing.JButton LogoutButton;
     private javax.swing.JPanel MainPanel;
     private javax.swing.JButton TopUpButton;
     private javax.swing.JPanel TopUpPanel;
