@@ -8,9 +8,11 @@ public class DeliveryRunner extends User{
         super(usr, pw, uid);
         this.setBalance(balance);
     }
+    @Override
     public double getBalance(){
         return balance;
     }
+    @Override
     public void setBalance(double balance){
         this.balance = balance;
     }

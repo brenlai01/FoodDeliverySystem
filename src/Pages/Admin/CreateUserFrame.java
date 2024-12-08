@@ -1,4 +1,4 @@
-package Pages;
+package Pages.Admin;
 import FileManager.*;
 import Models.*;
 import java.util.ArrayList;
@@ -177,9 +177,10 @@ public class CreateUserFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(passwordtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CreateUserButton)
-                    .addComponent(ReturnButton))
+                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ReturnButton)
+                    .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(CreateUserButton)))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 

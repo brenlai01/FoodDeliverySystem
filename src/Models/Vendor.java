@@ -13,6 +13,8 @@ public class Vendor extends User{
     public double getBalance(){
         return balance;
     }
+    
+    @Override
     public void setBalance(double balance){
         this.balance = balance;
     }

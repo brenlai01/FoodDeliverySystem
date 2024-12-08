@@ -35,4 +35,7 @@ public class User {
     public double getBalance() {
         return 0.0; // Default balance for Admin & Manager in users.txt
     }
+    public void setBalance(double balance){
+        
+    }
 }

@@ -1,6 +1,7 @@
-package Pages;
+package Pages.Admin;
 import FileManager.CurrentUser;
 import Models.Admin;
+import Pages.LoginFrame;
 
 public class AdminFrame extends javax.swing.JFrame {
         
@@ -39,7 +40,6 @@ public class AdminFrame extends javax.swing.JFrame {
         LogoutButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(400, 250));
 
         MainPanel.setPreferredSize(new java.awt.Dimension(400, 220));
         MainPanel.setRequestFocusEnabled(false);
@@ -214,7 +214,10 @@ public class AdminFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_TopUpButtonActionPerformed
 
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
-        // TODO add your handling code here:
+        UpdateUserFrame frame = new UpdateUserFrame();
+        frame.setVisible(true);
+        frame.updateUserList("");
+        this.dispose();
     }//GEN-LAST:event_UpdateButtonActionPerformed
 
     private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButtonActionPerformed

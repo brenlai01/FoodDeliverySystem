@@ -1,4 +1,5 @@
 package Models;
+import java.util.ArrayList;
 
 public class Admin extends User{
     
@@ -27,6 +28,22 @@ public class Admin extends User{
         System.out.println("Credit topped up successfully for " + customer.getUsername());
     }
     
-    
-    
+    public boolean updateUser(ArrayList<User> users, String uid, String newUsername, String newPassword, double newBalance) {
+        
+        for (User user : users) {
+            if (user.getUid().equals(uid)) {
+                if (!newUsername.isEmpty()){
+                    user.setUsername(newUsername);
+                }
+                if (!newPassword.isEmpty()) {
+                    user.setPassword(newPassword);
+                }
+                if (newBalance >= 0){
+                   user.setBalance(newBalance);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -12,6 +12,11 @@ public class Customer extends User {
     public double getBalance() {
         return balance;
     }
+    
+    @Override
+    public void setBalance(double balance){
+        this.balance = balance;
+    }
 
     public void addCredit(double amount) {
         if (amount > 0) {
