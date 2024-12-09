@@ -2,6 +2,7 @@ package Pages;
 import Pages.Admin.*;
 import FileManager.*;
 import Models.*;
+import Pages.Customer.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -150,7 +151,7 @@ public class LoginFrame extends javax.swing.JFrame {
             if (loggedInUser instanceof Admin) {
                 new AdminFrame().setVisible(true);
             } else if (loggedInUser instanceof Customer) {
-                //new CustomerFrame().setVisible(true);
+                new CustomerFrame().setVisible(true);
             } else if (loggedInUser instanceof Vendor) {
                 //new VendorFrame().setVisible(true);
             } else if (loggedInUser instanceof DeliveryRunner) {
