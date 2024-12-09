@@ -1,5 +1,6 @@
 package Pages;
 import Pages.Admin.*;
+import Pages.Vendor.*;
 import FileManager.*;
 import Models.*;
 import Pages.Customer.*;
@@ -153,7 +154,7 @@ public class LoginFrame extends javax.swing.JFrame {
             } else if (loggedInUser instanceof Customer) {
                 new CustomerFrame().setVisible(true);
             } else if (loggedInUser instanceof Vendor) {
-                //new VendorFrame().setVisible(true);
+               new VendorFrame().setVisible(true);
             } else if (loggedInUser instanceof DeliveryRunner) {
                 //new DeliveryRunnerFrame().setVisible(true);
             }
