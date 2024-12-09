@@ -215,7 +215,8 @@ public class CustomerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ProvideReviewButtonActionPerformed
 
     private void ProvideComplainsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvideComplainsButtonActionPerformed
-        // TODO add your handling code here:
+        new CustomerComplains().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_ProvideComplainsButtonActionPerformed
 
     private void CustomerLogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerLogoutButtonActionPerformed
