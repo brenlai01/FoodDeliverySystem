@@ -13,7 +13,7 @@ public class Admin extends User{
                 return new Customer(usr, pw, uid, balance);
             case "vendor":
                 return new Vendor(usr, pw, uid, balance);
-            case "deliveryrunner":
+            case "delivery runner":
                 return new DeliveryRunner(usr, pw, uid, balance);
             case "manager":
                 return new Manager(usr, pw, uid);
@@ -45,5 +45,10 @@ public class Admin extends User{
             }
         }
         return false;
+    }
+
+    @Override
+    public void setBalance(double balance) {
+        
     }
 }

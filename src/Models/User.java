@@ -1,6 +1,6 @@
 package Models;
 
-public class User {
+public abstract class User {
     private String uid;
     private String username;
     private String password;
@@ -35,7 +35,5 @@ public class User {
     public double getBalance() {
         return 0.0; // Default balance for Admin & Manager in users.txt
     }
-    public void setBalance(double balance){
-        
-    }
+    public abstract void setBalance(double balance);
 }

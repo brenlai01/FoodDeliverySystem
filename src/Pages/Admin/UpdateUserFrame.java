@@ -47,7 +47,6 @@ public class UpdateUserFrame extends javax.swing.JFrame {
         returnButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(470, 400));
 
         MainPanel.setPreferredSize(new java.awt.Dimension(470, 400));
         MainPanel.setRequestFocusEnabled(false);
@@ -98,6 +97,11 @@ public class UpdateUserFrame extends javax.swing.JFrame {
         jLabel2.setText("Selected User");
 
         selectedUserField.setPreferredSize(new java.awt.Dimension(140, 25));
+        selectedUserField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectedUserFieldActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Username");
 
@@ -154,7 +158,7 @@ public class UpdateUserFrame extends javax.swing.JFrame {
                             .addComponent(newPasswordtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
                             .addComponent(returnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         UserPanelLayout.setVerticalGroup(
             UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,7 +191,7 @@ public class UpdateUserFrame extends javax.swing.JFrame {
                         .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(returnButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         MainPanel.add(UserPanel, java.awt.BorderLayout.LINE_START);
@@ -243,6 +247,10 @@ public class UpdateUserFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_updateButtonActionPerformed
 
+    private void selectedUserFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectedUserFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selectedUserFieldActionPerformed
+
     // Display all users at the start of program
     public void updateUserList(String query) {
         
@@ -270,6 +278,7 @@ public class UpdateUserFrame extends javax.swing.JFrame {
                 for (User user : users) {
                     if (user.getUid().equals(selectedUID)) {
                         selectedUserField.setText(selectedUser);
+                        selectedUserField.setEditable(false);
                         newUsernametxt.setText(user.getUsername());
                         newPasswordtxt.setText(user.getPassword());
                         newBalance.setText(String.valueOf(user.getBalance()));
