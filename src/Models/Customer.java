@@ -1,5 +1,7 @@
 package Models;
 
+import Records.Review;
+
 public class Customer extends User {
     private double balance;
 
@@ -40,7 +42,8 @@ public class Customer extends User {
             return false;
         }
     }
-    public String writereview(ArrayList <Review> review, String review, String uid){
+    
+    /*public String writereview(ArrayList <Review> review, String review, String uid){
         
-    }
+    }*/
 }

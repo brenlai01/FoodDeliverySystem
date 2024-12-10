@@ -1,4 +1,4 @@
-package Models;
+package Records;
 
 public class Review {
     

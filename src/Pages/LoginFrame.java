@@ -149,6 +149,7 @@ public class LoginFrame extends javax.swing.JFrame {
         // Bring users to their menu according to user type
         if (loggedInUser != null) {
             CurrentUser.setLoggedInUser(loggedInUser);
+            
             if (loggedInUser instanceof Admin) {
                 new AdminFrame().setVisible(true);
             } else if (loggedInUser instanceof Customer) {

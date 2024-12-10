@@ -23,11 +23,6 @@ public class Admin extends User{
         }
     }
     
-    public void topUpCredit(Customer customer, double amount) {
-        customer.addCredit(amount);
-        System.out.println("Credit topped up successfully for " + customer.getUsername());
-    }
-    
     public boolean updateUser(ArrayList<User> users, String uid, String newUsername, String newPassword, double newBalance) {
         
         for (User user : users) {
@@ -54,6 +49,19 @@ public class Admin extends User{
             
             if (user.getUid().equals(uid)) {
                 users.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean topUpCredit(ArrayList<User> users, String cid, double amount) {
+        
+        for (User user : users) {
+            if (user instanceof Customer && user.getUid().equals(cid)) {
+                Customer customer = (Customer) user;
+                double newBalance = customer.getBalance() + amount;
+                customer.setBalance(newBalance);
                 return true;
             }
         }

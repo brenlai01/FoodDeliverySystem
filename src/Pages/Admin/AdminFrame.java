@@ -171,7 +171,7 @@ public class AdminFrame extends javax.swing.JFrame {
                     .addComponent(TopUpPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(57, Short.MAX_VALUE))
             .addGroup(UserPanelLayout.createSequentialGroup()
-                .addGap(148, 148, 148)
+                .addGap(146, 146, 146)
                 .addComponent(LogoutButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -211,7 +211,10 @@ public class AdminFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_DeleteButtonActionPerformed
 
     private void TopUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TopUpButtonActionPerformed
-        // TODO add your handling code here:
+        TopUpFrame frame = new TopUpFrame();
+        frame.setVisible(true);
+        frame.updateCustomerList("");
+        this.dispose();
     }//GEN-LAST:event_TopUpButtonActionPerformed
 
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
