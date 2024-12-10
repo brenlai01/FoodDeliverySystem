@@ -28,6 +28,16 @@ public class ManageItemFrame extends javax.swing.JFrame {
 
         MngeItmPanel = new javax.swing.JPanel();
         MngeItmLbl = new javax.swing.JLabel();
+        UpdtItmPnl = new javax.swing.JPanel();
+        UpdtItmBtn = new javax.swing.JButton();
+        UpdtItmLbl = new javax.swing.JLabel();
+        CreateItemPnl = new javax.swing.JPanel();
+        CreateItmBtn = new javax.swing.JButton();
+        CreateItmLbl = new javax.swing.JLabel();
+        ReturnBtn = new javax.swing.JButton();
+        DltItmPnl = new javax.swing.JPanel();
+        DltItmLbl = new javax.swing.JLabel();
+        DltItmBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -41,7 +51,7 @@ public class ManageItemFrame extends javax.swing.JFrame {
             .addGroup(MngeItmPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(MngeItmLbl)
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         MngeItmPanelLayout.setVerticalGroup(
             MngeItmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -51,21 +61,122 @@ public class ManageItemFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        UpdtItmBtn.setText("Update");
+
+        UpdtItmLbl.setText("Update Item");
+
+        javax.swing.GroupLayout UpdtItmPnlLayout = new javax.swing.GroupLayout(UpdtItmPnl);
+        UpdtItmPnl.setLayout(UpdtItmPnlLayout);
+        UpdtItmPnlLayout.setHorizontalGroup(
+            UpdtItmPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(UpdtItmPnlLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(UpdtItmPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(UpdtItmBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                    .addComponent(UpdtItmLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        UpdtItmPnlLayout.setVerticalGroup(
+            UpdtItmPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UpdtItmPnlLayout.createSequentialGroup()
+                .addGap(0, 5, Short.MAX_VALUE)
+                .addComponent(UpdtItmLbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(UpdtItmBtn)
+                .addContainerGap())
+        );
+
+        CreateItmBtn.setText("Create");
+
+        CreateItmLbl.setText("Create Item");
+
+        javax.swing.GroupLayout CreateItemPnlLayout = new javax.swing.GroupLayout(CreateItemPnl);
+        CreateItemPnl.setLayout(CreateItemPnlLayout);
+        CreateItemPnlLayout.setHorizontalGroup(
+            CreateItemPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CreateItemPnlLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(CreateItemPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CreateItmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CreateItmLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        CreateItemPnlLayout.setVerticalGroup(
+            CreateItemPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CreateItemPnlLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(CreateItmLbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CreateItmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        ReturnBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ReturnBtn.setText("Return");
+
+        DltItmLbl.setText("Delete Item");
+
+        DltItmBtn.setText("Delete");
+
+        javax.swing.GroupLayout DltItmPnlLayout = new javax.swing.GroupLayout(DltItmPnl);
+        DltItmPnl.setLayout(DltItmPnlLayout);
+        DltItmPnlLayout.setHorizontalGroup(
+            DltItmPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DltItmPnlLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(DltItmPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(DltItmBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DltItmLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        DltItmPnlLayout.setVerticalGroup(
+            DltItmPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DltItmPnlLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(DltItmLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(DltItmBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(MngeItmPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ReturnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(UpdtItmPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(CreateItemPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(152, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(DltItmPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(MngeItmPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(MngeItmPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(250, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(CreateItemPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(UpdtItmPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(DltItmPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ReturnBtn, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
 
         pack();
@@ -108,7 +219,17 @@ public class ManageItemFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel CreateItemPnl;
+    private javax.swing.JButton CreateItmBtn;
+    private javax.swing.JLabel CreateItmLbl;
+    private javax.swing.JButton DltItmBtn;
+    private javax.swing.JLabel DltItmLbl;
+    private javax.swing.JPanel DltItmPnl;
     private javax.swing.JLabel MngeItmLbl;
     private javax.swing.JPanel MngeItmPanel;
+    private javax.swing.JButton ReturnBtn;
+    private javax.swing.JButton UpdtItmBtn;
+    private javax.swing.JLabel UpdtItmLbl;
+    private javax.swing.JPanel UpdtItmPnl;
     // End of variables declaration//GEN-END:variables
 }
