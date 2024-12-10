@@ -6,11 +6,11 @@ import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class UpdateUserFrame extends javax.swing.JFrame {
+public class DeleterUserFrame extends javax.swing.JFrame {
     
     private Admin admin;
     
-    public UpdateUserFrame() {
+    public DeleterUserFrame() {
         this.admin = (Admin) CurrentUser.getLoggedInUser();
         initComponents();
         addUserSelectionListener();
@@ -37,19 +37,13 @@ public class UpdateUserFrame extends javax.swing.JFrame {
         userList = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
         selectedUserField = new javax.swing.JFormattedTextField();
-        jLabel3 = new javax.swing.JLabel();
-        newUsernametxt = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        newPasswordtxt = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        newBalance = new javax.swing.JTextField();
-        updateButton = new javax.swing.JButton();
-        returnButton = new javax.swing.JButton();
+        DeleteButton = new javax.swing.JButton();
+        ReturnButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(470, 390));
+        setPreferredSize(new java.awt.Dimension(385, 380));
 
-        MainPanel.setPreferredSize(new java.awt.Dimension(470, 400));
+        MainPanel.setPreferredSize(new java.awt.Dimension(370, 350));
         MainPanel.setRequestFocusEnabled(false);
         MainPanel.setLayout(new java.awt.BorderLayout());
 
@@ -69,7 +63,7 @@ public class UpdateUserFrame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Admin, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(242, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,7 +72,7 @@ public class UpdateUserFrame extends javax.swing.JFrame {
 
         MainPanel.add(jPanel2, java.awt.BorderLayout.NORTH);
 
-        UserPanel.setPreferredSize(new java.awt.Dimension(470, 215));
+        UserPanel.setPreferredSize(new java.awt.Dimension(440, 215));
 
         jLabel6.setText("Search");
 
@@ -104,31 +98,19 @@ public class UpdateUserFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Username");
-
-        newUsernametxt.setPreferredSize(new java.awt.Dimension(100, 25));
-
-        jLabel4.setText("Password");
-
-        newPasswordtxt.setPreferredSize(new java.awt.Dimension(100, 25));
-
-        jLabel5.setText("Balance");
-
-        newBalance.setPreferredSize(new java.awt.Dimension(100, 25));
-
-        updateButton.setText("Update");
-        updateButton.setPreferredSize(new java.awt.Dimension(80, 25));
-        updateButton.addActionListener(new java.awt.event.ActionListener() {
+        DeleteButton.setText("Delete");
+        DeleteButton.setPreferredSize(new java.awt.Dimension(80, 25));
+        DeleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateButtonActionPerformed(evt);
+                DeleteButtonActionPerformed(evt);
             }
         });
 
-        returnButton.setText("Return");
-        returnButton.setPreferredSize(new java.awt.Dimension(80, 25));
-        returnButton.addActionListener(new java.awt.event.ActionListener() {
+        ReturnButton.setText("Return");
+        ReturnButton.setPreferredSize(new java.awt.Dimension(80, 25));
+        ReturnButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                returnButtonActionPerformed(evt);
+                ReturnButtonActionPerformed(evt);
             }
         });
 
@@ -137,29 +119,26 @@ public class UpdateUserFrame extends javax.swing.JFrame {
         UserPanelLayout.setHorizontalGroup(
             UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UserPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(selectedUserField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel5)
                     .addGroup(UserPanelLayout.createSequentialGroup()
-                        .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(newUsernametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(newBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(updateButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24)
-                        .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(newPasswordtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(returnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(UserPanelLayout.createSequentialGroup()
+                                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addGap(105, 105, 105)
+                                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(selectedUserField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2)))))
+                    .addGroup(UserPanelLayout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
+                        .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         UserPanelLayout.setVerticalGroup(
             UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,30 +151,18 @@ public class UpdateUserFrame extends javax.swing.JFrame {
                 .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(selectedUserField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(UserPanelLayout.createSequentialGroup()
-                        .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(newUsernametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(newPasswordtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(newBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(returnButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        MainPanel.add(UserPanel, java.awt.BorderLayout.LINE_START);
+        MainPanel.add(UserPanel, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(MainPanel, java.awt.BorderLayout.CENTER);
 
@@ -206,51 +173,42 @@ public class UpdateUserFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_searchFieldActionPerformed
 
-    private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
-        new AdminFrame().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_returnButtonActionPerformed
-
-    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-        
-        String selectedValue = userList.getSelectedValue(); // Get Selected User String
-        if (selectedValue == null) {
-            JOptionPane.showMessageDialog(this, "Please select a user to update.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        String uid = selectedValue.split(" - ")[0];
-        String newUsername = newUsernametxt.getText();
-        String newPassword = newPasswordtxt.getText();
-        String balanceString = newBalance.getText();
-        double newbalance;
-        
-        try {
-            newbalance = Double.parseDouble(balanceString);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Invalid balance value.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        ArrayList<User> users = FileManager.loadUsers("users.txt");
-        boolean updateSuccess = admin.updateUser(users, uid, newUsername, newPassword, newbalance);
-        
-        if (updateSuccess) {
-            FileManager.writeUsers("users.txt", users);
-            JOptionPane.showMessageDialog(null, "User updated sucessfully!", "Sucess", JOptionPane.INFORMATION_MESSAGE);
-            updateUserList("");
-            selectedUserField.setText("");
-            newUsernametxt.setText("");
-            newPasswordtxt.setText("");
-            newBalance.setText("");
-        } else {
-            JOptionPane.showMessageDialog(null, "User not found", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_updateButtonActionPerformed
-
     private void selectedUserFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectedUserFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_selectedUserFieldActionPerformed
+
+    private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
+       
+        String selectedValue = userList.getSelectedValue(); // Get Selected User String
+        if (selectedValue == null) {
+            JOptionPane.showMessageDialog(this, "Please select a user to Delete.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+            }
+        
+        String uid = selectedValue.split(" - ")[0];
+        
+        int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this user: " + selectedValue + "?", "Confirm Deletion", JOptionPane.YES_NO_OPTION);
+            
+        if (confirmation == JOptionPane.YES_OPTION) {
+            ArrayList<User> users = FileManager.loadUsers("users.txt");
+                
+            boolean deleteSucess = admin.deleteUser(users, uid);
+                
+            if (deleteSucess) {
+                FileManager.writeUsers("users.txt", users);
+                JOptionPane.showMessageDialog(null, "User has been deleted successfully.", "Sucess", JOptionPane.INFORMATION_MESSAGE);
+                updateUserList("");
+                selectedUserField.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error deleting user.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_DeleteButtonActionPerformed
+
+    private void ReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnButtonActionPerformed
+        new AdminFrame().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ReturnButtonActionPerformed
 
     // Display all users at the start of program
     public void updateUserList(String query) {
@@ -280,9 +238,6 @@ public class UpdateUserFrame extends javax.swing.JFrame {
                     if (user.getUid().equals(selectedUID)) {
                         selectedUserField.setText(selectedUser);
                         selectedUserField.setEditable(false);
-                        newUsernametxt.setText(user.getUsername());
-                        newPasswordtxt.setText(user.getPassword());
-                        newBalance.setText(String.valueOf(user.getBalance()));
                         break;
                     }
                 }
@@ -327,14 +282,18 @@ public class UpdateUserFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UpdateUserFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleterUserFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UpdateUserFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleterUserFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UpdateUserFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleterUserFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UpdateUserFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleterUserFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -343,7 +302,7 @@ public class UpdateUserFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                UpdateUserFrame frame = new UpdateUserFrame();
+                DeleterUserFrame frame = new DeleterUserFrame();
                 frame.setVisible(true);
                 frame.updateUserList("");
             }
@@ -352,23 +311,17 @@ public class UpdateUserFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Admin;
+    private javax.swing.JButton DeleteButton;
     private javax.swing.JPanel MainPanel;
+    private javax.swing.JButton ReturnButton;
     private javax.swing.JPanel UserPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField newBalance;
-    private javax.swing.JTextField newPasswordtxt;
-    private javax.swing.JTextField newUsernametxt;
-    private javax.swing.JButton returnButton;
     private javax.swing.JTextField searchField;
     private javax.swing.JFormattedTextField selectedUserField;
-    private javax.swing.JButton updateButton;
     private javax.swing.JList<String> userList;
     // End of variables declaration//GEN-END:variables
 }

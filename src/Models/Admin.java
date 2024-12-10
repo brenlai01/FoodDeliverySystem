@@ -46,6 +46,19 @@ public class Admin extends User{
         }
         return false;
     }
+    
+    public boolean deleteUser(ArrayList<User> users, String uid) {
+        
+        for (int i = 0; i < users.size() ; i++) {
+            User user = users.get(i);
+            
+            if (user.getUid().equals(uid)) {
+                users.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public void setBalance(double balance) {

@@ -28,18 +28,19 @@ public class AdminFrame extends javax.swing.JFrame {
         CreateUserPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         CreateButton = new javax.swing.JButton();
-        TopUpPanel = new javax.swing.JPanel();
+        DeleteUserPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         DeleteButton = new javax.swing.JButton();
         TopUpPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         TopUpButton = new javax.swing.JButton();
-        CreateUserPanel1 = new javax.swing.JPanel();
+        UpdateUserPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         UpdateButton = new javax.swing.JButton();
         LogoutButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(380, 250));
 
         MainPanel.setPreferredSize(new java.awt.Dimension(400, 220));
         MainPanel.setRequestFocusEnabled(false);
@@ -91,13 +92,13 @@ public class AdminFrame extends javax.swing.JFrame {
         });
         CreateUserPanel.add(CreateButton, java.awt.BorderLayout.PAGE_END);
 
-        TopUpPanel.setLayout(new java.awt.BorderLayout());
+        DeleteUserPanel.setLayout(new java.awt.BorderLayout());
 
         jLabel2.setText("Delete User");
         jLabel2.setToolTipText("");
         jLabel2.setPreferredSize(new java.awt.Dimension(130, 20));
         jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        TopUpPanel.add(jLabel2, java.awt.BorderLayout.NORTH);
+        DeleteUserPanel.add(jLabel2, java.awt.BorderLayout.NORTH);
 
         DeleteButton.setBackground(new java.awt.Color(204, 204, 204));
         DeleteButton.setText("Delete");
@@ -108,7 +109,7 @@ public class AdminFrame extends javax.swing.JFrame {
                 DeleteButtonActionPerformed(evt);
             }
         });
-        TopUpPanel.add(DeleteButton, java.awt.BorderLayout.PAGE_END);
+        DeleteUserPanel.add(DeleteButton, java.awt.BorderLayout.PAGE_END);
 
         TopUpPanel1.setLayout(new java.awt.BorderLayout());
 
@@ -129,13 +130,13 @@ public class AdminFrame extends javax.swing.JFrame {
         });
         TopUpPanel1.add(TopUpButton, java.awt.BorderLayout.PAGE_END);
 
-        CreateUserPanel1.setLayout(new java.awt.BorderLayout());
+        UpdateUserPanel.setLayout(new java.awt.BorderLayout());
 
         jLabel5.setText("Update User");
         jLabel5.setToolTipText("");
         jLabel5.setPreferredSize(new java.awt.Dimension(130, 20));
         jLabel5.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        CreateUserPanel1.add(jLabel5, java.awt.BorderLayout.NORTH);
+        UpdateUserPanel.add(jLabel5, java.awt.BorderLayout.CENTER);
 
         UpdateButton.setBackground(new java.awt.Color(204, 204, 204));
         UpdateButton.setText("Update");
@@ -146,7 +147,7 @@ public class AdminFrame extends javax.swing.JFrame {
                 UpdateButtonActionPerformed(evt);
             }
         });
-        CreateUserPanel1.add(UpdateButton, java.awt.BorderLayout.PAGE_END);
+        UpdateUserPanel.add(UpdateButton, java.awt.BorderLayout.PAGE_END);
 
         LogoutButton.setText("Logout");
         LogoutButton.addActionListener(new java.awt.event.ActionListener() {
@@ -160,38 +161,34 @@ public class AdminFrame extends javax.swing.JFrame {
         UserPanelLayout.setHorizontalGroup(
             UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UserPanelLayout.createSequentialGroup()
-                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(UserPanelLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(CreateUserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TopUpPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
-                        .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(UserPanelLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(TopUpPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserPanelLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(CreateUserPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(UserPanelLayout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addComponent(LogoutButton)))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(CreateUserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(DeleteUserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(UpdateUserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(TopUpPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
+            .addGroup(UserPanelLayout.createSequentialGroup()
+                .addGap(148, 148, 148)
+                .addComponent(LogoutButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         UserPanelLayout.setVerticalGroup(
             UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UserPanelLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(CreateUserPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                    .addComponent(UpdateUserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
                     .addComponent(CreateUserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TopUpPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DeleteUserPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TopUpPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(LogoutButton)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         MainPanel.add(UserPanel, java.awt.BorderLayout.WEST);
@@ -207,7 +204,10 @@ public class AdminFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_CreateButtonActionPerformed
 
     private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
-        // TODO add your handling code here:
+        DeleterUserFrame frame = new DeleterUserFrame();
+        frame.setVisible(true);
+        frame.updateUserList("");
+        this.dispose();
     }//GEN-LAST:event_DeleteButtonActionPerformed
 
     private void TopUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TopUpButtonActionPerformed
@@ -265,14 +265,14 @@ public class AdminFrame extends javax.swing.JFrame {
     private javax.swing.JLabel Admin;
     private javax.swing.JButton CreateButton;
     private javax.swing.JPanel CreateUserPanel;
-    private javax.swing.JPanel CreateUserPanel1;
     private javax.swing.JButton DeleteButton;
+    private javax.swing.JPanel DeleteUserPanel;
     private javax.swing.JButton LogoutButton;
     private javax.swing.JPanel MainPanel;
     private javax.swing.JButton TopUpButton;
-    private javax.swing.JPanel TopUpPanel;
     private javax.swing.JPanel TopUpPanel1;
     private javax.swing.JButton UpdateButton;
+    private javax.swing.JPanel UpdateUserPanel;
     private javax.swing.JPanel UserPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -2,6 +2,4 @@ admin:A001:admin1:123123:0.0
 vendor:V001:NasiLemak:123123:0.0
 customer:C001:customer1:123123:0.0
 customer:C002:Alvin:123123:0.0
-customer:C003:buh:321321:1.5
-customer:C004:cuh:123123:0.0
 deliveryrunner:D001:unclelee:123123:0.0
