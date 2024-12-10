@@ -40,4 +40,7 @@ public class Customer extends User {
             return false;
         }
     }
+    public String writereview(ArrayList <Review> review, String review, String uid){
+        
+    }
 }
