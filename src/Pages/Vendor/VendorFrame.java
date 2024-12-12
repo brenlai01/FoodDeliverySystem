@@ -225,7 +225,8 @@ public class VendorFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void VenManageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VenManageBtnActionPerformed
-        // TODO add your handling code here:
+        new ManageItemFrame().setVisible(true);
+        this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_VenManageBtnActionPerformed
 
     private void LogOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutBtnActionPerformed
