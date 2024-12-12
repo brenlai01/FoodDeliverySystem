@@ -233,7 +233,24 @@ public class UpdateUserFrame extends javax.swing.JFrame {
         }
         
         ArrayList<User> users = FileManager.loadUsers("users.txt");
-        boolean updateSuccess = admin.updateUser(users, uid, newUsername, newPassword, newbalance);
+        ArrayList<Cuisine> cuisines = FileManager.loadCuisines("cuisines.txt");
+        
+        boolean updateSuccess;
+        
+        if (uid.startsWith("V")) {
+            String cuisineType = JOptionPane.showInputDialog(null, "Please enter the cuisine type:", "Cuisine Type", JOptionPane.QUESTION_MESSAGE);
+            
+            if (cuisineType != null && !cuisineType.trim().isEmpty()) {
+                admin.updateCuisine(cuisines, uid, newUsername, cuisineType);
+                updateSuccess = admin.updateUser(users, uid, newUsername, newPassword, newbalance);
+                FileManager.writeCuisines("cuisines.txt", cuisines);
+            } else {
+                JOptionPane.showMessageDialog(null, "Cuisine type cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } else {
+            updateSuccess = admin.updateUser(users, uid, newUsername, newPassword, newbalance);
+        }
         
         if (updateSuccess) {
             FileManager.writeUsers("users.txt", users);

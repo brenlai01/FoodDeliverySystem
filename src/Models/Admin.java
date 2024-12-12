@@ -42,6 +42,22 @@ public class Admin extends User{
         return false;
     }
     
+    public boolean updateCuisine(ArrayList<Cuisine> cuisines, String vid, String newUsername, String newCuisineType) {
+        
+        for (Cuisine cuisine : cuisines) {
+            if (cuisine.getVendorID().equals(vid)) {
+                if (!newUsername.isEmpty()){
+                    cuisine.setVendorName(newUsername);
+                }
+                if (!newCuisineType.isEmpty()) {
+                    cuisine.setCuisine(newCuisineType);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public boolean deleteUser(ArrayList<User> users, String uid) {
         
         for (int i = 0; i < users.size() ; i++) {
@@ -49,6 +65,19 @@ public class Admin extends User{
             
             if (user.getUid().equals(uid)) {
                 users.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean deleteCuisine(ArrayList<Cuisine> cuisines, String vid) {
+        
+        for (int i = 0; i < cuisines.size() ; i++) {
+            Cuisine cuisine = cuisines.get(i);
+            
+            if (cuisine.getVendorID().equals(vid)) {
+                cuisines.remove(i);
                 return true;
             }
         }

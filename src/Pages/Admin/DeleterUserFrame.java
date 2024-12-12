@@ -191,10 +191,15 @@ public class DeleterUserFrame extends javax.swing.JFrame {
             
         if (confirmation == JOptionPane.YES_OPTION) {
             ArrayList<User> users = FileManager.loadUsers("users.txt");
+            ArrayList<Cuisine> cuisines = FileManager.loadCuisines("cuisines.txt");
                 
             boolean deleteSucess = admin.deleteUser(users, uid);
                 
             if (deleteSucess) {
+                if (uid.startsWith("V")) {
+                    admin.deleteCuisine(cuisines, uid);
+                    FileManager.writeCuisines("cuisines.txt", cuisines);
+                }
                 FileManager.writeUsers("users.txt", users);
                 JOptionPane.showMessageDialog(null, "User has been deleted successfully.", "Sucess", JOptionPane.INFORMATION_MESSAGE);
                 updateUserList("");

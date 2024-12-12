@@ -179,8 +179,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ReturnButton)
-                    .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(CreateUserButton)))
+                    .addComponent(CreateUserButton))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -226,9 +225,10 @@ public class CreateUserFrame extends javax.swing.JFrame {
         double balance = 0.0;
         
         ArrayList<User> users = FileManager.loadUsers("users.txt");
+        ArrayList<Cuisine> cuisine = FileManager.loadCuisines("cuisines.txt");
         
         if (usertypeGUI.equals("<Select>") || uidNum.isEmpty() || usernameGUI.equals("") || passwordGUI.equals("")) {
-            JOptionPane.showMessageDialog(this, "Please select a user type.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please select a user type.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -239,7 +239,23 @@ public class CreateUserFrame extends javax.swing.JFrame {
             }
         }
         
-        User newUser = admin.createUser(usertypeGUI, fulluid, usernameGUI, passwordGUI, balance);
+        User newUser;
+        
+        if (usertypeGUI.equals("Vendor")) {
+            String cuisineType = JOptionPane.showInputDialog(null, "Please enter the cuisine type:", "Cuisine Type", JOptionPane.QUESTION_MESSAGE);
+            
+            if (cuisineType != null && !cuisineType.trim().isEmpty()) {
+                newUser = admin.createUser(usertypeGUI, fulluid, usernameGUI, passwordGUI, balance);
+                cuisine.add(new Cuisine(fulluid, usernameGUI, cuisineType));
+                
+                FileManager.writeCuisines("cuisines.txt", cuisine);
+            } else {
+                JOptionPane.showMessageDialog(null, "Cuisine type cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } else { 
+            newUser = admin.createUser(usertypeGUI, fulluid, usernameGUI, passwordGUI, balance);
+        }
         
         if (newUser != null) {
             users.add(newUser);

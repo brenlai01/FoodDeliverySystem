@@ -65,7 +65,7 @@ public class FileManager {
     }
     
     // Method to load existing receipts from receipts.txt
-    public static ArrayList<Transaction> loadReceipts(String filepath) {
+    public static ArrayList<Transaction> loadTxns(String filepath) {
         
         ArrayList<Transaction> txns = new ArrayList<>();
         
@@ -91,12 +91,50 @@ public class FileManager {
     }
     
     // Method to write receipt ArrayList back into receipts.txt
-    public static void writeReceipts(String filepath, ArrayList<Transaction> transactions) {
+    public static void writeTxns(String filepath, ArrayList<Transaction> transactions) {
         
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))) {
             
             for (Transaction txn : transactions) {
                 bw.write(txn.toString());
+                bw.newLine();
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+    
+    // Method to load vendors from vendors.txt
+    public static ArrayList<Cuisine> loadCuisines(String filepath) {
+        
+        ArrayList<Cuisine> cuisines = new ArrayList<>();
+        
+        try(BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+            
+            String line;
+            while((line = br.readLine()) != null) {
+                
+                String[] parts = line.split(":");
+                if (parts.length == 3) {
+                    String vendorID = parts[0];
+                    String vendorName = parts[1];
+                    String cuisine = parts[2];
+                    cuisines.add(new Cuisine(vendorID, vendorName, cuisine));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return cuisines;
+    }
+    
+    // Method to write update cuisine ArrayList
+    public static void writeCuisines(String filepath, ArrayList<Cuisine> cuisines) {
+        
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))) {
+            
+            for (Cuisine cuisine : cuisines) {
+                bw.write(cuisine.toString());
                 bw.newLine();
             }
         } catch (IOException e){

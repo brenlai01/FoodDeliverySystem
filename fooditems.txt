@@ -1,1 +1,4 @@
-
+F001:V001:Nasi Lemak:Malaysia's National Dish:9
+F002:V001:Teh Tarik:Tea with condensed milk:4
+F003:V002:Chicken Burger:Crispy chicken chicken breast with lettuce and mayo:8
+F004:V003:Chilli Pan Mee:Spicy Malaysian dry noodle with anchovies, minced pork & chilli flakes:12

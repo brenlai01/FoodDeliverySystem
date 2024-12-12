@@ -176,9 +176,7 @@ public class TopUpFrame extends javax.swing.JFrame {
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(UserPanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(18, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(UserPanelLayout.createSequentialGroup()
                         .addComponent(currentBalancetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -188,8 +186,8 @@ public class TopUpFrame extends javax.swing.JFrame {
                         .addGap(35, 35, 35)
                         .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(TopUpButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         MainPanel.add(UserPanel, java.awt.BorderLayout.LINE_START);
@@ -230,7 +228,7 @@ public class TopUpFrame extends javax.swing.JFrame {
         }
         
         ArrayList<User> users = FileManager.loadUsers("users.txt");
-        ArrayList<Transaction> txns = FileManager.loadReceipts("transactions.txt");
+        ArrayList<Transaction> txns = FileManager.loadTxns("transactions.txt");
         
         boolean topUpSucess = admin.topUpCredit(users, cid, topUpAmount);
         
@@ -242,7 +240,7 @@ public class TopUpFrame extends javax.swing.JFrame {
             txns.add(txn);
             
             FileManager.writeUsers("users.txt", users);
-            FileManager.writeReceipts("transactions.txt", txns);
+            FileManager.writeTxns("transactions.txt", txns);
             
             JOptionPane.showMessageDialog(null, "Top-up successful!", "Sucess", JOptionPane.INFORMATION_MESSAGE);
             selectedUserField.setText("");
