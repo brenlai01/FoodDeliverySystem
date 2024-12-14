@@ -190,7 +190,8 @@ public class CustomerFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void PlaceOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlaceOrderButtonActionPerformed
-        // TODO add your handling code here:
+        new ViewMenuFrame().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_PlaceOrderButtonActionPerformed
 
     private void CancelOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelOrderButtonActionPerformed

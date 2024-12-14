@@ -9,7 +9,11 @@ public class Food {
     private double price;
     
     public Food(String fid, String vid, String foodName, String description, double price){
-        
+        this.setFoodID(fid);
+        this.setVendorID(vid);
+        this.setFoodName(foodName);
+        this.setDesciption(description);
+        this.setPrice(price);
     }
     
     public String getFoodID() {

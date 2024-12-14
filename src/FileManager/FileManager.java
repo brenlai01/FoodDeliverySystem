@@ -141,6 +141,38 @@ public class FileManager {
             e.printStackTrace();
         }
     }
+    
+    // Method to load food into ArrayList from foodItems.txt
+    public static ArrayList<Food> loadFoodItems(String filepath) {
+        
+        ArrayList<Food> foodItems = new ArrayList<>();
+        
+        try(BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+            
+            String line;
+            while((line = br.readLine()) != null) {
+                
+                String[] parts = line.split(":");
+                if (parts.length == 5) {
+                    String foodID = parts[0];
+                    String vendorID = parts[1];
+                    String foodName = parts[2];
+                    String description = parts[3];
+                    double price = Double.parseDouble(parts[4]);
+                    foodItems.add(new Food(foodID, vendorID, foodName, description, price));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return foodItems;
+    } 
+    
+    // Method to write food ArrayList into foodItems.txt
+    // public static void writeFoodItems
+    
+    // Method to load orders into ArrayList from orders.txt
+    
 }
 
 
