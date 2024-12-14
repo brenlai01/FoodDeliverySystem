@@ -1,13 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Pages.Vendor;
+import Records.*;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author braxt
- */
 public class CreateItemFrame extends javax.swing.JFrame {
 
     /**
@@ -37,6 +32,16 @@ public class CreateItemFrame extends javax.swing.JFrame {
         VendorIDPnl = new javax.swing.JPanel();
         VendorIDLbl = new javax.swing.JLabel();
         VendorIDTxt = new javax.swing.JTextField();
+        FoodNamePnl = new javax.swing.JPanel();
+        FoodNameLbl = new javax.swing.JLabel();
+        FoodNameTxt = new javax.swing.JTextField();
+        PricePnl = new javax.swing.JPanel();
+        PriceLbl = new javax.swing.JLabel();
+        PriceTxt = new javax.swing.JTextField();
+        DescripPnl = new javax.swing.JPanel();
+        DescriptionLbl = new javax.swing.JLabel();
+        DiscrpScrollPnl = new javax.swing.JScrollPane();
+        DescriptionTxt = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,6 +75,11 @@ public class CreateItemFrame extends javax.swing.JFrame {
 
         CreateBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         CreateBtn.setText("Create");
+        CreateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CreateBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout BtnPnlLayout = new javax.swing.GroupLayout(BtnPnl);
         BtnPnl.setLayout(BtnPnlLayout);
@@ -102,7 +112,7 @@ public class CreateItemFrame extends javax.swing.JFrame {
             .addGroup(FoodIDPnlLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(FoodIDPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(FoodIDTxt)
+                    .addComponent(FoodIDTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
                     .addGroup(FoodIDPnlLayout.createSequentialGroup()
                         .addComponent(FoodIDLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -130,7 +140,7 @@ public class CreateItemFrame extends javax.swing.JFrame {
                 .addGroup(VendorIDPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(VendorIDPnlLayout.createSequentialGroup()
                         .addComponent(VendorIDLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 56, Short.MAX_VALUE))
+                        .addGap(0, 17, Short.MAX_VALUE))
                     .addComponent(VendorIDTxt))
                 .addContainerGap())
         );
@@ -142,6 +152,90 @@ public class CreateItemFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(VendorIDTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        FoodNameLbl.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        FoodNameLbl.setText("Food Name");
+
+        javax.swing.GroupLayout FoodNamePnlLayout = new javax.swing.GroupLayout(FoodNamePnl);
+        FoodNamePnl.setLayout(FoodNamePnlLayout);
+        FoodNamePnlLayout.setHorizontalGroup(
+            FoodNamePnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FoodNamePnlLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(FoodNamePnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(FoodNameTxt)
+                    .addComponent(FoodNameLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        FoodNamePnlLayout.setVerticalGroup(
+            FoodNamePnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FoodNamePnlLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(FoodNameLbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FoodNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        PriceLbl.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        PriceLbl.setText("Price");
+
+        PriceTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PriceTxtActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PricePnlLayout = new javax.swing.GroupLayout(PricePnl);
+        PricePnl.setLayout(PricePnlLayout);
+        PricePnlLayout.setHorizontalGroup(
+            PricePnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PricePnlLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PricePnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PricePnlLayout.createSequentialGroup()
+                        .addComponent(PriceLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(PriceTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        PricePnlLayout.setVerticalGroup(
+            PricePnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PricePnlLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(PriceLbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PriceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        DescriptionLbl.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        DescriptionLbl.setText("Description");
+
+        DescriptionTxt.setColumns(20);
+        DescriptionTxt.setRows(5);
+        DiscrpScrollPnl.setViewportView(DescriptionTxt);
+
+        javax.swing.GroupLayout DescripPnlLayout = new javax.swing.GroupLayout(DescripPnl);
+        DescripPnl.setLayout(DescripPnlLayout);
+        DescripPnlLayout.setHorizontalGroup(
+            DescripPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DescripPnlLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(DescriptionLbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(DiscrpScrollPnl)
+                .addContainerGap())
+        );
+        DescripPnlLayout.setVerticalGroup(
+            DescripPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DescripPnlLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(DescripPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(DescriptionLbl)
+                    .addComponent(DiscrpScrollPnl, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -157,11 +251,18 @@ public class CreateItemFrame extends javax.swing.JFrame {
                 .addComponent(BtnPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(136, 136, 136))
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(FoodIDPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(VendorIDPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(DescripPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(FoodIDPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(VendorIDPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(FoodNamePnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PricePnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,10 +270,14 @@ public class CreateItemFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(CrtItmPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FoodIDPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(VendorIDPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PricePnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FoodIDPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(VendorIDPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FoodNamePnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(DescripPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BtnPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -184,6 +289,26 @@ public class CreateItemFrame extends javax.swing.JFrame {
         new ManageItemFrame().setVisible(true);
         this.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_ReturnBtnActionPerformed
+
+    private void PriceTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PriceTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PriceTxtActionPerformed
+
+    private void CreateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateBtnActionPerformed
+        
+        String foodID = FoodIDTxt.getText().trim();
+        String vendorID = VendorIDTxt.getText().trim();
+        String foodName = FoodNameTxt.getText().trim();
+        String price = PriceTxt.getText().trim();
+        String description = DescriptionTxt.getText().trim();
+        
+        ArrayList<Food> foods = Food.loadFoods("fooditems.txt");
+        
+        if (foodID.equals("") || vendorID.equals("") || foodName.equals("") || price.equals("") || description.equals("")) {
+            JOptionPane.showMessageDialog(null, "Please provide some info.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }//GEN-LAST:event_CreateBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,9 +350,19 @@ public class CreateItemFrame extends javax.swing.JFrame {
     private javax.swing.JButton CreateBtn;
     private javax.swing.JLabel CrtItmLbl;
     private javax.swing.JPanel CrtItmPnl;
+    private javax.swing.JPanel DescripPnl;
+    private javax.swing.JLabel DescriptionLbl;
+    private javax.swing.JTextArea DescriptionTxt;
+    private javax.swing.JScrollPane DiscrpScrollPnl;
     private javax.swing.JLabel FoodIDLbl;
     private javax.swing.JPanel FoodIDPnl;
     private javax.swing.JTextField FoodIDTxt;
+    private javax.swing.JLabel FoodNameLbl;
+    private javax.swing.JPanel FoodNamePnl;
+    private javax.swing.JTextField FoodNameTxt;
+    private javax.swing.JLabel PriceLbl;
+    private javax.swing.JPanel PricePnl;
+    private javax.swing.JTextField PriceTxt;
     private javax.swing.JButton ReturnBtn;
     private javax.swing.JLabel VendorIDLbl;
     private javax.swing.JPanel VendorIDPnl;
