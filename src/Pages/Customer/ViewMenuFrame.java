@@ -1,12 +1,12 @@
 package Pages.Customer;
 import FileManager.*;
 import Models.*;
-import Records.Food;
+import Records.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 public class ViewMenuFrame extends javax.swing.JFrame {
@@ -20,6 +20,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         loadVendorList();
         setupOrderSummaryTable();
         setOrderSummaryTableeSelectionListener();
+        setupOrderTableModelListiner();
     }
 
     /**
@@ -159,15 +160,35 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         jLabel3.setText("Order Amount");
 
         orderAmountField.setPreferredSize(new java.awt.Dimension(80, 25));
+        orderAmountField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderAmountFieldActionPerformed(evt);
+            }
+        });
 
         dineInButton.setText("Dine-in");
         dineInButton.setPreferredSize(new java.awt.Dimension(90, 25));
+        dineInButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dineInButtonActionPerformed(evt);
+            }
+        });
 
         takeAwayButton.setText("Take-away");
         takeAwayButton.setPreferredSize(new java.awt.Dimension(90, 25));
+        takeAwayButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                takeAwayButtonActionPerformed(evt);
+            }
+        });
 
         deliveryButton.setText("Delivery");
         deliveryButton.setPreferredSize(new java.awt.Dimension(90, 25));
+        deliveryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deliveryButtonActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Extra Charges");
 
@@ -250,10 +271,10 @@ public class ViewMenuFrame extends javax.swing.JFrame {
                                         .addGap(12, 12, 12)
                                         .addComponent(removeItemButton)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(UserPanelLayout.createSequentialGroup()
                                         .addComponent(jLabel3)
-                                        .addGap(18, 18, 18)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(orderAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(UserPanelLayout.createSequentialGroup()
                                         .addComponent(jLabel4)
@@ -387,7 +408,56 @@ public class ViewMenuFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_totalAmountFieldActionPerformed
 
     private void placeOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placeOrderButtonActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel orderModel = (DefaultTableModel) orderSummaryTable.getModel();
+        
+        if (orderModel.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Your order is empty. Please add items to your order.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        double orderAmount = 0.0;
+        ArrayList<OrderItem> items = new ArrayList<>();
+        
+        // Going through foodItems in orderSummaryTable and sum up prices of all items
+        for (int i = 0; i < orderModel.getRowCount(); i++) {
+            String foodName = (String) orderModel.getValueAt(i, 0);
+            int quantity = (int) orderModel.getValueAt(i, 1);
+            double totalAmount = (double) orderModel.getValueAt(i, 2);
+            double price = totalAmount / quantity;
+            items.add(new OrderItem(foodName, quantity, price));
+            
+            orderAmount += totalAmount;
+        }
+        
+        double extraCharges = Double.parseDouble(extraChargesField.getText());
+        double totalAmount = orderAmount + extraCharges;
+        
+        // confirmation pop-up 
+        int confirm = JOptionPane.showConfirmDialog(null, "The total amount of is RM " + totalAmount + ". Do you want to place the order?", "Confirm Order", JOptionPane.YES_NO_OPTION);
+        
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+        
+        // Getting IDs for creating new order
+        String orderID = generateOrderID();
+        String customerID = CurrentUser.getLoggedInUser().getUid();
+        String vendorID = selectedVendorID;
+        
+        // Get place order date
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
+        String formattedDate = LocalDateTime.now().format(formatter);
+        
+        Order order = new Order(orderID, customerID, vendorID, items, orderAmount, formattedDate, "Pending", "Unassigned");
+        
+        FileManager.addNewOrders("orders.txt", order);
+        
+        if (extraCharges > 0.0) {
+            //handleDelivery();
+        }
+        
+        JOptionPane.showMessageDialog(null, "Order placed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        orderModel.setRowCount(0);
     }//GEN-LAST:event_placeOrderButtonActionPerformed
 
     private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
@@ -446,8 +516,49 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         
         if (orderModel.getRowCount() == 0) {
             foodToRemove.setText("");
+            extraChargesField.setText("");
+            totalAmountField.setText("");
         }
     }//GEN-LAST:event_removeItemButtonActionPerformed
+
+    private void dineInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dineInButtonActionPerformed
+        double dineInCharges = 0.0;
+        
+        updateTotalAmount(dineInCharges);
+    }//GEN-LAST:event_dineInButtonActionPerformed
+
+    private void takeAwayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_takeAwayButtonActionPerformed
+        double takeAwayCharges = 0.0;
+        
+        updateTotalAmount(takeAwayCharges);
+    }//GEN-LAST:event_takeAwayButtonActionPerformed
+
+    private void deliveryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deliveryButtonActionPerformed
+        double deliveryCharges = 5.0;
+        
+        updateTotalAmount(deliveryCharges);
+    }//GEN-LAST:event_deliveryButtonActionPerformed
+
+    private void updateTotalAmount(double extraCharges) {
+        extraChargesField.setText(String.valueOf(extraCharges));
+        
+        DefaultTableModel orderModel = (DefaultTableModel) orderSummaryTable.getModel();
+        double orderAmount = 0.0;
+
+        for (int i = 0; i < orderModel.getRowCount(); i++) {
+            orderAmount += (double) orderModel.getValueAt(i, 2);
+        }
+
+        double totalAmount = orderAmount + extraCharges;
+        totalAmountField.setText(String.valueOf(totalAmount));
+        totalAmountField.setEditable(false);
+        orderAmountField.setEditable(false);
+        extraChargesField.setEditable(false);
+    }
+    
+    private void orderAmountFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderAmountFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_orderAmountFieldActionPerformed
     
     // Below are methods for table setups and loading data into ArrayList
     private void loadVendorList() {
@@ -527,6 +638,14 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         setupTable(orderSummaryTable, columnNames, columnWidths);
     }
     
+    private void setupOrderTableModelListiner() {
+        DefaultTableModel orderModel = (DefaultTableModel) orderSummaryTable.getModel();
+        
+        orderModel.addTableModelListener(e -> {
+            updateOrderAmountText(); 
+        });
+    }
+    
     private void setOrderSummaryTableeSelectionListener() {
         orderSummaryTable.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting() && orderSummaryTable.getSelectedRow() != -1) {
@@ -565,8 +684,38 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         DefaultTableModel orderModel = (DefaultTableModel) orderSummaryTable.getModel();
         orderModel.setRowCount(0); 
     }
+    
+    private double calculateOrderAmount() {
+        DefaultTableModel orderModel = (DefaultTableModel) orderSummaryTable.getModel();
+        double orderAmount = 0.0;
+        
+        for (int i = 0; i < orderModel.getRowCount(); i++) {
+            orderAmount += (double) orderModel.getValueAt(i, 2);
+        }
+        return orderAmount;
+    }
+    
+    private void updateOrderAmountText() {
+        double orderAmount = calculateOrderAmount();
+        orderAmountField.setText(String.valueOf(orderAmount));
+        orderAmountField.setEditable(false);
+    }
 
-   
+    private String generateOrderID() {
+        ArrayList<Order> existingOrders = FileManager.loadOrders("orders.txt");
+        int lastOrderID = 0;
+        
+        for (Order order : existingOrders) {
+            String orderID = order.getOrderID();
+            int orderNum = Integer.parseInt(orderID.substring(1));
+            
+            if (orderNum > lastOrderID) {
+                lastOrderID = orderNum;
+            }
+        }
+        return "O" + (lastOrderID + 1);
+    }
+    
     /**
      * @param args the command line arguments
      */

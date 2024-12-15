@@ -1,1 +1,4 @@
-
+O1:C001:V001:Nasi Lemak X 1 @ 9.0:9.0:2024-12-15 15-26-43:Pending:Unassigned
+O2:C001:V001:Nasi Lemak X 1 @ 9.0:9.0:2024-12-15 15-32-40:Pending:Unassigned
+O3:C004:V003:Chilli Pan Mee X 2 @ 12.0:24.0:2024-12-15 15-51-30:Pending:Unassigned
+O4:C001:V001:Nasi Lemak X 2 @ 9.0:18.0:2024-12-15 16-22-40:Pending:Unassigned

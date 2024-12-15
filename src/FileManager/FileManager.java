@@ -172,7 +172,136 @@ public class FileManager {
     // public static void writeFoodItems
     
     // Method to load orders into ArrayList from orders.txt
+    public static ArrayList<Order> loadOrders(String filepath) {
+        
+        ArrayList<Order> orders = new ArrayList<>();
+        
+        try(BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+            
+            String line;
+            while((line = br.readLine()) != null) {
+                
+                String[] parts = line.split(":");
+                
+                if (parts.length == 8) {
+                    String orderID = parts[0].trim();
+                    String customerID = parts[1].trim();
+                    String vendorID = parts[2].trim();
+                    String itemsOrdered = parts[3].trim(); 
+                    double totalAmount = Double.parseDouble(parts[4].trim());
+                    String dateTime = parts[5].trim();
+                    String vendorStatus = parts[6].trim();
+                    String deliveryStatus = parts[7].trim();
+
+                    ArrayList<OrderItem> items = parseOrderItems(itemsOrdered);
+                    
+                    Order order = new Order(orderID, customerID, vendorID, items, totalAmount, dateTime, vendorStatus, deliveryStatus);
+                    order.setItems(items);
+                    order.setTotalAmount(totalAmount);
+                    order.setDateTime(dateTime);
+                    order.setVendorStatus(vendorStatus);
+                    order.setDeliveryStatus(deliveryStatus);
+                    
+                    orders.add(order);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return orders;
+    }
     
+    // Method to create OrderItem ArrayList to store items made in an order (see orders.txt for example)
+    private static ArrayList<OrderItem> parseOrderItems(String itemsOrdered) {
+        ArrayList<OrderItem> items = new ArrayList<>();
+        String[] itemArray = itemsOrdered.split(", "); 
+
+        for (String item : itemArray) {
+            String[] itemParts = item.split(" x | @ "); 
+            
+            if (itemParts.length == 3) {
+                String foodName = itemParts[0].trim();
+                int quantity = Integer.parseInt(itemParts[1].trim());
+                double price = Double.parseDouble(itemParts[2].trim());
+                items.add(new OrderItem(foodName, quantity, price)); 
+            }
+        }
+        return items;
+    }
+    
+    // Method to update order status such as vendorStatus and deliveryStatus
+    public static void updateOrders(String filepath, ArrayList<Order> orders) {
+        
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))) {
+        
+            for (Order order : orders) {
+                StringBuilder orderLine =  new StringBuilder();
+                
+                orderLine.append(order.getOrderID()).append(":")
+                        .append(order.getCustomerID()).append(":")
+                        .append(order.getVendorID()).append(":");
+                
+                ArrayList<OrderItem> items = order.getItems();
+                
+                for (int i = 0; i < items.size(); i++) {
+                    OrderItem item = items.get(i);
+                    
+                    orderLine.append(item.getFoodName()).append(" X ")
+                            .append(item.getQuantity()).append(" @ ")
+                            .append(item.getPrice());
+                    
+                    if (i < items.size() - 1) {
+                        orderLine.append(", ");
+                    }
+                }
+                
+                orderLine.append(":").append(order.getTotalAmount())
+                    .append(":").append(order.getDateTime())
+                    .append(":").append(order.getVendorStatus())
+                    .append(":").append(order.getDeliveryStatus());
+                
+                bw.write(orderLine.toString());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    // Method for customer to make new order to append to orders.txt
+    public static void addNewOrders(String filepath, Order order) {
+        
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(filepath, true))) {
+        
+            StringBuilder orderLine =  new StringBuilder();
+                
+            orderLine.append(order.getOrderID()).append(":")
+                    .append(order.getCustomerID()).append(":")
+                    .append(order.getVendorID()).append(":");
+            
+            ArrayList<OrderItem> items = order.getItems();
+            
+            for (int i = 0; i < items.size(); i++) {
+                OrderItem item = items.get(i);
+                orderLine.append(item.getFoodName()).append(" X ")
+                        .append(item.getQuantity()).append(" @ ")
+                        .append(item.getPrice());
+                if (i < items.size() - 1) {
+                    orderLine.append(", ");
+                }
+            }
+            
+            orderLine.append(":").append(order.getTotalAmount())
+                    .append(":").append(order.getDateTime())
+                    .append(":").append(order.getVendorStatus())
+                    .append(":").append(order.getDeliveryStatus());
+            
+            bw.write(orderLine.toString());
+            bw.newLine();
+                
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 

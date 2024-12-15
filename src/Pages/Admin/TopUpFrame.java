@@ -2,7 +2,8 @@ package Pages.Admin;
 import FileManager.*;
 import Models.*;
 import Records.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
@@ -235,7 +236,7 @@ public class TopUpFrame extends javax.swing.JFrame {
         if (topUpSucess) {
             
             String txnID = getTxnID(txns); // Getting txn details & createing new txn
-            String date = getDate();
+            String date = getDateTime();
             Transaction txn = new Transaction(txnID, cid, "Top-up", topUpAmount, date);
             txns.add(txn);
             
@@ -331,10 +332,12 @@ public class TopUpFrame extends javax.swing.JFrame {
         return "T" + (lastTxnID + 1);
     }
     
-    private String getDate() {
-        LocalDate date = LocalDate.now();
-        return date.toString();
-    }
+private String getDateTime() {
+    LocalDateTime now = LocalDateTime.now();
+    
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    return now.format(formatter);
+}
    
     /**
      * @param args the command line arguments

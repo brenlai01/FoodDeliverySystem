@@ -121,10 +121,10 @@
                                           </Group>
                                       </Group>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
                                               <Component id="orderAmountField" min="-2" pref="80" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
@@ -396,6 +396,9 @@
                   <Dimension value="[80, 25]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="orderAmountFieldActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="dineInButton">
               <Properties>
@@ -404,6 +407,9 @@
                   <Dimension value="[90, 25]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dineInButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="takeAwayButton">
               <Properties>
@@ -412,6 +418,9 @@
                   <Dimension value="[90, 25]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="takeAwayButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="deliveryButton">
               <Properties>
@@ -420,6 +429,9 @@
                   <Dimension value="[90, 25]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deliveryButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>

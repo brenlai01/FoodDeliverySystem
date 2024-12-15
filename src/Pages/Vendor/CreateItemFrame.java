@@ -1,4 +1,5 @@
 package Pages.Vendor;
+import FileManager.FileManager;
 import Records.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -302,7 +303,7 @@ public class CreateItemFrame extends javax.swing.JFrame {
         String price = PriceTxt.getText().trim();
         String description = DescriptionTxt.getText().trim();
         
-        ArrayList<Food> foods = Food.loadFoods("fooditems.txt");
+        ArrayList<Food> foods = FileManager.loadFoodItems("fooditems.txt");
         
         if (foodID.equals("") || vendorID.equals("") || foodName.equals("") || price.equals("") || description.equals("")) {
             JOptionPane.showMessageDialog(null, "Please provide some info.", "Error", JOptionPane.ERROR_MESSAGE);
