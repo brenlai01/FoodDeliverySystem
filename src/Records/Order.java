@@ -6,16 +6,18 @@ public class Order {
     private String customerID;
     private String vendorID;
     private ArrayList<OrderItem> items;
+    private String orderType;
     private double totalAmount;
     private String dateTime;
     private String vendorStatus;
     private String deliveryStatus;
     
-    public Order(String oid, String cid, String vid, ArrayList<OrderItem> items, double totalAmount, String dateTime, String vendorStatus, String deliveryStatus) {
+    public Order(String oid, String cid, String vid, ArrayList<OrderItem> items, String orderType, double totalAmount, String dateTime, String vendorStatus, String deliveryStatus) {
         this.setOrderID(oid);
         this.setCustomerID(cid);
         this.setVendorID(vid);
         this.setItems(items);
+        this.setOrderType(orderType);
         this.setTotalAmount(totalAmount);
         this.setDateTime(dateTime);
         this.setVendorStatus(vendorStatus);
@@ -33,6 +35,9 @@ public class Order {
     }
     public ArrayList<OrderItem> getItems() {
         return items;
+    }
+    public String getOrderType() {
+        return orderType;
     }
     public double getTotalAmount() {
         return totalAmount;
@@ -58,6 +63,9 @@ public class Order {
     }
     public void setItems(ArrayList<OrderItem> items) {
         this.items = items;
+    }
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
     }
     public void setTotalAmount(double amount) {
         this.totalAmount = amount;

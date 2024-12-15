@@ -40,8 +40,8 @@ public class Customer extends User {
         return orders;
     }
     
-    public Order placeOrder(String oid, String cid, String vid, ArrayList<OrderItem> items, double totalAmount, String dateTime, String vendorStatus, String deliveryStatus) {
-        Order newOrder = new Order(oid, cid, vid, items, totalAmount, dateTime, vendorStatus, deliveryStatus);
+    public Order placeOrder(String oid, String cid, String vid, ArrayList<OrderItem> items, String orderType, double totalAmount, String dateTime, String vendorStatus, String deliveryStatus) {
+        Order newOrder = new Order(oid, cid, vid, items, orderType, totalAmount, dateTime, vendorStatus, deliveryStatus);
         orders.add(newOrder);
         return newOrder;
     }

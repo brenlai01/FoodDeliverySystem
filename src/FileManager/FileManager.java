@@ -183,19 +183,20 @@ public class FileManager {
                 
                 String[] parts = line.split(":");
                 
-                if (parts.length == 8) {
-                    String orderID = parts[0].trim();
-                    String customerID = parts[1].trim();
-                    String vendorID = parts[2].trim();
-                    String itemsOrdered = parts[3].trim(); 
-                    double totalAmount = Double.parseDouble(parts[4].trim());
-                    String dateTime = parts[5].trim();
-                    String vendorStatus = parts[6].trim();
-                    String deliveryStatus = parts[7].trim();
+                if (parts.length == 9) {
+                    String orderID = parts[0];
+                    String customerID = parts[1];
+                    String vendorID = parts[2];
+                    String itemsOrdered = parts[3]; 
+                    String orderType = parts[4];
+                    double totalAmount = Double.parseDouble(parts[5]);
+                    String dateTime = parts[6];
+                    String vendorStatus = parts[7];
+                    String deliveryStatus = parts[8];
 
                     ArrayList<OrderItem> items = parseOrderItems(itemsOrdered);
                     
-                    Order order = new Order(orderID, customerID, vendorID, items, totalAmount, dateTime, vendorStatus, deliveryStatus);
+                    Order order = new Order(orderID, customerID, vendorID, items, orderType, totalAmount, dateTime, vendorStatus, deliveryStatus);
                     order.setItems(items);
                     order.setTotalAmount(totalAmount);
                     order.setDateTime(dateTime);
@@ -255,10 +256,11 @@ public class FileManager {
                     }
                 }
                 
-                orderLine.append(":").append(order.getTotalAmount())
-                    .append(":").append(order.getDateTime())
-                    .append(":").append(order.getVendorStatus())
-                    .append(":").append(order.getDeliveryStatus());
+                orderLine.append("").append(order.getVendorStatus())
+                        .append(":").append(order.getTotalAmount())
+                        .append(":").append(order.getDateTime())
+                        .append(":").append(order.getVendorStatus())
+                        .append(":").append(order.getDeliveryStatus());
                 
                 bw.write(orderLine.toString());
                 bw.newLine();
@@ -290,7 +292,8 @@ public class FileManager {
                 }
             }
             
-            orderLine.append(":").append(order.getTotalAmount())
+            orderLine.append(":").append(order.getOrderType())
+                    .append(":").append(order.getTotalAmount())
                     .append(":").append(order.getDateTime())
                     .append(":").append(order.getVendorStatus())
                     .append(":").append(order.getDeliveryStatus());

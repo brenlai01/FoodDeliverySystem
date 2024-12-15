@@ -212,15 +212,18 @@ public class TopUpFrame extends javax.swing.JFrame {
 
     private void TopUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TopUpButtonActionPerformed
         
-        String selectedValue = customerList.getSelectedValue(); // Get Selected User String
+        String selectedValue = customerList.getSelectedValue();
+        
         if (selectedValue == null) {
             JOptionPane.showMessageDialog(this, "Please select a customer to top-up.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
+        // Splitting of customer Id from the id-username string (e.g. C001 - customer1)
         String cid = selectedValue.split(" - ")[0];
         double topUpAmount;
         
+        // make sure customer enters a double
         try {
             topUpAmount = Double.parseDouble(topUpAmounttxt.getText());
         } catch (NumberFormatException e) {
