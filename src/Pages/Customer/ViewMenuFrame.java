@@ -1,9 +1,8 @@
 package Pages.Customer;
+import Enum.TransactionType;
 import FileManager.*;
 import Models.*;
 import Records.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -408,6 +407,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_totalAmountFieldActionPerformed
 
+    // Place order button includes creation of new transaction record, order record and delivery record if applicable
     private void placeOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placeOrderButtonActionPerformed
         DefaultTableModel orderModel = (DefaultTableModel) orderSummaryTable.getModel();
         
@@ -416,11 +416,26 @@ public class ViewMenuFrame extends javax.swing.JFrame {
             return;
         }
         
-        if (selectedOrderType == null) {
+        if (selectedOrderType == null || selectedOrderType.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please select an order type.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
+        String extraChargesText = extraChargesField.getText();
+        double extraCharges;
+        
+        // checking if extraChargesField is empty, if empty then proceed
+        try {
+            if (extraChargesText == null || extraChargesText.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please select an order type (Dine-In, Takeaway, or Delivery).", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            extraCharges = Double.parseDouble(extraChargesText.trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid extra charges value.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         double orderAmount = 0.0;
         ArrayList<OrderItem> items = new ArrayList<>();
         
@@ -435,33 +450,62 @@ public class ViewMenuFrame extends javax.swing.JFrame {
             orderAmount += totalAmount;
         }
         
-        double extraCharges = Double.parseDouble(extraChargesField.getText());
+        // Final Amount of order including extraCharges
         double totalAmount = orderAmount + extraCharges;
         
         // confirmation pop-up 
-        int confirm = JOptionPane.showConfirmDialog(null, "The total amount of is RM " + totalAmount + ". Do you want to place the order?", "Confirm Order", JOptionPane.YES_NO_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(null, "The total amount of is RM " + String.format("%.2f", totalAmount) 
+                + ". Do you want to place the order?", "Confirm Order", JOptionPane.YES_NO_OPTION);
         
         if (confirm != JOptionPane.YES_OPTION) {
             return;
         }
         
-        // Getting IDs for creating new order
-        String orderID = generateOrderID();
         String customerID = CurrentUser.getLoggedInUser().getUid();
+        Customer customer = (Customer) CurrentUser.getLoggedInUser();
+        
+        // deducting customer credit balance with final order amount
+        boolean deductSuccess = customer.deductCredit(totalAmount);
+        
+        if (!deductSuccess) {
+            JOptionPane.showMessageDialog(null, "Insufficient balance. Please top up and try again.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // Updating customer balance after placing order and write update users ArrayList
+        ArrayList<User> users = FileManager.loadUsers("users.txt");
+        for (User user : users) {
+            if (user.getUid().equals(customerID) && user instanceof Customer) {
+                ((Customer) user).setBalance(customer.getBalance());
+                break;
+            }
+        }
+        FileManager.writeUsers("users.txt", users);
+        
+        // Getting details for creating new order and adding new order to orders.txt
+        String orderID = generateOrderID();
         String vendorID = selectedVendorID;
         String orderType = selectedOrderType;
+        String date = FileManager.getDateTime();
         
-        // Get place order date
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
-        String formattedDate = LocalDateTime.now().format(formatter);
+        // Create new order and write to orders.txt
+        Order order = new Order(orderID, customerID, vendorID, items, orderType, orderAmount, date, "Pending", "Unassigned");
         
-        Order order = new Order(orderID, customerID, vendorID, items, orderType, orderAmount, formattedDate, "Pending", "Unassigned");
-        
-        FileManager.addNewOrders("orders.txt", order);
-        
-        if (extraCharges > 0.0) {
-            //handleDelivery();
+        // Create new delivery record if customer choose delivery option
+        if (orderType.equalsIgnoreCase("Delivery")) {
+            if (!handleDelivery(order, extraCharges)) {
+                return;
+            } 
         }
+        FileManager.addNewOrder("orders.txt", order);
+        
+        ArrayList<Transaction> txns = FileManager.loadTxns("transactions.txt");
+        
+        // Getting details for transaction record and updateing transactions.txt
+        String txnID = FileManager.getTxnID(txns);
+        Transaction txn = new Transaction(txnID, customerID, TransactionType.ORDER_DEDUCTION, totalAmount, date);
+        txns.add(txn);
+        FileManager.writeTxns("transactions.txt", txns);
         
         JOptionPane.showMessageDialog(null, "Order placed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
         
@@ -486,6 +530,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
             return;
         }
         
+        // Formatting text field with chose foodItem with quantiy to OrderSummaryTable
         String foodName = (String) vendorMenuTable.getValueAt(selectedRow, 0);
         int quantity = (int) foodQuantity.getValue();
         double amount = ((double) vendorMenuTable.getValueAt(selectedRow, 2)) * quantity;
@@ -496,15 +541,6 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         }
         
         DefaultTableModel orderModel = (DefaultTableModel) orderSummaryTable.getModel();
-        
-        // Make sure customer can only order from one vendor at a time
-        if (orderModel.getRowCount() > 0){
-            String vendorID = selectedVendorID;
-            if (!selectedVendorID.equals(vendorID)) {
-                JOptionPane.showMessageDialog(null, "You can only order from one vendor at a time.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        }
         
         orderModel.addRow(new Object[]{foodName, quantity, amount});
         foodQuantity.setValue(1);
@@ -523,6 +559,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
             return;
         }
         
+        // Remove item from OrderSummaryTable
         DefaultTableModel orderModel = (DefaultTableModel) orderSummaryTable.getModel();
         orderModel.removeRow(selectedRow);
         
@@ -534,7 +571,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_removeItemButtonActionPerformed
 
-    // Setting extra charges
+    // Buttons for setting extra charges
     private void dineInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dineInButtonActionPerformed
         extraChargesField.setText("0.00");
         selectedOrderType = "Dine-in";
@@ -572,7 +609,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
     }
     
     private void orderAmountFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderAmountFieldActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_orderAmountFieldActionPerformed
     
     // Below are methods for table setups and loading data into ArrayList
@@ -595,7 +632,8 @@ public class ViewMenuFrame extends javax.swing.JFrame {
             if (!e.getValueIsAdjusting() && vendorListTable.getSelectedRow() != -1) {
                 
                 clearOrderSummaryTable();
-                
+                selectedFoodField.setText("");
+               
                 int selectedRow = vendorListTable.getSelectedRow();
                 String vendorID = (String) vendorListTable.getValueAt(selectedRow, 0);
                 String vendorName = (String) vendorListTable.getValueAt(selectedRow, 1);
@@ -646,6 +684,30 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         });
     }
     
+    private void setupTable(JTable table, String[] columnNames, int[] columnWidths) {
+        
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        table.setModel(model);
+        table.setDefaultEditor(Object.class, null);
+        table.setAutoCreateRowSorter(true);
+        
+        if (columnWidths != null && table.getColumnModel().getColumnCount() == columnWidths.length) {
+            for (int i = 0; i < columnWidths.length; i++) {
+                if (columnWidths[i] == 0) {
+                    
+                    table.getColumnModel().getColumn(i).setMinWidth(0);
+                    table.getColumnModel().getColumn(i).setMaxWidth(0);
+                    table.getColumnModel().getColumn(i).setPreferredWidth(0);
+                } else {
+                    
+                    table.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
+                    table.getColumnModel().getColumn(i).setMinWidth(columnWidths[i]);
+                }
+            }
+        }
+    }
+    
+    // Method for setting up OrderSummaryTable
     private void setupOrderSummaryTable() {
         String[] columnNames = {"Food Name", "Quantity", "Amount"};
         int[] columnWidths = {80, 80, 80};
@@ -672,32 +734,13 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         });
     }
     
-    private void setupTable(JTable table, String[] columnNames, int[] columnWidths) {
-        
-        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-        table.setModel(model);
-        table.setDefaultEditor(Object.class, null);
-        table.setAutoCreateRowSorter(true);
-        
-        if (columnWidths != null && table.getColumnModel().getColumnCount() == columnWidths.length) {
-            for (int i = 0; i < columnWidths.length; i++) {
-                if (columnWidths[i] == 0) {
-                    
-                    table.getColumnModel().getColumn(i).setMinWidth(0);
-                    table.getColumnModel().getColumn(i).setMaxWidth(0);
-                    table.getColumnModel().getColumn(i).setPreferredWidth(0);
-                } else {
-                    
-                    table.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
-                    table.getColumnModel().getColumn(i).setMinWidth(columnWidths[i]);
-                }
-            }
-        }
-    }
-    
     private void clearOrderSummaryTable() {
         DefaultTableModel orderModel = (DefaultTableModel) orderSummaryTable.getModel();
         orderModel.setRowCount(0); 
+        
+        foodToRemove.setText("");
+        extraChargesField.setText("0.00");
+        totalAmountField.setText("0.00");
     }
     
     private double calculateOrderAmount() {
@@ -716,6 +759,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         orderAmountField.setEditable(false);
     }
 
+    // Method for generating IDs
     private String generateOrderID() {
         ArrayList<Order> existingOrders = FileManager.loadOrders("orders.txt");
         int lastOrderID = 0;
@@ -730,6 +774,42 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         }
         return "O" + (lastOrderID + 1);
     }
+    
+    private String generateDeliveryID() {
+        ArrayList<Delivery> deliveries = FileManager.loadDeliveries("deliveries.txt");
+        int lastDeliveryID = 0;
+        
+        for (Delivery delivery : deliveries) {
+            String deliveryID = delivery.getDeliveryID();
+            int deliveryNum = Integer.parseInt(deliveryID.substring(2));
+            
+            if (deliveryNum > lastDeliveryID) {
+                lastDeliveryID = deliveryNum;
+            }
+        }
+        return "DL" + (lastDeliveryID + 1);
+    }
+    
+    // Method to create delivery record if customer choose delivery option
+    // Called when placeOrderButton is clicked
+    private boolean handleDelivery(Order order, double deliveryCharges) {
+        ArrayList<Delivery> deliveries = FileManager.loadDeliveries("deliveries.txt");
+        
+        String deliveryID = generateDeliveryID();
+        String deliveryAddress = JOptionPane.showInputDialog(null, "Please enter delivery address:", "Delivery Address", JOptionPane.QUESTION_MESSAGE);
+        
+        if (deliveryAddress == null || deliveryAddress.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Delivery Address is required.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        Delivery delivery = new Delivery(deliveryID, order.getOrderID(), order.getCustomerID(), deliveryCharges, deliveryAddress, "Unassigned", "Pending", "Unassigned", "N/A");
+        
+        deliveries.add(delivery);
+        FileManager.writeDeliveries("deliveries.txt", deliveries);
+        return true;
+    }
+    
     
     /**
      * @param args the command line arguments

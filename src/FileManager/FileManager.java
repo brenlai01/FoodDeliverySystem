@@ -1,7 +1,12 @@
+// This class includes all methods to read and write data into their respective txt files
+// How to call method: FileManager.loadUsers("users.txt"), FileManager.writeUsers("users.txt", users)
 package FileManager;
+import Enum.TransactionType;
 import Models.*;
 import Records.*;
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class FileManager {
@@ -45,6 +50,12 @@ public class FileManager {
     }
     
     // Method used to write newly created users to users.txt
+    // Mostly called when a user's detail need to be updated
+    // e.g.: 
+    //      when customer places an order and their balance needs to be deducted, 
+    //      their updated balance needs to updated 
+    //      in the txt file so this method is called
+    
     public static void writeUsers(String filepath, ArrayList<User> users) {
         
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))) {
@@ -64,7 +75,17 @@ public class FileManager {
         }
     }
     
-    // Method to load existing receipts from receipts.txt
+    // Method to get current date & time
+    // Mostly called for creating order records and creating and updateing delivery records
+    public static String getDateTime() {
+        LocalDateTime now = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
+        return now.format(formatter);
+    }
+    
+    // Method to load existing receipts from transaction.txt
+    // Only used by Admin TopUp & customer deductCredit
     public static ArrayList<Transaction> loadTxns(String filepath) {
         
         ArrayList<Transaction> txns = new ArrayList<>();
@@ -78,10 +99,10 @@ public class FileManager {
                 if (parts.length == 5) {
                     String receiptID = parts[0];
                     String customerID = parts[1];
-                    String txnType = parts[2];
+                    TransactionType txnType = TransactionType.valueOf(parts[2]);
                     double topUpAmount =  Double.parseDouble(parts[3]);
-                    String date = parts[4];
-                    txns.add(new Transaction(receiptID, customerID, txnType, topUpAmount, date));
+                    String dateTime = parts[4];
+                    txns.add(new Transaction(receiptID, customerID, txnType, topUpAmount, dateTime));
                 }
             }
         } catch (IOException e) {
@@ -90,7 +111,7 @@ public class FileManager {
         return txns;
     }
     
-    // Method to write receipt ArrayList back into receipts.txt
+    // Method to write updated txns ArrayList back into transactions.txt
     public static void writeTxns(String filepath, ArrayList<Transaction> transactions) {
         
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))) {
@@ -103,8 +124,25 @@ public class FileManager {
             e.printStackTrace();
         }
     }
+
+    // Method used to get current number of txns and add 1 to get a txn for the latest txn
+    // I chose to create this method here because it is used in two frames
+    public static String getTxnID (ArrayList<Transaction> txns) {
+        
+        int lastTxnID = 0;
+        for (Transaction txn : txns) {
+            String txnID = txn.getTxnID();
+            int txnNum = Integer.parseInt(txnID.substring(1));
+            
+            if (txnNum > lastTxnID) {
+                lastTxnID = txnNum;
+            }
+        }
+        return "T" + (lastTxnID + 1);
+    }
     
-    // Method to load vendors from vendors.txt
+    
+    // Method to load vendors with cuisineType from cusines.txt
     public static ArrayList<Cuisine> loadCuisines(String filepath) {
         
         ArrayList<Cuisine> cuisines = new ArrayList<>();
@@ -128,7 +166,7 @@ public class FileManager {
         return cuisines;
     }
     
-    // Method to write update cuisine ArrayList
+    // Method to write update updated cuisine ArrayList
     public static void writeCuisines(String filepath, ArrayList<Cuisine> cuisines) {
         
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))) {
@@ -142,7 +180,7 @@ public class FileManager {
         }
     }
     
-    // Method to load food into ArrayList from foodItems.txt
+    // Method to load foodItems into ArrayList from foodItems.txt
     public static ArrayList<Food> loadFoodItems(String filepath) {
         
         ArrayList<Food> foodItems = new ArrayList<>();
@@ -168,7 +206,7 @@ public class FileManager {
         return foodItems;
     } 
     
-    // Method to write food ArrayList into foodItems.txt
+    // Method to write updated foodItems ArrayList into foodItems.txt
     // public static void writeFoodItems
     
     // Method to load orders into ArrayList from orders.txt
@@ -231,6 +269,10 @@ public class FileManager {
     }
     
     // Method to update order status such as vendorStatus and deliveryStatus
+    // This method is called when vendorStatus and deliveryStatus in deliveries.txt needs to be updated
+    //e.g.
+    //      VendorStatus: Pending -> Accepted/Rejected
+    //      deliveryStatus: Unassigned -> Delivering/Delivered
     public static void updateOrders(String filepath, ArrayList<Order> orders) {
         
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))) {
@@ -270,7 +312,7 @@ public class FileManager {
         }
     }
     // Method for customer to make new order to append to orders.txt
-    public static void addNewOrders(String filepath, Order order) {
+    public static void addNewOrder(String filepath, Order order) {
         
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(filepath, true))) {
         
@@ -305,6 +347,53 @@ public class FileManager {
             e.printStackTrace();
         }
     }
-}
-
-
+    
+    // Method to load existing deliveries to an ArrayList from deliveries.txt
+    public static ArrayList<Delivery> loadDeliveries(String filepath) {
+        ArrayList<Delivery> deliveries = new ArrayList<>();
+        
+        try(BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+            String line;
+            while((line = br.readLine()) != null) {
+                String[] parts = line.split(":");
+                if (parts.length == 9) {
+                    String deliveryID = parts[0];
+                    String orderID = parts[1];
+                    String customerID = parts[2];
+                    double deliveryCharges = Double.parseDouble(parts[3]);
+                    String address = parts[4];
+                    String runnerStatus = parts[5];
+                    String deliveryStatus = parts[6];
+                    String deliveryRunnerID = parts[7];
+                    String deliveredTime = parts[8];
+                    deliveries.add(new Delivery(deliveryID, orderID, customerID, deliveryCharges, address, runnerStatus, deliveryStatus, deliveryRunnerID, deliveredTime));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return deliveries;
+    }
+    
+    // Method to write updated deliveries ArrayList into deliveries.txt
+    // Called when a newly created delivery needs to be written into deliveries.txt
+    // or when updated runnerStatus, deliveryStatus and deliveryRunnerID in deliveries.txt
+    // e.g. runnerStatus: Unassigned -> Accepted
+    public static void writeDeliveries(String filepath, ArrayList<Delivery> deliveries) {
+        
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))) {
+            for (Delivery delivery : deliveries) {
+                String line = delivery.getDeliveryID() + ":" + delivery.getOrderID() 
+                        + ":" + delivery.getCustomerID() + ":" + delivery.getDeliveryCharges() 
+                        + ":" + delivery.getAddress() + ":" + delivery.getRunnerStatus()
+                        + ":" + delivery.getDeliveryStatus() + delivery.getDeliveryRunnerID()
+                        + ":" + delivery.getDeliveredTime();
+                bw.write(line);
+                bw.newLine();
+            }
+            
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+}    

@@ -11,7 +11,7 @@ public class Customer extends User {
 
     public Customer(String uid, String username, String password, double balance) {
         super(uid, username, password);
-        this.balance = balance;
+        this.setBalance(balance);
     }
 
     @Override
@@ -25,15 +25,12 @@ public class Customer extends User {
     }
 
     public boolean deductCredit(double amount) {
-        if (amount > balance) {
-            return false;
-        } else if (amount > 0) {
-            balance -= amount;
+        
+        if (this.getBalance() >= amount) {
+            this.setBalance(this.getBalance() - amount);
             return true;
-        } else {
-            System.out.println("Invalid amount. Transaction failed.");
-            return false;
         }
+        return false;
     }
     
     public ArrayList<Order> getOrderHistory() {

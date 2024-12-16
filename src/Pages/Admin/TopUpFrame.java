@@ -1,9 +1,8 @@
 package Pages.Admin;
+import Enum.TransactionType;
 import FileManager.*;
 import Models.*;
 import Records.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
@@ -238,9 +237,9 @@ public class TopUpFrame extends javax.swing.JFrame {
         
         if (topUpSucess) {
             
-            String txnID = getTxnID(txns); // Getting txn details & createing new txn
-            String date = getDateTime();
-            Transaction txn = new Transaction(txnID, cid, "Top-up", topUpAmount, date);
+            String txnID = FileManager.getTxnID(txns); // Getting txn details & createing new txn
+            String dateTime = FileManager.getDateTime();
+            Transaction txn = new Transaction(txnID, cid, TransactionType.TOP_UP, topUpAmount, dateTime);
             txns.add(txn);
             
             FileManager.writeUsers("users.txt", users);
@@ -319,28 +318,6 @@ public class TopUpFrame extends javax.swing.JFrame {
             }
         });  
     }
-    
-    // Method used to get current number of txns and add 1 to get a txn for the latest txn
-    private String getTxnID (ArrayList<Transaction> txns) {
-        
-        int lastTxnID = 0;
-        for (Transaction txn : txns) {
-            String txnID = txn.getTxnID();
-            int txnNum = Integer.parseInt(txnID.substring(1));
-            
-            if (txnNum > lastTxnID) {
-                lastTxnID = txnNum;
-            }
-        }
-        return "T" + (lastTxnID + 1);
-    }
-    
-private String getDateTime() {
-    LocalDateTime now = LocalDateTime.now();
-    
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    return now.format(formatter);
-}
    
     /**
      * @param args the command line arguments

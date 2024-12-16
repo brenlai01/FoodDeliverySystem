@@ -1,1 +1,2 @@
-O1:C001:V001:Nasi Lemak X 3 @ 9.0:Dine-in:27.0:2024-12-16 06-51-47:Pending:Unassigned
+O1:C001:V003:Chilli Pan Mee X 1 @ 12.0:Delivery:12.0:2024-12-16 19-16-39:Pending:Unassigned
+O2:C001:V003:Chilli Pan Mee X 1 @ 12.0:Delivery:12.0:2024-12-16 20-03-07:Pending:Unassigned
