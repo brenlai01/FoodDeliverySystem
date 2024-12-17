@@ -9,8 +9,8 @@ public class Order {
     private String orderType;
     private double totalAmount;
     private String dateTime;
-    private String vendorStatus;
-    private String deliveryStatus;
+    private String vendorStatus; // Pending -> Accepted/Rejected
+    private String deliveryStatus; // Unassigned -> Delivering/Delivered
     
     public Order(String oid, String cid, String vid, ArrayList<OrderItem> items, String orderType, double totalAmount, String dateTime, String vendorStatus, String deliveryStatus) {
         this.setOrderID(oid);

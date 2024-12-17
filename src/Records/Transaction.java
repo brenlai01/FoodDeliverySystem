@@ -1,18 +1,19 @@
 package Records;
+import Enum.TransactionType;
 
 public class Transaction {
     private String txnID;
     private String customerID;
-    private String txnType;
+    private TransactionType txnType;
     private double topUpAmount;
-    private String date;
+    private String dateTime;
     
-    public Transaction (String txnid, String cid, String txnType, double amount, String date) {
+    public Transaction (String txnid, String cid, TransactionType txnType, double amount, String dateTime) {
         this.setTxnID(txnid);
         this.setCustomerID(cid);
         this.setTxnType(txnType);
         this.setTopUpAmount(amount);
-        this.setDate(date);
+        this.setDateTime(dateTime);
         
     }
     
@@ -30,10 +31,10 @@ public class Transaction {
         this.customerID = cid;
     }
     
-    public String getTxnType() {
+    public TransactionType getTxnType() {
         return txnType;
     }
-    public void setTxnType(String txnType) {
+    public void setTxnType(TransactionType txnType) {
         this.txnType = txnType;
     }
     
@@ -45,15 +46,15 @@ public class Transaction {
     }
     
     public String getDate(){
-        return date;
+        return dateTime;
     }
-    public void setDate(String date){
-        this.date = date;
+    public void setDateTime(String dateTime){
+        this.dateTime = dateTime;
     }
     
     @Override
     public String toString(){
-        return txnID + ":" + customerID + ":" + txnType + ":" + topUpAmount + ":" + date;
+        return txnID + ":" + customerID + ":" + txnType + ":" + topUpAmount + ":" + dateTime;
     }
     
 }
