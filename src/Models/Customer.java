@@ -4,9 +4,9 @@ import Records.*;
 import java.util.ArrayList;
 
 public class Customer extends User {
-    
     private double balance;
     private ArrayList<Order> orders;
+    private ArrayList<Complaint> complaints;
     
 
     public Customer(String uid, String username, String password, double balance) {
@@ -43,8 +43,14 @@ public class Customer extends User {
         return newOrder;
     }
     
+    //Complaint part
+    public Complaint submitComplaint(String complaintID, String customerID, String complaintInfo){
+        Complaint newComplaint = new Complaint(complaintID, customerID, complaintInfo);
+        complaints.add(newComplaint);
+        return newComplaint;
+    }
     
-    /*public String writereview(ArrayList <Review> review, String review, String uid){
-        
-    }*/
+    public ArrayList<Complaint> getComplaintHistory(){
+        return complaints;
+    }
 }

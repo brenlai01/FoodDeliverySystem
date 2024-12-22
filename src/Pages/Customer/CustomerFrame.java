@@ -207,7 +207,7 @@ public class CustomerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_CheckTransactionHistoryButtonActionPerformed
 
     private void ProvideComplainsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvideComplainsButtonActionPerformed
-        new CustomerComplains().setVisible(true);
+        new CustomerComplaint().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ProvideComplainsButtonActionPerformed
 

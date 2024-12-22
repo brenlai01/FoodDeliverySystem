@@ -50,9 +50,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                          <Component id="SubmitComplainsButton" min="-2" pref="120" max="-2" attributes="0"/>
+                          <Component id="SubmitComplaintButton" min="-2" pref="120" max="-2" attributes="0"/>
                           <EmptySpace pref="119" max="32767" attributes="0"/>
-                          <Component id="ExitComplainsButton" min="-2" pref="120" max="-2" attributes="0"/>
+                          <Component id="ExitComplaintButton" min="-2" pref="120" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
@@ -60,7 +60,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="jTextField2" max="32767" attributes="0"/>
+                          <Component id="ComplaintTextField" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -73,11 +73,11 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jTextField2" min="-2" pref="195" max="-2" attributes="0"/>
+                  <Component id="ComplaintTextField" min="-2" pref="195" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="ExitComplainsButton" alignment="3" pref="37" max="32767" attributes="0"/>
-                      <Component id="SubmitComplainsButton" alignment="3" pref="37" max="32767" attributes="0"/>
+                      <Component id="ExitComplaintButton" alignment="3" pref="37" max="32767" attributes="0"/>
+                      <Component id="SubmitComplaintButton" alignment="3" pref="37" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               </Group>
@@ -94,23 +94,23 @@
             <Property name="text" type="java.lang.String" value="Complains"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="ExitComplainsButton">
+        <Component class="javax.swing.JButton" name="ExitComplaintButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Exit"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ExitComplainsButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ExitComplaintButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="SubmitComplainsButton">
+        <Component class="javax.swing.JButton" name="SubmitComplaintButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Submit"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SubmitComplainsButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SubmitComplaintButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField2">
+        <Component class="javax.swing.JTextField" name="ComplaintTextField">
         </Component>
       </SubComponents>
     </Container>
