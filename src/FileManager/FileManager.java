@@ -396,4 +396,62 @@ public class FileManager {
             e.printStackTrace();
         }
     }
+    
+    // Method to load existing notifications
+    public static ArrayList<Notification> loadNotifications(String filepath) {
+        
+        ArrayList<Notification> notifications = new ArrayList<>();
+        
+        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(":");
+                if (parts.length == 5) {
+                    String notificationID = parts[0];
+                    String customerID = parts[1];
+                    String message = parts[2];
+                    String timestamp = parts[3];
+                    String status = parts[4];
+
+                    Notification notification = new Notification(notificationID, customerID, message, timestamp, status);
+                    notifications.add(notification);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return notifications;
+    }
+    
+    // Method to write notifications
+    public static void writeNotifications(String filepath, ArrayList<Notification> notifications) {
+        
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))) {
+            for (Notification notification : notifications) {
+                String line = String.format("%s:%s:%s:%s:%s",
+                    notification.getNotificationID(),
+                    notification.getCustomerID(),
+                    notification.getMessage(),
+                    notification.getDateTime(),
+                    notification.getStatus());
+                bw.write(line);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    // Method to generate notificationID
+    public static String generateNotificationID(ArrayList<Notification> notifications) {
+        int lastID = 0;
+        for (Notification notification : notifications) {
+            String notificationID = notification.getNotificationID();
+            int idNum = Integer.parseInt(notificationID.substring(1));
+            if (idNum > lastID) {
+                lastID = idNum;
+            }
+        }
+        return "N" + (lastID + 1);
+    }
 }    
