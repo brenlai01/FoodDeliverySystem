@@ -8,7 +8,11 @@ public class Notification {
     private String status; // read or unread
     
     public Notification(String nid, String cid, String msg, String dateTime, String status) {
-        
+        this.setNotificationID(nid);
+        this.setCustomerID(cid);
+        this.setMessage(msg);
+        this.setDateTime(dateTime);
+        this.setStatus(status);
     }
     
     public String getNotificationID() {
