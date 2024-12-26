@@ -1,6 +1,6 @@
 package Pages.Vendor;
 
-import FileManager.CurrentUser;
+import FileManager.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -20,7 +20,7 @@ public class ManageItemFrame extends javax.swing.JFrame {
                 foodTableMouseClicked(evt);
             }
         });
-        vendorIDLabel.setText("Vendor ID:     " + CurrentUser.getLoggedInUser().getUid()); // Set the vendor ID
+        vendorIDLabel.setText("Current Logged In Vendor ID: " + CurrentUser.getLoggedInUser().getUid()); // Set the vendor ID
         refreshData();
     }
     
@@ -57,7 +57,7 @@ public class ManageItemFrame extends javax.swing.JFrame {
                 }
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error reading employee data: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error reading food items data: " + e.getMessage());
         }
     }
 
@@ -112,7 +112,7 @@ public class ManageItemFrame extends javax.swing.JFrame {
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(searchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         MngeItmPanelLayout.setVerticalGroup(
             MngeItmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,36 +179,35 @@ public class ManageItemFrame extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(vendorIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(createBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                                .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(foodIDTxt, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(foodNameTxt, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(priceTxt, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))))
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(createBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(28, 28, 28)
-                            .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                            .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(11, 11, 11)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel5))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(foodIDTxt, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(foodNameTxt, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(priceTxt, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(returnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(vendorIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(58, 58, 58)
+                            .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(27, 27, 27)
+                            .addComponent(returnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(11, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -272,27 +271,26 @@ public class ManageItemFrame extends javax.swing.JFrame {
                         .addGap(12, 12, 12)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                        .addGap(28, 28, 28)
                         .addComponent(MngeItmLbl)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(MngeItmPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MngeItmPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(39, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(49, Short.MAX_VALUE)
                         .addComponent(MngeItmPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(MngeItmLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(MngeItmLbl)
+                        .addGap(34, 34, 34)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(19, 19, 19)))
                 .addGap(17, 17, 17))
@@ -314,7 +312,13 @@ public class ManageItemFrame extends javax.swing.JFrame {
         String vendorID = CurrentUser.getLoggedInUser().getUid();
         String foodName = foodNameTxt.getText().trim();
         String description = descriptionTxt.getText().trim();
-        String price = priceTxt.getText().trim();
+        double price;
+        try {
+            price = Double.parseDouble(priceTxt.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid price format! Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         
         try (BufferedReader br = new BufferedReader(new FileReader("foodItems.txt"))){
             String line;
@@ -385,40 +389,35 @@ public class ManageItemFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_searchTxtKeyReleased
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-        String loggedInVendorId = CurrentUser .getLoggedInUser ().getUid(); // Get the logged-in vendor ID
+        String loggedInVendorId = CurrentUser .getLoggedInUser ().getUid();
 
-        // Check if a food item is selected
         if (foodIDTxt.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please select a food item to delete!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         String foodID = foodIDTxt.getText().trim();
-        System.out.println("Attempting to delete Food ID: " + foodID); // Debug statement
+        //System.out.println("Attempting to delete Food ID: " + foodID);
 
-        // Read the existing data and remove the selected item
         try (BufferedReader br = new BufferedReader(new FileReader("foodItems.txt"))) {
             StringBuilder updatedData = new StringBuilder();
             String line;
-            boolean found = false; // Flag to check if the food item is found
-            boolean isOwner = false; // Flag to check if the current vendor is the owner
+            boolean found = false;
+            boolean isOwner = false;
 
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(":");
                 if (data.length == 5) {
-                    System.out.println("Checking line: " + line); // Debug statement
-                    if (data[0].equals(foodID)) { // Check if the food ID matches
-                        found = true; // Food item found
-                        if (data[1].equals(loggedInVendorId)) { // Check if the vendor ID matches the logged-in vendor
-                            // If the food ID and vendor ID match, do not add this line to updatedData
-                            isOwner = true; // The logged-in vendor is the owner
-                            System.out.println("Food item found and marked for deletion."); // Debug statement
+                    //System.out.println("Checking line: " + line);
+                    if (data[0].equals(foodID)) {
+                        found = true;
+                        if (data[1].equals(loggedInVendorId)) {
+                            isOwner = true;
+                            //System.out.println("Food item found and marked for deletion.");
                         } else {
-                            // Keep the original line if the vendor ID does not match
                             updatedData.append(line).append("\n");
                         }
                     } else {
-                        // Keep the original line
                         updatedData.append(line).append("\n");
                     }
                 }
@@ -426,12 +425,11 @@ public class ManageItemFrame extends javax.swing.JFrame {
 
             if (found) {
                 if (isOwner) {
-                    // Write the updated data back to the file
                     try (FileWriter fw = new FileWriter("foodItems.txt")) {
                         fw.write(updatedData.toString());
                     }
                     JOptionPane.showMessageDialog(null, "Food item deleted successfully!");
-                    refreshData(); // Refresh the table to show the updated list
+                    refreshData();
                 } else {
                     JOptionPane.showMessageDialog(null, "You do not have permission to delete this food item!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -444,7 +442,7 @@ public class ManageItemFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
-        String loggedInVendorId = CurrentUser .getLoggedInUser ().getUid();
+        String loggedInVendorId = CurrentUser.getLoggedInUser().getUid();
 
         if (foodIDTxt.getText().trim().isEmpty() || 
             foodNameTxt.getText().trim().isEmpty() ||
@@ -456,7 +454,13 @@ public class ManageItemFrame extends javax.swing.JFrame {
 
         String foodID = foodIDTxt.getText().trim();
         String foodName = foodNameTxt.getText().trim();
-        String price = priceTxt.getText().trim();
+        double price;
+        try {
+            price = Double.parseDouble(priceTxt.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid price format! Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         String description = descriptionTxt.getText().trim();
 
         try (BufferedReader br = new BufferedReader(new FileReader("foodItems.txt"))) {

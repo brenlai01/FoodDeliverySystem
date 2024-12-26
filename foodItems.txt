@@ -3,4 +3,4 @@ F002:V001:Teh Tarik:Tea with condensed milk:4
 F003:V002:Chicken Burger:Crispy chicken chicken breast with lettuce and mayo:8
 F004:V003:Chilli Pan Mee:Spicy Malaysian dry noodle with anchovies, minced pork & chilli flakes:12
 F005:V002:Char Kuey Teow:Stir-fried Kuey Teow with eggs and prawns:10
-F006:V001:Laksa:Spicy noodle soup with prawns:10
+F006:V001:Laksa:Spicy noodle soup with prawns:11.0

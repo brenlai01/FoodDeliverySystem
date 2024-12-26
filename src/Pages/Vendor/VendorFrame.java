@@ -99,6 +99,11 @@ public class VendorFrame extends javax.swing.JFrame {
         ViewOdrLbl.setText("View Order");
 
         ViewOdrBtn.setText("View");
+        ViewOdrBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ViewOdrBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout ViewOdrLayout = new javax.swing.GroupLayout(ViewOdr);
         ViewOdr.setLayout(ViewOdrLayout);
@@ -226,13 +231,18 @@ public class VendorFrame extends javax.swing.JFrame {
 
     private void VenManageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VenManageBtnActionPerformed
         new ManageItemFrame().setVisible(true);
-        this.dispose();        // TODO add your handling code here:
+        this.dispose();        
     }//GEN-LAST:event_VenManageBtnActionPerformed
 
     private void LogOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutBtnActionPerformed
         new LoginFrame().setVisible(true);
-        this.dispose();        // TODO add your handling code here:
+        this.dispose();        
     }//GEN-LAST:event_LogOutBtnActionPerformed
+
+    private void ViewOdrBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewOdrBtnActionPerformed
+        new ViewOrderFrame().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ViewOdrBtnActionPerformed
 
     /**
      * @param args the command line arguments
