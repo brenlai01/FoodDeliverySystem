@@ -14,9 +14,13 @@
             <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Pages/Vendor/ManageItemFrame.java</file>
         </group>
         <group>
+            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/users.txt</file>
+            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/orders.txt</file>
+            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Pages/Vendor/ViewOrderFrame.java</file>
             <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Pages/Vendor/VendorFrame.java</file>
-            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/riderReviews.txt</file>
-            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/vendorReviews.txt</file>
+            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Pages/Vendor/ManageItemFrame.java</file>
+            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Records/Order.java</file>
+            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Records/OrderItem.java</file>
         </group>
     </open-files>
 </project-private>

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Pages.Vendor;
 
 import FileManager.*;
@@ -18,9 +14,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ViewOrderFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ViewOrderFrame
-     */
     public ViewOrderFrame() {
         initComponents();
         vendorIDLabel.setText("Current Logged In Vendor ID: " + CurrentUser.getLoggedInUser().getUid());
@@ -33,12 +26,12 @@ public class ViewOrderFrame extends javax.swing.JFrame {
     }
     
     public void refreshData() {
-        try {
-            DefaultTableModel model = (DefaultTableModel) orderTable.getModel();
-            model.setRowCount(0);
-            String foodFile = "orders.txt";
-            FileReader fr = new FileReader(foodFile);
-            BufferedReader br = new BufferedReader(fr);
+        DefaultTableModel model = (DefaultTableModel) orderTable.getModel();
+        model.setRowCount(0);
+        String loggedInVendorId = CurrentUser .getLoggedInUser ().getUid();
+        boolean hasOrders = false;
+
+        try (BufferedReader br = new BufferedReader(new FileReader("orders.txt"))) {
             String read;
             while ((read = br.readLine()) != null) {
                 String[] data = read.split(":");
@@ -54,12 +47,19 @@ public class ViewOrderFrame extends javax.swing.JFrame {
                         data[7],
                         data[8]
                     };
-                    model.addRow(orderData);
+
+                    if (data[2].equals(loggedInVendorId)) {
+                        model.addRow(orderData);
+                        hasOrders = true;
+                    }
                 }
             }
-            br.close();
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error reading orders data: " + e.getMessage());
+        }
+
+        if (!hasOrders) {
+            JOptionPane.showMessageDialog(null, "No orders found for the current vendor.", "Information", JOptionPane.INFORMATION_MESSAGE);
         }
     }
     
@@ -261,10 +261,10 @@ public class ViewOrderFrame extends javax.swing.JFrame {
         
         String orderID = orderIDTxt.getText().trim();
         String currentVendorID = orderTable.getValueAt(selectedRow, 2).toString();
-        String currentStatus = orderTable.getValueAt(selectedRow, 7).toString().toLowerCase();
+        String vendorStatus = orderTable.getValueAt(selectedRow, 7).toString().toLowerCase();
 
 
-        if (!currentStatus.equals("pending")) {
+        if (!vendorStatus.equals("pending")) {
             JOptionPane.showMessageDialog(this, "Only pending orders can be accepted.");
             return;
         }
@@ -316,10 +316,10 @@ public class ViewOrderFrame extends javax.swing.JFrame {
         
         String orderID = orderIDTxt.getText().trim();
         String currentVendorID = orderTable.getValueAt(selectedRow, 2).toString();
-        String currentStatus = orderTable.getValueAt(selectedRow, 7).toString().toLowerCase();
+        String vendorStatus = orderTable.getValueAt(selectedRow, 7).toString().toLowerCase();
 
 
-        if (!currentStatus.equals("pending")) {
+        if (!vendorStatus.equals("pending")) {
             JOptionPane.showMessageDialog(this, "Only pending orders can be rejected.");
             return;
         }
@@ -361,41 +361,89 @@ public class ViewOrderFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_rejectBtnActionPerformed
 
     private void assignBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignBtnActionPerformed
+        int selectedRow = orderTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select an order to deliver.");
+            return;
+        }
         
+        String orderID = orderIDTxt.getText().trim();
+        String currentVendorID = orderTable.getValueAt(selectedRow, 2).toString();
+        String deliveryStatus = orderTable.getValueAt(selectedRow, 8).toString().toLowerCase();
+
+
+        if (!deliveryStatus.equals("unassigned")) {
+            JOptionPane.showMessageDialog(this, "Only unassigned orders can be deliver.");
+            return;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader("orders.txt"))) {
+            StringBuilder updatedData = new StringBuilder();
+            String line;
+            boolean found = false;
+
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(":");
+                if (data.length >= 8) {
+                    if (data[0].equals(orderID) && data[2].equals(currentVendorID) && data[7].equals("Accepted")) {
+                        data[8] = "Delivering";
+                        line = String.join(":", data);
+                        found = true;
+                    }
+                }
+                updatedData.append(line).append("\n");
+            }
+
+            if (found) {
+                try (FileWriter fw = new FileWriter("orders.txt")) {
+                    fw.write(updatedData.toString());
+                }
+                JOptionPane.showMessageDialog(null, "Order now is being deliver!");
+                refreshData();
+            } else {
+                JOptionPane.showMessageDialog(null, "This order is still pending!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error updating order status: " + e.getMessage());
+        }
     }//GEN-LAST:event_assignBtnActionPerformed
 
     private void searchTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTxtKeyReleased
         String searchText = searchTxt.getText().trim().toLowerCase();
         DefaultTableModel model = (DefaultTableModel) orderTable.getModel();
-        model.setRowCount(0); // Clear the table
+        model.setRowCount(0);
 
         if (searchText.isEmpty()) {
-            refreshData(); // Reset to original data
+            refreshData();
             return;
         }
-
+        
+        String loggedInVendorId = CurrentUser .getLoggedInUser ().getUid();
+        
         try (BufferedReader br = new BufferedReader(new FileReader("orders.txt"))) { // Ensure the correct file is read
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(":");
-                if (data.length >= 8) { // Ensure there are enough elements
-                    String orderID = data[0].trim().toLowerCase();
-                    String customerID = data[1].trim().toLowerCase();
-                    String vendorID = data[2].trim().toLowerCase();
-                    String item = data[3].trim().toLowerCase();
-                    String totalPrice = data[4].trim().toLowerCase();
-                    String orderType = data[5].trim().toLowerCase();
-                    String orderTime = data[6].trim().toLowerCase();
-                    String vendorStatus = data[7].trim().toLowerCase();
-                    String deliveryStatus = data[8].trim().toLowerCase();
+                if (data.length >= 9) {
+                    if(data[2].equals(loggedInVendorId)){
+                        String orderID = data[0].trim().toLowerCase();
+                        String customerID = data[1].trim().toLowerCase();
+                        String vendorID = data[2].trim().toLowerCase();
+                        String item = data[3].trim().toLowerCase();
+                        String totalPrice = data[4].trim().toLowerCase();
+                        String orderType = data[5].trim().toLowerCase();
+                        String orderTime = data[6].trim().toLowerCase();
+                        String vendorStatus = data[7].trim().toLowerCase();
+                        String deliveryStatus = data[8].trim().toLowerCase();
 
-                    // Check if any field contains the search text
-                    if (orderID.contains(searchText) || customerID.contains(searchText) || 
-                        vendorID.contains(searchText) || item.contains(searchText) ||
-                        totalPrice.contains(searchText) || orderType.contains(searchText) || 
-                        orderTime.contains(searchText) || vendorStatus.contains(searchText) ||
-                        deliveryStatus.contains(searchText)) {
-                        model.addRow(new Object[]{data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]});
+                        if (orderID.contains(searchText) || customerID.contains(searchText) || 
+                            vendorID.contains(searchText) || item.contains(searchText) ||
+                            totalPrice.contains(searchText) || orderType.contains(searchText) || 
+                            orderTime.contains(searchText) || vendorStatus.contains(searchText) ||
+                            deliveryStatus.contains(searchText)) {
+                            model.addRow(new Object[]{data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]});
+                        }
                     }
                 }
             }

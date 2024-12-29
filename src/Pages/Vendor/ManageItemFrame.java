@@ -43,6 +43,7 @@ public class ManageItemFrame extends javax.swing.JFrame {
             FileReader fr = new FileReader(foodFile);
             BufferedReader br = new BufferedReader(fr);
             String read;
+            String loggedInVendorId = CurrentUser .getLoggedInUser ().getUid();
             while ((read = br.readLine()) != null) {
                 String[] data = read.split(":");
                 if (data.length == 5){
@@ -53,7 +54,9 @@ public class ManageItemFrame extends javax.swing.JFrame {
                         data[4],
                         data[3]
                     };
-                    model.addRow(foodData);
+                    if(data[1].equals(loggedInVendorId)){
+                        model.addRow(foodData);
+                    }
                 }
             }
         } catch (IOException e) {
@@ -300,15 +303,14 @@ public class ManageItemFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
-        if (foodIDTxt.getText().trim().isEmpty() || 
-            foodNameTxt.getText().trim().isEmpty() ||
+        if (foodNameTxt.getText().trim().isEmpty() ||
             priceTxt.getText().trim().isEmpty() ||
             descriptionTxt.getText().trim().isEmpty()){
             JOptionPane.showMessageDialog(null, "Plaese fill in all fields!","Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
-        String foodID = foodIDTxt.getText().trim();
+        String foodID = generateNewFoodID();
         String vendorID = CurrentUser.getLoggedInUser().getUid();
         String foodName = foodNameTxt.getText().trim();
         String description = descriptionTxt.getText().trim();
@@ -317,23 +319,6 @@ public class ManageItemFrame extends javax.swing.JFrame {
             price = Double.parseDouble(priceTxt.getText().trim());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Invalid price format! Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        try (BufferedReader br = new BufferedReader(new FileReader("foodItems.txt"))){
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(":");
-                if (data.length >= 5 && data[0].equals(foodID)) {
-                    JOptionPane.showMessageDialog(null, 
-                            "Food ID already exists! Please use a different ID.", "Error", JOptionPane.ERROR_MESSAGE);
-                    br.close();
-                    return;
-                }
-            }
-            br.close();
-        }catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error checking for duplicate food ID: " + e.getMessage());
             return;
         }
         
@@ -354,7 +339,25 @@ public class ManageItemFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_createBtnActionPerformed
+    private String generateNewFoodID() {
+        String lastFoodID = "F000"; // Default value in case no food items exist
+        try (BufferedReader br = new BufferedReader(new FileReader("foodItems.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(":");
+                if (data.length >= 5) {
+                    lastFoodID = data[0]; // Get the last food ID
+                }
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
+        }
 
+        // Extract the numeric part and increment it
+        String numericPart = lastFoodID.substring(1); // Remove the 'F' prefix
+        int newIdNumber = Integer.parseInt(numericPart) + 1; // Increment the number
+        return "F" + String.format("%03d", newIdNumber); // Format to F### (e.g., F003)
+    }
     private void searchTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTxtKeyReleased
         String searchText = searchTxt.getText().trim().toLowerCase();
         DefaultTableModel model = (DefaultTableModel) foodTable.getModel();
@@ -364,23 +367,26 @@ public class ManageItemFrame extends javax.swing.JFrame {
             refreshData();
             return;
         }
-
+        String loggedInVendorId = CurrentUser .getLoggedInUser ().getUid();
         try (BufferedReader br = new BufferedReader(new FileReader("foodItems.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(":");
                 if (data.length >= 5) {
-                    String vendorID = data[1].trim().toLowerCase();
-                    String foodID = data[0].trim().toLowerCase();
-                    String foodName = data[2].trim().toLowerCase();
-                    String description = data[3].trim().toLowerCase();
-                    String price = data[4].trim().toLowerCase();
+                    if(data[1].equals(loggedInVendorId)){
+                        String vendorID = data[1].trim().toLowerCase();
+                        String foodID = data[0].trim().toLowerCase();
+                        String foodName = data[2].trim().toLowerCase();
+                        String description = data[3].trim().toLowerCase();
+                        String price = data[4].trim().toLowerCase();
 
-                    if (vendorID.contains(searchText) || foodID.contains(searchText) || 
-                        foodName.contains(searchText) || description.contains(searchText) || 
-                        price.contains(searchText)) {
-                        model.addRow(new Object[]{data[1], data[0], data[2], data[4], data[3]});
+                        if (vendorID.contains(searchText) || foodID.contains(searchText) || 
+                            foodName.contains(searchText) || description.contains(searchText) || 
+                            price.contains(searchText)) {
+                            model.addRow(new Object[]{data[1], data[0], data[2], data[4], data[3]});
+                        }
                     }
+
                 }
             }
         } catch (IOException e) {
