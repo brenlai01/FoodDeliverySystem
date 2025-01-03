@@ -3,4 +3,4 @@ N5:C001:Your balance has been topped up by RM 20.00:2024-12-20 10-05-00:Read
 N4:C001:Your balance has been topped up by RM 20.00:2024-12-19 10-05-00:Read
 N3:C001:Your balance has been topped up by RM 20.00:2024-12-18 10-05-00:Read
 N2:C001:Your balance has been topped up by RM 25.00:2024-12-17 10-05-00:Read
-N1:C002:Your balance has been topped up by RM 50.00:2024-12-16 10-05-00:Unread
+N1:C002:Your balance has been topped up by RM 50.00:2024-12-16 10-05-00:Read

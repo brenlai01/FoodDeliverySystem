@@ -1,5 +1,8 @@
 package Pages.Customer;
 
+import FileManager.CurrentUser;
+import Models.Customer;
+import Records.Complaint;
 import javax.swing.JOptionPane;
 
 public class CustomerComplaint extends javax.swing.JFrame {
@@ -95,15 +98,25 @@ public class CustomerComplaint extends javax.swing.JFrame {
     }//GEN-LAST:event_ExitComplaintButtonActionPerformed
 
     private void SubmitComplaintButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitComplaintButtonActionPerformed
-        String complaintID = ComplaintTextField.getText().trim();
-        String customerID = ComplaintTextField.getText().trim();
+        String customerID = CurrentUser.getLoggedInUser().getUid();
         String complaintInfo = ComplaintTextField.getText().trim();
         
-        if (complaintID.isEmpty() || customerID.isEmpty() || complaintInfo.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "All fields must be filled!", "Input Error", JOptionPane.ERROR_MESSAGE);
+        //check if the complaint text field is empty
+        if (complaintInfo.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Complaint cannot be empty!", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        Customer customer = new Customer(customerID, "username", "password", 0.0); // Replace with actual values
+
+        // Submit the complaint
+        Complaint newComplaint = customer.submitComplaint(complaintInfo);
         
+        if (newComplaint != null) {
+        JOptionPane.showMessageDialog(this, "Complaint submitted successfully! Your Complaint ID is: " + newComplaint.getComplaintID(), "Success", JOptionPane.INFORMATION_MESSAGE);
+        ComplaintTextField.setText(""); // Clear the text field after submission
+        } else {
+        JOptionPane.showMessageDialog(this, "Failed to submit complaint. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_SubmitComplaintButtonActionPerformed
 
     /**
@@ -150,4 +163,8 @@ public class CustomerComplaint extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    private Customer getCurrentCustomer() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

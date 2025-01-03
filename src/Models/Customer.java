@@ -1,5 +1,6 @@
 package Models;
 
+import FileManager.FileManager;
 import Records.*;
 import java.util.ArrayList;
 
@@ -12,6 +13,7 @@ public class Customer extends User {
     public Customer(String uid, String username, String password, double balance) {
         super(uid, username, password);
         this.setBalance(balance);
+        this.complaints = new ArrayList<>(); // Initialize complaints List
     }
 
     @Override
@@ -43,14 +45,19 @@ public class Customer extends User {
         return newOrder;
     }
     
-    //Complaint part
-    public Complaint submitComplaint(String complaintID, String customerID, String complaintInfo){
-        Complaint newComplaint = new Complaint(complaintID, customerID, complaintInfo);
-        complaints.add(newComplaint);
+    // Complaint part
+    public Complaint submitComplaint(String complaintInfo){
+        String complaintID = FileManager.getComplaintIDForCustomer(this.getUid(), "complaint.txt");
+        Complaint newComplaint = new Complaint(this.getUid(), complaintID, complaintInfo);
+        complaints.add(newComplaint); // Add to local complaints list
+        ArrayList<Complaint> allComplaints = FileManager.LoadComplaints("complaint.txt"); // Load existing complaints
+        allComplaints.add(newComplaint); // Add the new complaint to the list
+        FileManager.writeComplaints("complaint.txt", allComplaints); // Save all complaints back to the file
         return newComplaint;
     }
     
-    public ArrayList<Complaint> getComplaintHistory(){
-        return complaints;
-    }
+    
+    
+    
+    
 }

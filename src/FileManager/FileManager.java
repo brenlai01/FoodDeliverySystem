@@ -455,4 +455,84 @@ public class FileManager {
         }
         return "N" + (lastID + 1);
     }
+    
+    //Complaint part
+    //Method to load complaints from complaints.txt
+    public static ArrayList<Complaint> LoadComplaints(String filepath){
+        
+        ArrayList<Complaint> complaints = new ArrayList<>();
+        
+        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+            String line;
+            while ((line = br.readLine()) != null){
+                String[] parts = line.split(":");
+                if (parts.length == 3){
+                    String customerID = parts[0];
+                    String complaintID = parts[1];
+                    String complaintInfo = parts[2];
+                    complaints.add(new Complaint(customerID, complaintID, complaintInfo));
+                }
+            }
+        }catch(IOException e){
+            e.printStackTrace(); //handle file read errors
+        }
+        return complaints;
+    }
+    
+    //Method to write complaints to complaints.txt
+    public static void writeComplaints(String filepath,ArrayList<Complaint>complaints){
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))){
+            for (Complaint complaint : complaints){
+                bw.write(complaint.toString());
+                bw.newLine();
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+    
+    //Check complaintID exist or not
+    public static String getComplaintIDForCustomer(String customerID, String filepath){
+        ArrayList<Complaint> complaints = LoadComplaints(filepath);
+        for (Complaint complaint : complaints){
+            if (complaint.getCustomerID().equals(customerID)){
+                return complaint.getComplaintID(); //Return existing complaintID
+            } 
+        }
+        return generateNewComplaintID(filepath); //Generate new ID if not exist
+    }
+    
+    //Generate new complaintID
+    private static String generateNewComplaintID(String filepath){
+        ArrayList<Complaint> complaints = LoadComplaints(filepath);
+        int maxID = 0;
+        
+        for(Complaint complaint : complaints){
+            String complaintID = complaint.getComplaintID();
+            if (complaintID.startsWith("CP")){
+                int id = Integer.parseInt(complaintID.substring(2)); //Exracr numeric part of ID
+                if (id > maxID){
+                    maxID = id; // Find the maximum ID
+                }
+            }
+        }
+        return "CP" + String.format("%02d", maxID + 1); // Generate new ID
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }    
