@@ -54,20 +54,20 @@
                   <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Component id="PlaceOrderButton" alignment="0" max="32767" attributes="0"/>
-                      <Component id="CheckOrderHistoryButton" alignment="0" max="32767" attributes="0"/>
                       <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
                       <Component id="jLabel7" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel2" min="-2" pref="112" max="-2" attributes="0"/>
+                      <Component id="jLabel2" pref="112" max="32767" attributes="0"/>
                       <Component id="ProvideComplainsButton" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
+                      <Component id="CheckOrderHistoryButton" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButton1" min="-2" pref="110" max="-2" attributes="0"/>
-                      <Component id="CancelOrderButton" min="-2" pref="110" max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" pref="110" max="-2" attributes="0"/>
-                      <Component id="CheckTransactionHistoryButton" min="-2" pref="110" max="-2" attributes="0"/>
-                      <Component id="jLabel5" min="-2" pref="110" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" pref="110" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jLabel3" pref="110" max="32767" attributes="0"/>
+                      <Component id="CheckTransactionHistoryButton" pref="110" max="32767" attributes="0"/>
+                      <Component id="jLabel5" pref="110" max="32767" attributes="0"/>
+                      <Component id="jLabel1" pref="110" max="32767" attributes="0"/>
+                      <Component id="CancelOrderButton" max="32767" attributes="0"/>
+                      <Component id="ViewComplainsHistory" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="0" pref="62" max="32767" attributes="0"/>
               </Group>
@@ -92,29 +92,29 @@
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="PlaceOrderButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="CancelOrderButton" alignment="3" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="PlaceOrderButton" pref="35" max="32767" attributes="0"/>
+                      <Component id="CancelOrderButton" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="CheckTransactionHistoryButton" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
-                      <Component id="CheckOrderHistoryButton" alignment="3" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="CheckTransactionHistoryButton" pref="34" max="32767" attributes="0"/>
+                      <Component id="CheckOrderHistoryButton" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton1" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
-                      <Component id="ProvideComplainsButton" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="ProvideComplainsButton" pref="38" max="32767" attributes="0"/>
+                      <Component id="ViewComplainsHistory" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="CustomerLogoutButton" min="-2" max="-2" attributes="0"/>
@@ -217,10 +217,13 @@
             <Property name="text" type="java.lang.String" value="Complains History"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="ViewComplainsHistory">
           <Properties>
             <Property name="text" type="java.lang.String" value="View"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ViewComplainsHistoryActionPerformed"/>
+          </Events>
         </Component>
         <Component class="Pages.Customer.BadgeButton" name="cmd">
           <Properties>

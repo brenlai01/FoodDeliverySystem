@@ -129,6 +129,12 @@ public class ManageItemFrame extends javax.swing.JFrame {
 
         jLabel1.setText("Food ID:");
 
+        foodIDTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                foodIDTxtActionPerformed(evt);
+            }
+        });
+
         jLabel3.setText("Food Name:");
 
         jLabel4.setText("Price:");
@@ -527,6 +533,10 @@ public class ManageItemFrame extends javax.swing.JFrame {
         new VendorFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_returnBtnActionPerformed
+
+    private void foodIDTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodIDTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_foodIDTxtActionPerformed
 
     /**
      * @param args the command line arguments

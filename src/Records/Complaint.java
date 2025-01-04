@@ -3,7 +3,7 @@ package Records;
 public class Complaint {
    private String customerID;
    private String complaintID;
-   private String complaintInfo; //message in text field
+   private String complaintInfo; 
    
    public Complaint(String customerID, String complaintID, String complaintInfo){
        this.customerID = customerID;
@@ -23,7 +23,11 @@ public class Complaint {
    public String getComplaintInfo(){
        return complaintInfo;
    }
-
+   
+   public void setComplaintInfo(String complaintInfo){
+       this.complaintInfo = complaintInfo;
+   }
+   
    //change to string method
    @Override
    public String toString(){
