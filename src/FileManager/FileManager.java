@@ -466,11 +466,12 @@ public class FileManager {
             String line;
             while ((line = br.readLine()) != null){
                 String[] parts = line.split(":");
-                if (parts.length == 3){
+                if (parts.length == 4){
                     String customerID = parts[0];
                     String complaintID = parts[1];
-                    String complaintInfo = parts[2];
-                    complaints.add(new Complaint(customerID, complaintID, complaintInfo));
+                    String uniID = parts[2];
+                    String complaintInfo = parts[3];
+                    complaints.add(new Complaint(customerID, complaintID, uniID, complaintInfo));
                 }
             }
         }catch(IOException e){
@@ -519,20 +520,20 @@ public class FileManager {
         return "CP" + String.format("%02d", maxID + 1); // Generate new ID
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    public static String generateUniqueComplaintID(String filepath) {
+        ArrayList<Complaint> complaints = LoadComplaints(filepath);
+        int maxID = 0;
+        
+        for(Complaint complaint : complaints){
+            String uniID = complaint.getUniID();
+            if (uniID.startsWith("CU")){
+                int id = Integer.parseInt(uniID.substring(2)); //Exracr numeric part of ID
+                if (id > maxID){
+                    maxID = id; // Find the maximum ID
+                }
+            }
+        }
+        return "CU" + String.format("%02d", maxID + 1); // Generate new ID
+    }
     
 }    

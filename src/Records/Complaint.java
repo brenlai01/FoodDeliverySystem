@@ -3,11 +3,13 @@ package Records;
 public class Complaint {
    private String customerID;
    private String complaintID;
+   private String uniID;
    private String complaintInfo; 
    
-   public Complaint(String customerID, String complaintID, String complaintInfo){
+   public Complaint(String customerID, String complaintID, String uniID, String complaintInfo){
        this.customerID = customerID;
        this.complaintID = complaintID;
+       this.uniID = uniID;
        this.complaintInfo = complaintInfo;
    }
    
@@ -18,6 +20,10 @@ public class Complaint {
    
    public String getComplaintID(){
        return complaintID;
+   }
+   
+   public String getUniID(){
+       return uniID;
    }
    
    public String getComplaintInfo(){
@@ -31,7 +37,7 @@ public class Complaint {
    //change to string method
    @Override
    public String toString(){
-       return customerID + ":" + complaintID + ":" + complaintInfo;
+       return customerID + ":" + complaintID + ":" + uniID + ":" + complaintInfo;
    }
 }
 

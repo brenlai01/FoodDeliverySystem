@@ -20,7 +20,8 @@ public class CustomerComplaint extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         ReturnComplaintButton = new javax.swing.JButton();
         SubmitComplaintButton = new javax.swing.JButton();
-        ComplaintTextField = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ComplaintTextArea = new javax.swing.JTextArea();
 
         jTextField1.setText("jTextField1");
 
@@ -44,6 +45,10 @@ public class CustomerComplaint extends javax.swing.JFrame {
             }
         });
 
+        ComplaintTextArea.setColumns(20);
+        ComplaintTextArea.setRows(5);
+        jScrollPane1.setViewportView(ComplaintTextArea);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -54,24 +59,25 @@ public class CustomerComplaint extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(ComplaintTextField)
-                        .addGap(14, 14, 14))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(ReturnComplaintButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                         .addComponent(SubmitComplaintButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36))))
+                        .addGap(36, 36, 36))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ComplaintTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ReturnComplaintButton, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                     .addComponent(SubmitComplaintButton, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
@@ -99,7 +105,7 @@ public class CustomerComplaint extends javax.swing.JFrame {
 
     private void SubmitComplaintButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitComplaintButtonActionPerformed
         String customerID = CurrentUser.getLoggedInUser().getUid();
-        String complaintInfo = ComplaintTextField.getText().trim();
+        String complaintInfo = ComplaintTextArea.getText().trim();
         
         //check if the complaint text field is empty
         if (complaintInfo.isEmpty()){
@@ -113,7 +119,7 @@ public class CustomerComplaint extends javax.swing.JFrame {
         
         if (newComplaint != null) {
         JOptionPane.showMessageDialog(this, "Complains submitted successfully! Your Complains ID is: " + newComplaint.getComplaintID(), "Success", JOptionPane.INFORMATION_MESSAGE);
-        ComplaintTextField.setText(""); // Clear the text field after submission
+        ComplaintTextArea.setText(""); // Clear the text field after submission
         } else {
         JOptionPane.showMessageDialog(this, "Failed to submit complains. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -156,11 +162,12 @@ public class CustomerComplaint extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField ComplaintTextField;
+    private javax.swing.JTextArea ComplaintTextArea;
     private javax.swing.JButton ReturnComplaintButton;
     private javax.swing.JButton SubmitComplaintButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 

@@ -48,16 +48,12 @@ public class Customer extends User {
     // Complaint part
     public Complaint submitComplaint(String complaintInfo){
         String complaintID = FileManager.getComplaintIDForCustomer(this.getUid(), "complaint.txt");
-        Complaint newComplaint = new Complaint(this.getUid(), complaintID, complaintInfo);
+        String uniID = FileManager.generateUniqueComplaintID("complaint.txt");
+        Complaint newComplaint = new Complaint(this.getUid(), complaintID, uniID, complaintInfo);
         complaints.add(newComplaint); // Add to local complaints list
         ArrayList<Complaint> allComplaints = FileManager.LoadComplaints("complaint.txt"); // Load existing complaints
         allComplaints.add(newComplaint); // Add the new complaint to the list
         FileManager.writeComplaints("complaint.txt", allComplaints); // Save all complaints back to the file
         return newComplaint;
     }
-    
-    
-    
-    
-    
 }

@@ -36,14 +36,14 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
     private void ComplaintHistoryTableMouseClicked(java.awt.event.MouseEvent evt) {                                      
         int selectedRow = ComplaintHistoryTable.getSelectedRow();
         if (selectedRow != -1) {
-            ComplaintInfoText.setText((String) ComplaintHistoryTable.getValueAt(selectedRow, 2));
+            ComplaintInfoText.setText((String) ComplaintHistoryTable.getValueAt(selectedRow, 3));
         }
     }
 
     public void refreshData() {
         try {
             DefaultTableModel model = (DefaultTableModel) ComplaintHistoryTable.getModel();
-            model.setRowCount(0);
+            model.setRowCount(0); //clear data
 
             String complaintFile = "complaint.txt";
             FileReader fr = new FileReader(complaintFile);
@@ -54,12 +54,13 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
 
             while ((read = br.readLine()) != null) {
                 String[] data = read.split(":");
-                if (data.length == 3) {
+                if (data.length == 4) {
                     if (data[0].equals(loggedInCustomerId)) {
                         String[] complaintData = {
                             data[0], // Customer ID
                             data[1], // Complaint ID
-                            data[2]  // Complaint Info
+                            data[2],
+                            data[3]  // Complaint Info
                         };
                         model.addRow(complaintData);
                     }
@@ -110,7 +111,7 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Customer ID", "Complains ID", "Details"
+                "Customer ID", "Complains ID", "Unique ID", "Details"
             }
         ));
         jScrollPane1.setViewportView(ComplaintHistoryTable);
@@ -206,11 +207,11 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
     private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
         int selectedRow = ComplaintHistoryTable.getSelectedRow();
         if (selectedRow != -1) {
-            String complaintID = (String) ComplaintHistoryTable.getValueAt(selectedRow, 1); // Get Complaint ID
+            String uniID = (String) ComplaintHistoryTable.getValueAt(selectedRow, 2); // Get uniID
             
             // Load existing complaints
             ArrayList<Complaint> complaints = FileManager.LoadComplaints("complaint.txt");
-            complaints.removeIf(complaint -> complaint.getComplaintID().equals(complaintID)); // Remove the selected complaint
+            complaints.removeIf(complaint -> complaint.getUniID().equals(uniID)); // Remove the selected complaint
             
             // Write updated complaints back to the file
             FileManager.writeComplaints("complaint.txt", complaints);
@@ -224,7 +225,7 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
         int selectedRow = ComplaintHistoryTable.getSelectedRow();
         if (selectedRow != -1){
-            String complaintID = (String) ComplaintHistoryTable.getValueAt(selectedRow, 1); // Get Complaint ID
+            String uniID = (String) ComplaintHistoryTable.getValueAt(selectedRow, 2); // Get uniID
             String updatedInfo = ComplaintInfoText.getText().trim(); // Get updated complaint info
             
             if(updatedInfo.isEmpty()){
@@ -235,7 +236,7 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
             // Load existing complaints
             ArrayList<Complaint> complaints = FileManager.LoadComplaints("complaint.txt");
             for (Complaint complaint : complaints) {
-                if (complaint.getComplaintID().equals(complaintID)) {
+                if (complaint.getUniID().equals(uniID)) {
                     complaint.setComplaintInfo(updatedInfo); // Update the complaint info
                     break;
                 }
