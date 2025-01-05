@@ -22,10 +22,10 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
      */
     public CustomerOrderHistory() {
         initComponents();
-//        OrderHistoryTable.addMouseListener(new java.awt.event.MouseAdapter() {
-//            public void mouseClicked(java.awt.event.MouseEvent evt) {
-//            }
-//        });
+        OrderHistoryTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            }
+        });
         refreshData();
     }
     

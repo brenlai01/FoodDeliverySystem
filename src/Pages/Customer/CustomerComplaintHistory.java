@@ -30,13 +30,14 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
                 ComplaintHistoryTableMouseClicked(evt);
             }
         });
+        CutomerIDLabel.setText("Customer ID: " + CurrentUser.getLoggedInUser().getUid());
         refreshData();
     }
 
     private void ComplaintHistoryTableMouseClicked(java.awt.event.MouseEvent evt) {                                      
         int selectedRow = ComplaintHistoryTable.getSelectedRow();
         if (selectedRow != -1) {
-            ComplaintInfoText.setText((String) ComplaintHistoryTable.getValueAt(selectedRow, 3));
+            ComplaintInfoText.setText((String) ComplaintHistoryTable.getValueAt(selectedRow, 2));
         }
     }
 
@@ -57,10 +58,9 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
                 if (data.length == 4) {
                     if (data[0].equals(loggedInCustomerId)) {
                         String[] complaintData = {
-                            data[0], // Customer ID
-                            data[1], // Complaint ID
+                            data[1],
                             data[2],
-                            data[3]  // Complaint Info
+                            data[3]
                         };
                         model.addRow(complaintData);
                     }
@@ -92,6 +92,7 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         ComplaintInfoText = new javax.swing.JTextArea();
         DetailsLable = new javax.swing.JLabel();
+        CutomerIDLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,7 +112,7 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Customer ID", "Complains ID", "Unique ID", "Details"
+                "Complains ID", "Unique ID", "Details"
             }
         ));
         jScrollPane1.setViewportView(ComplaintHistoryTable);
@@ -137,52 +138,61 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
         DetailsLable.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         DetailsLable.setText("Details:");
 
+        CutomerIDLabel.setText("Customer ID:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(14, 14, 14))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(31, 31, 31)
                 .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+                .addGap(32, 32, 32))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(DetailsLable))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addComponent(DetailsLable)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(CutomerIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(160, 160, 160))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(CutomerIDLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(DetailsLable)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(72, 72, 72)
+                .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(64, 64, 64))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -207,7 +217,7 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
     private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
         int selectedRow = ComplaintHistoryTable.getSelectedRow();
         if (selectedRow != -1) {
-            String uniID = (String) ComplaintHistoryTable.getValueAt(selectedRow, 2); // Get uniID
+            String uniID = (String) ComplaintHistoryTable.getValueAt(selectedRow, 1); // Get uniID
             
             // Load existing complaints
             ArrayList<Complaint> complaints = FileManager.LoadComplaints("complaint.txt");
@@ -225,7 +235,7 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
         int selectedRow = ComplaintHistoryTable.getSelectedRow();
         if (selectedRow != -1){
-            String uniID = (String) ComplaintHistoryTable.getValueAt(selectedRow, 2); // Get uniID
+            String uniID = (String) ComplaintHistoryTable.getValueAt(selectedRow, 1); // Get uniID
             String updatedInfo = ComplaintInfoText.getText().trim(); // Get updated complaint info
             
             if(updatedInfo.isEmpty()){
@@ -289,6 +299,7 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ComplaintHistoryTable;
     private javax.swing.JTextArea ComplaintInfoText;
+    private javax.swing.JLabel CutomerIDLabel;
     private javax.swing.JButton DeleteButton;
     private javax.swing.JLabel DetailsLable;
     private javax.swing.JButton ReturnButton;
