@@ -14,12 +14,13 @@
             <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Pages/Vendor/ManageItemFrame.java</file>
         </group>
         <group>
-            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/Pages/Customer/CustomerComplaint.java</file>
-            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/complaint.txt</file>
             <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/Models/Customer.java</file>
-            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/Pages/Customer/CustomerComplaintHistory.java</file>
-            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/Records/Complaint.java</file>
+            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/Pages/Vendor/ViewOrderFrame.java</file>
+            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/vendorReviews.txt</file>
+            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/orders.txt</file>
             <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/FileManager/FileManager.java</file>
+            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/foodItems.txt</file>
+            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/Records/Review.java</file>
         </group>
     </open-files>
 </project-private>

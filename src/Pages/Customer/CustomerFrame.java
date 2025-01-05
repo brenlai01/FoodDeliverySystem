@@ -227,7 +227,8 @@ public class CustomerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_CheckTransactionHistoryButtonActionPerformed
 
     private void CheckOrderHistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckOrderHistoryButtonActionPerformed
-        // TODO add your handling code here:
+        new CustomerOrderHistory() .setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_CheckOrderHistoryButtonActionPerformed
 
     private void CancelOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelOrderButtonActionPerformed

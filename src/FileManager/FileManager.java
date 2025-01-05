@@ -348,6 +348,13 @@ public class FileManager {
         }
     }
     
+    
+    // Method to generate a  reorder ID
+    public static String getNewOrderID() {
+        return "O" + System.currentTimeMillis(); // Simple unique ID based on current time
+    }
+    
+    
     // Method to load existing deliveries to an ArrayList from deliveries.txt
     public static ArrayList<Delivery> loadDeliveries(String filepath) {
         ArrayList<Delivery> deliveries = new ArrayList<>();

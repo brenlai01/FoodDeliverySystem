@@ -4,6 +4,13 @@
  */
 package Pages.Customer;
 
+import FileManager.*;
+import Records.*;
+import java.io.*;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author User
@@ -15,6 +22,43 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
      */
     public CustomerOrderHistory() {
         initComponents();
+//        OrderHistoryTable.addMouseListener(new java.awt.event.MouseAdapter() {
+//            public void mouseClicked(java.awt.event.MouseEvent evt) {
+//            }
+//        });
+        refreshData();
+    }
+    
+    public void refreshData() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) OrderHistoryTable.getModel();
+            model.setRowCount(0); // Clear existing data
+            
+            String orderFile = "orders.txt"; // Change to your orders file path
+            FileReader fr = new FileReader(orderFile);
+            BufferedReader br = new BufferedReader(fr);
+            String read;
+            
+            String loggedInCustomerId = CurrentUser .getLoggedInUser ().getUid(); // Get the logged-in customer ID
+            
+            while ((read = br.readLine()) != null) {
+                String[] data = read.split(":");
+                if (data.length == 9) { // Ensure it matches the expected number of fields in orders.txt
+                    if (data[1].equals(loggedInCustomerId)) { // Check if the order belongs to the logged-in customer
+                        String[] orderData = {
+                            data[3], // Food Name (assuming it's the 4th field)
+                            data[5], // Price (assuming it's the 6th field)
+                            data[4], // Order Type (assuming it's the 5th field)
+                            data[6]  // Order Date (assuming it's the 7th field)
+                        };
+                        model.addRow(orderData);
+                    }
+                }
+            }
+             br.close();
+        }catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error reading order data: " + e.getMessage());
+        }
     }
 
     /**
@@ -26,21 +70,176 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        OrderHistoryLabel = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        OrderHistoryLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        OrderHistoryTable = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        ReviewLabel = new javax.swing.JLabel();
+        ReorderButton = new javax.swing.JButton();
+        SubmitReviewButton = new javax.swing.JButton();
+        ClearReviewButton = new javax.swing.JButton();
+        ReturnButton = new javax.swing.JButton();
+
+        OrderHistoryLabel.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        OrderHistoryLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        OrderHistoryLabel.setText("Order History");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        OrderHistoryLabel1.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        OrderHistoryLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        OrderHistoryLabel1.setText("Order History");
+
+        OrderHistoryTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Food Name", "Price", "Order Type", "Order Time"
+            }
+        ));
+        jScrollPane1.setViewportView(OrderHistoryTable);
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
+
+        ReviewLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ReviewLabel.setText("Review:");
+
+        ReorderButton.setText("Reorder");
+        ReorderButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReorderButtonActionPerformed(evt);
+            }
+        });
+
+        SubmitReviewButton.setText("Submit");
+
+        ClearReviewButton.setText("Clear");
+
+        ReturnButton.setText("Return");
+        ReturnButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReturnButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(OrderHistoryLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ReorderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2)
+                            .addComponent(ReviewLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(ClearReviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
+                                .addComponent(SubmitReviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 55, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(OrderHistoryLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(ReviewLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                    .addComponent(ReorderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ClearReviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SubmitReviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ReorderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReorderButtonActionPerformed
+        int selectedRow = OrderHistoryTable.getSelectedRow();
+        
+        // Check if a row is selected
+        if (selectedRow != -1) {
+            // Retrieve order details from the selected row
+            String foodName = (String) OrderHistoryTable.getValueAt(selectedRow, 0);
+            double price = (Double) OrderHistoryTable.getValueAt(selectedRow, 1);
+            String orderType = (String) OrderHistoryTable.getValueAt(selectedRow, 2);
+            
+            // Create a new order item with quantity set to 1
+            OrderItem newItem = new OrderItem(foodName, 1, price); // Assuming quantity is 1
+            ArrayList<OrderItem> items = new ArrayList<>();
+            items.add(newItem);
+            
+            // Generate a new order ID
+            String newOrderID = FileManager.getNewOrderID(); // Ensure this method exists
+            
+            // Create a new order object
+            Order newOrder = new Order(
+                newOrderID,
+                CurrentUser .getLoggedInUser ().getUid(), // Get the current customer's ID
+                "VendorID", // Replace with actual vendor ID if available
+                items,
+                orderType,
+                price,
+                FileManager.getDateTime(), // Get the current date and time
+                "Pending", // Set initial vendor status
+                "Unassigned" // Set initial delivery status
+            );
+        
+            // Append the new order to the orders.txt file
+            FileManager.addNewOrder("orders.txt", newOrder); // Append the order to the file
+
+            // Show a success message to the user
+            JOptionPane.showMessageDialog(null, "Order placed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            // Show an error message if no order is selected
+            JOptionPane.showMessageDialog(null, "Please select an order to reorder.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_ReorderButtonActionPerformed
+
+    private void ReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnButtonActionPerformed
+        new CustomerFrame().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ReturnButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +278,17 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ClearReviewButton;
+    private javax.swing.JLabel OrderHistoryLabel;
+    private javax.swing.JLabel OrderHistoryLabel1;
+    private javax.swing.JTable OrderHistoryTable;
+    private javax.swing.JButton ReorderButton;
+    private javax.swing.JButton ReturnButton;
+    private javax.swing.JLabel ReviewLabel;
+    private javax.swing.JButton SubmitReviewButton;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
