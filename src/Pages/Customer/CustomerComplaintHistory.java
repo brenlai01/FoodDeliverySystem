@@ -30,14 +30,20 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
                 ComplaintHistoryTableMouseClicked(evt);
             }
         });
-        CutomerIDLabel.setText("Customer ID: " + CurrentUser.getLoggedInUser().getUid());
+        // set the customer ID
+        String customerID = CurrentUser .getLoggedInUser ().getUid();
+        CutomerIDLabel.setText("Customer ID: " + customerID);
+        // set the complaint ID
+        String complaintFilePath = "complaint.txt";
+        String complaintID = FileManager.getComplaintIDForCustomer(customerID, complaintFilePath);
+        ComplaintIDLabel.setText("Complains ID: " + complaintID);
         refreshData();
     }
 
     private void ComplaintHistoryTableMouseClicked(java.awt.event.MouseEvent evt) {                                      
         int selectedRow = ComplaintHistoryTable.getSelectedRow();
         if (selectedRow != -1) {
-            ComplaintInfoText.setText((String) ComplaintHistoryTable.getValueAt(selectedRow, 2));
+            ComplaintInfoText.setText((String) ComplaintHistoryTable.getValueAt(selectedRow, 1));
         }
     }
 
@@ -58,7 +64,6 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
                 if (data.length == 4) {
                     if (data[0].equals(loggedInCustomerId)) {
                         String[] complaintData = {
-                            data[1],
                             data[2],
                             data[3]
                         };
@@ -93,6 +98,7 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
         ComplaintInfoText = new javax.swing.JTextArea();
         DetailsLable = new javax.swing.JLabel();
         CutomerIDLabel = new javax.swing.JLabel();
+        ComplaintIDLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,7 +118,7 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Complains ID", "Unique ID", "Details"
+                "ID", "Details"
             }
         ));
         jScrollPane1.setViewportView(ComplaintHistoryTable);
@@ -140,6 +146,8 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
 
         CutomerIDLabel.setText("Customer ID:");
 
+        ComplaintIDLabel.setText("Complains ID:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -159,25 +167,30 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(DetailsLable)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(CutomerIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(160, 160, 160))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(DetailsLable)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(CutomerIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ComplaintIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(CutomerIDLabel)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CutomerIDLabel)
+                    .addComponent(ComplaintIDLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -217,7 +230,7 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
     private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
         int selectedRow = ComplaintHistoryTable.getSelectedRow();
         if (selectedRow != -1) {
-            String uniID = (String) ComplaintHistoryTable.getValueAt(selectedRow, 1); // Get uniID
+            String uniID = (String) ComplaintHistoryTable.getValueAt(selectedRow, 0); // Get uniID
             
             // Load existing complaints
             ArrayList<Complaint> complaints = FileManager.LoadComplaints("complaint.txt");
@@ -235,7 +248,7 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
         int selectedRow = ComplaintHistoryTable.getSelectedRow();
         if (selectedRow != -1){
-            String uniID = (String) ComplaintHistoryTable.getValueAt(selectedRow, 1); // Get uniID
+            String uniID = (String) ComplaintHistoryTable.getValueAt(selectedRow, 0); // Get uniID
             String updatedInfo = ComplaintInfoText.getText().trim(); // Get updated complaint info
             
             if(updatedInfo.isEmpty()){
@@ -298,6 +311,7 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ComplaintHistoryTable;
+    private javax.swing.JLabel ComplaintIDLabel;
     private javax.swing.JTextArea ComplaintInfoText;
     private javax.swing.JLabel CutomerIDLabel;
     private javax.swing.JButton DeleteButton;

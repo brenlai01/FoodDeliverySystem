@@ -350,8 +350,35 @@ public class FileManager {
     
     
     // Method to generate a  reorder ID
-    public static String getNewOrderID() {
-        return "O" + System.currentTimeMillis(); // Simple unique ID based on current time
+    public static String getReOrderID(String filepath) {
+        int lastOrderID = 0;
+        
+        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(":");
+                if (parts.length > 0) {
+                    String orderID = parts[0];
+                    int orderNum = Integer.parseInt(orderID.substring(1));
+                    if (orderNum > lastOrderID) {
+                        lastOrderID = orderNum;
+                    }
+                }
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "O" + (lastOrderID + 1);
+    }
+    
+    //for reorder part    
+    public static void addReOrder(String filepath, String orderDetails) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath, true))) {
+            bw.write(orderDetails);
+            bw.newLine();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     
@@ -542,5 +569,80 @@ public class FileManager {
         }
         return "CU" + String.format("%02d", maxID + 1); // Generate new ID
     }
+    
+    //Review part
+    //Load review function
+    public static ArrayList<Review> loadReviews(String filepath) {
+        ArrayList<Review> reviews = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(":");
+                if (parts.length == 5) {
+                    String customerID = parts[0];
+                    String reviewID = parts[1];
+                    String vendorID = parts[2];
+                    String orderID = parts[3];
+                    String reviewInfo = parts[4];
+
+                    reviews.add(new Review(customerID, reviewID, vendorID, orderID, reviewInfo));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return reviews;
+    }
+    
+    //write review function
+    public static void writeReviews(String filepath, ArrayList<Review> reviews) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))) {
+            for (Review review : reviews) {
+                bw.write(review.toString());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void addNewReview(String filepath, Review review) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath, true))) {
+            // Write the review to the file
+            bw.write(review.toString());
+            bw.newLine(); // Add a new line after the review
+        } catch (IOException e) {
+            e.printStackTrace(); // Print the stack trace for any IO exceptions
+        }
+    }
+    
+    // Check reviewID exists or not
+    public static String getReviewIDForCustomer(String customerID, String filepath) {
+        ArrayList<Review> reviews = loadReviews(filepath); // Load existing reviews
+        for (Review review : reviews) {
+            if (review.getCustomerID().equals(customerID)) {
+                return review.getReviewID(); // Return existing reviewID
+            }
+        }
+        return generateNewReviewID(filepath); // Generate new ID if not exist
+    }
+    
+    // Generate new reviewID
+    private static String generateNewReviewID(String filepath) {
+        ArrayList<Review> reviews = loadReviews(filepath);
+        int maxID = 0;
+
+        for (Review review : reviews) {
+            String reviewID = review.getReviewID();
+            if (reviewID.startsWith("RV")) { // Assuming review IDs start with 'RV'
+                int id = Integer.parseInt(reviewID.substring(2)); // Extract numeric part of ID
+                if (id > maxID) {
+                    maxID = id; // Find the maximum ID
+                }
+            }
+        }
+        return "RV" + String.format("%02d", maxID + 1); // Generate new ID
+    }
+    
     
 }    
