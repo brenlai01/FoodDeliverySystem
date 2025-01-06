@@ -20,7 +20,7 @@ public class ManageItemFrame extends javax.swing.JFrame {
                 foodTableMouseClicked(evt);
             }
         });
-        vendorIDLabel.setText("Current Logged In Vendor ID: " + CurrentUser.getLoggedInUser().getUid()); // Set the vendor ID
+        vendorIDLabel.setText("Current Logged In Vendor ID: " + CurrentUser.getLoggedInUser().getUid());
         refreshData();
     }
     
@@ -346,7 +346,7 @@ public class ManageItemFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_createBtnActionPerformed
     private String generateNewFoodID() {
-        String lastFoodID = "F000"; // Default value in case no food items exist
+        String lastFoodID = "F000";
         try (BufferedReader br = new BufferedReader(new FileReader("foodItems.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -359,10 +359,9 @@ public class ManageItemFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
         }
 
-        // Extract the numeric part and increment it
-        String numericPart = lastFoodID.substring(1); // Remove the 'F' prefix
-        int newIdNumber = Integer.parseInt(numericPart) + 1; // Increment the number
-        return "F" + String.format("%03d", newIdNumber); // Format to F### (e.g., F003)
+        String numericPart = lastFoodID.substring(1);
+        int newIdNumber = Integer.parseInt(numericPart) + 1;
+        return "F" + String.format("%03d", newIdNumber);
     }
     private void searchTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTxtKeyReleased
         String searchText = searchTxt.getText().trim().toLowerCase();

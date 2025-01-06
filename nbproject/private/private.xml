@@ -23,8 +23,19 @@
             <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Pages/Vendor/ManageItemFrame.java</file>
         </group>
         <group>
-            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/Models/Customer.java</file>
-            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/FileManager/FileManager.java</file>
+            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Pages/Vendor/BadgeButton.java</file>
+            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/orders.txt</file>
+            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Pages/Vendor/ManageItemFrame.java</file>
+            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Pages/Customer/BadgeButton.java</file>
+            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/foodItems.txt</file>
+            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Records/Notification.java</file>
+            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Records/OrderItem.java</file>
+            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/notifications.txt</file>
+            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/transactions.txt</file>
+            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Pages/Vendor/ViewOrderFrame.java</file>
+            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Pages/Vendor/VendorFrame.java</file>
+            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Records/Order.java</file>
+            <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Pages/Customer/CustomerFrame.java</file>
         </group>
     </open-files>
 </project-private>
