@@ -1,6 +1,2 @@
-O1:C001:V002:Chicken Burger X 2 @ 8.0, Char Kuey Teow X 1 @ 10.0:Delivery:26.0:2025-01-07 14-36-14:Pending:Unassigned
-O2:C001:123:Chicken Burger X 2 @ 8.0, Char Kuey Teow X 1 @ 10.0:Delivery:26.0:2025-01-07 23-18-13:Pending:Unassigned
-O3:C002:V001:Laksa X 1 @ 11.0:Delivery:11.0:2025-01-07 23-23-07:Pending:Unassigned
-O4:C002:V001:Laksa X 1 @ 11.0:Delivery:11.0:2025-01-07 23-48-47:Pending:Unassigned
-O5:C002:V002:Char Kuey Teow X 1 @ 10.0:Delivery:10.0:2025-01-07 23-57-11:Pending:Unassigned
-O6:C002:V003:Chilli Pan Mee X 1 @ 12.0:Delivery:12.0:2025-01-08 00-02-57:Pending:Unassigned
+O1:C001:V001:Teh Tarik X 1 @ 4.0:Delivery:4.0:2025-01-08 03-00-28:Pending:Unassigned
+O2:C001:V003:Chilli Pan Mee X 1 @ 12.0:Delivery:12.0:2025-01-08 03-00-40:Pending:Unassigned

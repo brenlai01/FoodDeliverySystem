@@ -1,4 +1,2 @@
-DL1:O1:C001:5.0:buh street:Unassigned:PendingUnassigned:N/A
-DL1:O3:C002:5.0:123 street:Unassigned:PendingUnassigned:N/A
-DL1:O5:C002:5.0:123:Unassigned:PendingUnassigned:N/A
-DL1:O6:C002:5.0:13:Unassigned:PendingUnassigned:N/A
+DL1:O1:C001:5.0:asd:pending:unassigned:pending:N/A:N/A
+DL2:O2:C001:5.0:asd:pending:unassigned:pending:N/A:N/A

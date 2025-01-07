@@ -3,6 +3,9 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[740, 740]"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -26,7 +29,7 @@
     <Container class="javax.swing.JPanel" name="MainPanel">
       <Properties>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[630, 350]"/>
+          <Dimension value="[740, 700]"/>
         </Property>
         <Property name="requestFocusEnabled" type="boolean" value="false"/>
       </Properties>
@@ -416,7 +419,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Dine-in"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[90, 25]"/>
+                  <Dimension value="[100, 25]"/>
                 </Property>
               </Properties>
               <Events>
@@ -427,7 +430,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Take-away"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[90, 25]"/>
+                  <Dimension value="[100, 25]"/>
                 </Property>
               </Properties>
               <Events>
@@ -438,7 +441,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Delivery"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[90, 25]"/>
+                  <Dimension value="[100, 25]"/>
                 </Property>
               </Properties>
               <Events>

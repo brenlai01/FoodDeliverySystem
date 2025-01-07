@@ -73,8 +73,9 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         removeItemButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(740, 740));
 
-        MainPanel.setPreferredSize(new java.awt.Dimension(630, 350));
+        MainPanel.setPreferredSize(new java.awt.Dimension(740, 700));
         MainPanel.setRequestFocusEnabled(false);
         MainPanel.setLayout(new java.awt.BorderLayout());
 
@@ -177,7 +178,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         });
 
         dineInButton.setText("Dine-in");
-        dineInButton.setPreferredSize(new java.awt.Dimension(90, 25));
+        dineInButton.setPreferredSize(new java.awt.Dimension(100, 25));
         dineInButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dineInButtonActionPerformed(evt);
@@ -185,7 +186,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         });
 
         takeAwayButton.setText("Take-away");
-        takeAwayButton.setPreferredSize(new java.awt.Dimension(90, 25));
+        takeAwayButton.setPreferredSize(new java.awt.Dimension(100, 25));
         takeAwayButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 takeAwayButtonActionPerformed(evt);
@@ -193,7 +194,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         });
 
         deliveryButton.setText("Delivery");
-        deliveryButton.setPreferredSize(new java.awt.Dimension(90, 25));
+        deliveryButton.setPreferredSize(new java.awt.Dimension(100, 25));
         deliveryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deliveryButtonActionPerformed(evt);
@@ -787,27 +788,11 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         return "O" + (lastOrderID + 1);
     }
     
-    private String generateDeliveryID() {
-        ArrayList<Delivery> deliveries = FileManager.loadDeliveries("deliveries.txt");
-        int lastDeliveryID = 0;
-        
-        for (Delivery delivery : deliveries) {
-            String deliveryID = delivery.getDeliveryID();
-            int deliveryNum = Integer.parseInt(deliveryID.substring(2));
-            
-            if (deliveryNum > lastDeliveryID) {
-                lastDeliveryID = deliveryNum;
-            }
-        }
-        return "DL" + (lastDeliveryID + 1);
-    }
-    
     // Method to create delivery record if customer choose delivery option
     // Called when placeOrderButton is clicked
     private boolean handleDelivery(Order order, double deliveryCharges) {
-        ArrayList<Delivery> deliveries = FileManager.loadDeliveries("deliveries.txt");
         
-        String deliveryID = generateDeliveryID();
+        String deliveryID = FileManager.generateDeliveryID();
         String deliveryAddress = JOptionPane.showInputDialog(null, "Please enter delivery address:", "Delivery Address", JOptionPane.QUESTION_MESSAGE);
         
         if (deliveryAddress == null || deliveryAddress.isEmpty()) {
@@ -815,10 +800,9 @@ public class ViewMenuFrame extends javax.swing.JFrame {
             return false;
         }
         
-        Delivery delivery = new Delivery(deliveryID, order.getOrderID(), order.getCustomerID(), deliveryCharges, deliveryAddress, "Unassigned", "Pending", "Pending", "Unassigned", "N/A");
+        Delivery delivery = new Delivery(deliveryID, order.getOrderID(), order.getCustomerID(), deliveryCharges, deliveryAddress, "pending", "unassigned", "pending", "N/A", "N/A");
+        FileManager.appendDeliveries("deliveries.txt", delivery);
         
-        deliveries.add(delivery);
-        FileManager.writeDeliveries("deliveries.txt", deliveries);
         return true;
     }
     

@@ -412,15 +412,15 @@ public class FileManager {
             String line;
             while((line = br.readLine()) != null) {
                 String[] parts = line.split(":");
-                if (parts.length == 9) {
+                if (parts.length == 10) {
                     String deliveryID = parts[0];
                     String orderID = parts[1];
                     String customerID = parts[2];
                     double deliveryCharges = Double.parseDouble(parts[3]);
                     String address = parts[4];
-                    String runnerStatus = parts[5];
-                    String deliveryStatus = parts[6];
-                    String vendorStatus = parts[7]; 
+                    String vendorStatus = parts[5];
+                    String runnerStatus = parts[6];
+                    String deliveryStatus = parts[7]; 
                     String deliveryRunnerID = parts[8];
                     String deliveredTime = parts[9];
                     deliveries.add(new Delivery(deliveryID, orderID, customerID, deliveryCharges, address, runnerStatus, vendorStatus, deliveryStatus, deliveryRunnerID, deliveredTime));
@@ -436,22 +436,37 @@ public class FileManager {
     // Called when a newly created delivery needs to be written into deliveries.txt
     // or when updated runnerStatus, deliveryStatus and deliveryRunnerID in deliveries.txt
     // e.g. runnerStatus: Unassigned -> Accepted
-    public static void writeDeliveries(String filepath, ArrayList<Delivery> deliveries) {
+    public static void appendDeliveries(String filepath, Delivery delivery) {
         
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(filepath, true))) {
-            for (Delivery delivery : deliveries) {
-                String line = delivery.getDeliveryID() + ":" + delivery.getOrderID() 
-                        + ":" + delivery.getCustomerID() + ":" + delivery.getDeliveryCharges() 
-                        + ":" + delivery.getAddress() + ":" + delivery.getRunnerStatus()
-                        + ":" + delivery.getDeliveryStatus() + delivery.getDeliveryRunnerID()
-                        + ":" + delivery.getDeliveredTime();
-                bw.write(line);
-                bw.newLine();
-            }
-            
+           
+            String line = delivery.getDeliveryID() + ":" + delivery.getOrderID() 
+                    + ":" + delivery.getCustomerID() + ":" + delivery.getDeliveryCharges() 
+                    + ":" + delivery.getAddress() + ":" + delivery.getRunnerStatus()
+                    + ":" + delivery.getVendorStatus() + ":" + delivery.getDeliveryStatus() 
+                    + ":" + delivery.getDeliveryRunnerID() + ":" + delivery.getDeliveredTime();
+            bw.write(line);
+            bw.newLine();
         } catch (IOException e){
             e.printStackTrace();
         }
+    }
+    
+    // Method to generate new DeliveryID
+    public static String generateDeliveryID() {
+    
+        ArrayList<Delivery> deliveries = FileManager.loadDeliveries("deliveries.txt");
+        int lastDeliveryID = 0;
+        
+        for (Delivery delivery : deliveries) {
+            String deliveryID = delivery.getDeliveryID();
+            int deliveryNum = Integer.parseInt(deliveryID.substring(2));
+            
+            if (deliveryNum > lastDeliveryID) {
+                lastDeliveryID = deliveryNum;
+            }
+        }
+        return "DL" + (lastDeliveryID + 1);
     }
     
     // Method to load existing notifications
