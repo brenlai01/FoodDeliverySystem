@@ -17,6 +17,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
     public ViewMenuFrame() {
         this.customer = (Customer) CurrentUser.getLoggedInUser();
         initComponents();
+        BalanceLabel.setText("Balance: " + CurrentUser.getLoggedInUser().getBalance());
         loadVendorList();
         setupOrderSummaryTable();
         setOrderSummaryTableeSelectionListener();
@@ -35,6 +36,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         MainPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         Admin = new javax.swing.JLabel();
+        BalanceLabel = new javax.swing.JLabel();
         UserPanel = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         searchField = new javax.swing.JTextField();
@@ -71,7 +73,6 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         removeItemButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(900, 750));
 
         MainPanel.setPreferredSize(new java.awt.Dimension(630, 350));
         MainPanel.setRequestFocusEnabled(false);
@@ -86,6 +87,9 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         Admin.setPreferredSize(new java.awt.Dimension(400, 25));
         Admin.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
+        BalanceLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BalanceLabel.setText("Balance: ");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -93,11 +97,17 @@ public class ViewMenuFrame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Admin, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(481, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 371, Short.MAX_VALUE)
+                .addComponent(BalanceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Admin, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BalanceLabel)
+                .addContainerGap())
         );
 
         MainPanel.add(jPanel2, java.awt.BorderLayout.NORTH);
@@ -260,7 +270,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
                 .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(UserPanelLayout.createSequentialGroup()
                         .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserPanelLayout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -385,7 +395,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
                             .addComponent(jLabel8))
                         .addGap(27, 27, 27)
                         .addComponent(addToOrderButton)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         MainPanel.add(UserPanel, java.awt.BorderLayout.CENTER);
@@ -508,6 +518,8 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         FileManager.writeTxns("transactions.txt", txns);
         
         JOptionPane.showMessageDialog(null, "Order placed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        
+        BalanceLabel.setText("Balance: " + CurrentUser.getLoggedInUser().getBalance());
         
         orderModel.setRowCount(0);
         extraChargesField.setText("0.00");
@@ -851,6 +863,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Admin;
+    private javax.swing.JLabel BalanceLabel;
     private javax.swing.JPanel MainPanel;
     private javax.swing.JPanel UserPanel;
     private javax.swing.JButton addToOrderButton;
