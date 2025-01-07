@@ -23,12 +23,17 @@
             <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Pages/Vendor/ManageItemFrame.java</file>
         </group>
         <group>
-            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/complaint.txt</file>
-            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/Models/Customer.java</file>
-            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/Pages/Vendor/ManageItemFrame.java</file>
-            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/Pages/Customer/CustomerComplaintHistory.java</file>
-            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/FileManager/FileManager.java</file>
-            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/Records/Complaint.java</file>
+            <file>file:/C:/Users/brenl/APU/JavaNetbeans/FoodDeliverySystem/orders.txt</file>
+            <file>file:/C:/Users/brenl/APU/JavaNetbeans/FoodDeliverySystem/src/Pages/Vendor/VendorFrame.java</file>
+            <file>file:/C:/Users/brenl/APU/JavaNetbeans/FoodDeliverySystem/transactions.txt</file>
+            <file>file:/C:/Users/brenl/APU/JavaNetbeans/FoodDeliverySystem/src/Records/Delivery.java</file>
+            <file>file:/C:/Users/brenl/APU/JavaNetbeans/FoodDeliverySystem/src/Records/Order.java</file>
+            <file>file:/C:/Users/brenl/APU/JavaNetbeans/FoodDeliverySystem/src/FileManager/FileManager.java</file>
+            <file>file:/C:/Users/brenl/APU/JavaNetbeans/FoodDeliverySystem/src/Pages/Vendor/ViewOrderFrame.java</file>
+            <file>file:/C:/Users/brenl/APU/JavaNetbeans/FoodDeliverySystem/src/Records/OrderItem.java</file>
+            <file>file:/C:/Users/brenl/APU/JavaNetbeans/FoodDeliverySystem/deliveries.txt</file>
+            <file>file:/C:/Users/brenl/APU/JavaNetbeans/FoodDeliverySystem/src/FileManager/CurrentUser.java</file>
+            <file>file:/C:/Users/brenl/APU/JavaNetbeans/FoodDeliverySystem/src/Pages/Customer/ViewMenuFrame.java</file>
         </group>
     </open-files>
 </project-private>

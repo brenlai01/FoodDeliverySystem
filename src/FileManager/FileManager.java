@@ -398,9 +398,10 @@ public class FileManager {
                     String address = parts[4];
                     String runnerStatus = parts[5];
                     String deliveryStatus = parts[6];
-                    String deliveryRunnerID = parts[7];
-                    String deliveredTime = parts[8];
-                    deliveries.add(new Delivery(deliveryID, orderID, customerID, deliveryCharges, address, runnerStatus, deliveryStatus, deliveryRunnerID, deliveredTime));
+                    String vendorStatus = parts[7]; 
+                    String deliveryRunnerID = parts[8];
+                    String deliveredTime = parts[9];
+                    deliveries.add(new Delivery(deliveryID, orderID, customerID, deliveryCharges, address, runnerStatus, vendorStatus, deliveryStatus, deliveryRunnerID, deliveredTime));
                 }
             }
         } catch (IOException e) {
@@ -463,7 +464,7 @@ public class FileManager {
             for (Notification notification : notifications) {
                 String line = String.join(":", 
                     notification.getNotificationID(),
-                    notification.getCustomerID(),
+                    notification.getUserID(),
                     notification.getMessage(),
                     notification.getDateTime(),
                     notification.getStatus()

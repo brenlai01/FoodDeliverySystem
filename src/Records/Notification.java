@@ -2,14 +2,14 @@ package Records;
 
 public class Notification {
     private String notificationID;
-    private String customerID;
+    private String userID;
     private String message; // For customer: order updates, top up, delivery updates.
     private String dateTime;
     private String status; // read or unread
     
-    public Notification(String nid, String cid, String msg, String dateTime, String status) {
+    public Notification(String nid, String uid, String msg, String dateTime, String status) {
         this.setNotificationID(nid);
-        this.setCustomerID(cid);
+        this.setUserID(uid);
         this.setMessage(msg);
         this.setDateTime(dateTime);
         this.setStatus(status);
@@ -22,11 +22,11 @@ public class Notification {
         this.notificationID = nid;
     }
     
-    public String getCustomerID() {
-        return customerID;
+    public String getUserID() {
+        return userID;
     }
-    public void setCustomerID(String cid) {
-        this.customerID = cid;
+    public void setUserID(String cid) {
+        this.userID = cid;
     }
     
     public String getMessage() {

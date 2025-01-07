@@ -291,7 +291,7 @@ public class VendorFrame extends javax.swing.JFrame {
         notificationPanel.add(newHeader);
         
         for (Notification notification : notifications) {
-            if (notification.getCustomerID().equals(vendorID) && notification.getStatus().equalsIgnoreCase("Unread")) {
+            if (notification.getUserID().equals(vendorID) && notification.getStatus().equalsIgnoreCase("Unread")) {
                 JLabel notificationLabel = new JLabel(
                     String.format("<html><b>%s</b><br>%s</html>", notification.getMessage(), notification.getDateTime())
                 );
@@ -300,7 +300,7 @@ public class VendorFrame extends javax.swing.JFrame {
                 notificationPanel.add(notificationLabel);
                 notification.setStatus("Read"); 
                 hasUnread = true;
-            } else if (notification.getCustomerID().equals(vendorID) && notification.getStatus().equalsIgnoreCase("Read")) {
+            } else if (notification.getUserID().equals(vendorID) && notification.getStatus().equalsIgnoreCase("Read")) {
                 JLabel notificationLabel = new JLabel(
                     String.format("<html><b>%s</b><br>%s</html>", notification.getMessage(), notification.getDateTime())
                 );
@@ -330,7 +330,7 @@ public class VendorFrame extends javax.swing.JFrame {
 
         int unreadCount = 0;
         for (Notification notification : notifications) {
-            if (notification.getCustomerID().equals(vendorID) && notification.getStatus().equalsIgnoreCase("Unread")) {
+            if (notification.getUserID().equals(vendorID) && notification.getStatus().equalsIgnoreCase("Unread")) {
                 unreadCount++;
             }
         }

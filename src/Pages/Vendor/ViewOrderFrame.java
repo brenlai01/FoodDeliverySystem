@@ -1,10 +1,12 @@
 package Pages.Vendor;
 
 import FileManager.*;
+import Records.Order;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -291,6 +293,7 @@ public class ViewOrderFrame extends javax.swing.JFrame {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error updating order status: " + e.getMessage());
         }
+        
     }//GEN-LAST:event_acceptBtnActionPerformed
 
     private void rejectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectBtnActionPerformed

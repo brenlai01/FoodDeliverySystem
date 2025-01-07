@@ -803,7 +803,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
             return false;
         }
         
-        Delivery delivery = new Delivery(deliveryID, order.getOrderID(), order.getCustomerID(), deliveryCharges, deliveryAddress, "Unassigned", "Pending", "Unassigned", "N/A");
+        Delivery delivery = new Delivery(deliveryID, order.getOrderID(), order.getCustomerID(), deliveryCharges, deliveryAddress, "Unassigned", "Pending", "Pending", "Unassigned", "N/A");
         
         deliveries.add(delivery);
         FileManager.writeDeliveries("deliveries.txt", deliveries);
