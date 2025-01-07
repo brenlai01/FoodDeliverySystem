@@ -43,6 +43,7 @@ public class VendorFrame extends javax.swing.JFrame {
         ViewRevenueBtn = new javax.swing.JButton();
         ViewRevenueLbl = new javax.swing.JLabel();
         LogOutBtn = new javax.swing.JButton();
+        notiBtn = new Pages.Vendor.BadgeButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -184,6 +185,13 @@ public class VendorFrame extends javax.swing.JFrame {
             }
         });
 
+        notiBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pages/Vendor/icon.png"))); // NOI18N
+        notiBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                notiBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -191,7 +199,10 @@ public class VendorFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(VenDashPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(VenDashPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(notiBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -212,7 +223,9 @@ public class VendorFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(VenDashPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(VenDashPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(notiBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(ViewOdr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -223,7 +236,7 @@ public class VendorFrame extends javax.swing.JFrame {
                     .addComponent(ViewRevenuePnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(15, 15, 15)
                 .addComponent(LogOutBtn)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -243,6 +256,10 @@ public class VendorFrame extends javax.swing.JFrame {
         new ViewOrderFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ViewOdrBtnActionPerformed
+
+    private void notiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notiBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_notiBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -296,5 +313,6 @@ public class VendorFrame extends javax.swing.JFrame {
     private javax.swing.JButton ViewRevenueBtn;
     private javax.swing.JLabel ViewRevenueLbl;
     private javax.swing.JPanel ViewRevenuePnl;
+    private Pages.Vendor.BadgeButton notiBtn;
     // End of variables declaration//GEN-END:variables
 }

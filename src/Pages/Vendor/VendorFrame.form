@@ -26,7 +26,11 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="VenDashPanel" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="VenDashPanel" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="notiBtn" min="-2" pref="97" max="-2" attributes="0"/>
+                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -54,7 +58,10 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="VenDashPanel" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="VenDashPanel" min="-2" max="-2" attributes="0"/>
+                  <Component id="notiBtn" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="ViewOdr" max="32767" attributes="0"/>
@@ -67,7 +74,7 @@
               </Group>
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               <Component id="LogOutBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="24" max="32767" attributes="0"/>
+              <EmptySpace pref="15" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -281,6 +288,16 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LogOutBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="Pages.Vendor.BadgeButton" name="notiBtn">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Pages/Vendor/icon.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="notiBtnActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
