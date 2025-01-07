@@ -53,7 +53,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
             
             String loggedInCustomerId = CurrentUser .getLoggedInUser ().getUid(); // Get the logged-in customer ID
             
-            ArrayList<Review> reviewsList = loadReviews(reviewFile); // Load reviews from the reviews file
+            ArrayList<Review> reviews = FileManager.loadReviews(reviewFile); // Load reviews from the reviews file
             
             while ((read = br.readLine()) != null) {
                 String[] data = read.split(":");
@@ -63,7 +63,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
                         String reviewInfo = ""; // Default to empty string
                         
                         // Find the review for this order
-                        for (Review review : reviewsList) {
+                        for (Review review : reviews) {
                             if (review.getOrderID().equals(orderID)) {
                                 reviewInfo = review.getReviewInfo(); // Get the review info
                                 break; // Exit the loop once the review is found
@@ -90,26 +90,26 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
     }
     
     // Method to load reviews from the reviews.txt file
-    private ArrayList<Review> loadReviews(String filepath) {
-        ArrayList<Review> reviewsList = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(":");
-                if (parts.length == 5) { // Assuming the format is customerID:reviewID:vendorID:orderID:reviewInfo
-                    String customerID = parts[0];
-                    String reviewID = parts[1];
-                    String vendorID = parts[2];
-                    String orderID = parts[3];
-                    String reviewInfo = parts[4];
-                    reviewsList.add(new Review(customerID, reviewID, vendorID, orderID, reviewInfo)); // Add to the list
-                }
-            }
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error reading review data: " + e.getMessage());
-        }
-        return reviewsList; // Return the list of reviews
-    }
+//    private ArrayList<Review> loadReviews(String filepath) {
+//        ArrayList<Review> reviewsList = new ArrayList<>();
+//        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+//            String line;
+//            while ((line = br.readLine()) != null) {
+//                String[] parts = line.split(":");
+//                if (parts.length == 5) { // Assuming the format is customerID:reviewID:vendorID:orderID:reviewInfo
+//                    String customerID = parts[0];
+//                    String reviewID = parts[1];
+//                    String vendorID = parts[2];
+//                    String orderID = parts[3];
+//                    String reviewInfo = parts[4];
+//                    reviewsList.add(new Review(customerID, reviewID, vendorID, orderID, reviewInfo)); // Add to the list
+//                }
+//            }
+//        } catch (IOException e) {
+//            JOptionPane.showMessageDialog(null, "Error reading review data: " + e.getMessage());
+//        }
+//        return reviewsList; // Return the list of reviews
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -234,11 +234,10 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
                                         .addGap(50, 50, 50)
                                         .addComponent(DeleteReviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(38, 38, 38)
-                                        .addComponent(SubmitReviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(SubmitReviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 9, Short.MAX_VALUE)))))
+                                        .addGap(0, 3, Short.MAX_VALUE)))))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -298,7 +297,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
             String orderType = (String) OrderHistoryTable.getValueAt(selectedRow, 2);
             String originalOrderTime = (String) OrderHistoryTable.getValueAt(selectedRow, 3);
             String customerID = CurrentUser .getLoggedInUser ().getUid();
-            String vendorID = (String) OrderHistoryTable.getValueAt(selectedRow, 4);
+            String vendorID = (String) OrderHistoryTable.getValueAt(selectedRow, 5);
             String vendorStatus = "Pending";
             String deliveryStatus = "Unassigned";
             String orderID = FileManager.getReOrderID("orders.txt");
@@ -316,6 +315,9 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
                     newOrderTime,
                     vendorStatus,
                     deliveryStatus);
+            
+            // Update customer balance
+            FileManager.updateCustomerBalance("orders.txt", CurrentUser .getLoggedInUser ().getUid(), price);
             
             // Append the new order to the orders.txt file
             FileManager.addReOrder("orders.txt", newOrder);
