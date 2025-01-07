@@ -1,1 +1,2 @@
-DL1:O2:C001:5.0:123 Street:Unassigned:PendingUnassigned:N/A
+DL1:O5:C001:5.0:123 street:Unassigned:PendingUnassigned:N/A
+DL1:O6:C002:5.0:123 street:Unassigned:PendingUnassigned:N/A

@@ -415,7 +415,7 @@ public class FileManager {
     // e.g. runnerStatus: Unassigned -> Accepted
     public static void writeDeliveries(String filepath, ArrayList<Delivery> deliveries) {
         
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))) {
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(filepath, true))) {
             for (Delivery delivery : deliveries) {
                 String line = delivery.getDeliveryID() + ":" + delivery.getOrderID() 
                         + ":" + delivery.getCustomerID() + ":" + delivery.getDeliveryCharges() 
