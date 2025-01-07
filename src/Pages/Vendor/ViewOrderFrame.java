@@ -241,18 +241,17 @@ public class ViewOrderFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_returnBtnActionPerformed
 
     private void acceptBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptBtnActionPerformed
-        String loggedInVendorId = CurrentUser.getLoggedInUser().getUid();
+        String loggedInVendorId = CurrentUser .getLoggedInUser ().getUid();
         int selectedRow = orderTable.getSelectedRow();
 
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Please select an order to accept.");
             return;
         }
-        
-        String orderID = orderIDTxt.getText().trim();
+
+        String orderID = orderIDTxt.getText().trim(); // Get the order ID from the text field
         String currentVendorID = orderTable.getValueAt(selectedRow, 2).toString();
         String vendorStatus = orderTable.getValueAt(selectedRow, 7).toString().toLowerCase();
-
 
         if (!vendorStatus.equals("pending")) {
             JOptionPane.showMessageDialog(this, "Only pending orders can be accepted.");
@@ -273,7 +272,7 @@ public class ViewOrderFrame extends javax.swing.JFrame {
                 String[] data = line.split(":");
                 if (data.length >= 8) {
                     if (data[0].equals(orderID) && data[2].equals(currentVendorID)) {
-                        data[7] = "Accepted";
+                        data[7] = "Accepted"; // Update vendor status to "Accepted"
                         line = String.join(":", data);
                         found = true;
                     }
@@ -282,10 +281,22 @@ public class ViewOrderFrame extends javax.swing.JFrame {
             }
 
             if (found) {
+                // Write the updated orders back to the file
                 try (FileWriter fw = new FileWriter("orders.txt")) {
                     fw.write(updatedData.toString());
                 }
                 JOptionPane.showMessageDialog(null, "Order has been accepted successfully!");
+
+                // Now update the delivery task associated with the accepted order
+                boolean deliveryUpdated = FileManager.acceptDeliveryTask(orderID, "Accepted"); // Call the method from FileManager
+
+                // Handle the result of the delivery update
+                if (deliveryUpdated) {
+                    JOptionPane.showMessageDialog(null, "Delivery task updated to accepted successfully.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No delivery task found for the accepted order ID.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
                 refreshData();
             } else {
                 JOptionPane.showMessageDialog(null, "Order ID not found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -297,18 +308,17 @@ public class ViewOrderFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_acceptBtnActionPerformed
 
     private void rejectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectBtnActionPerformed
-        String loggedInVendorId = CurrentUser.getLoggedInUser().getUid();
+        String loggedInVendorId = CurrentUser .getLoggedInUser ().getUid();
         int selectedRow = orderTable.getSelectedRow();
 
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Please select an order to reject.");
             return;
         }
-        
+
         String orderID = orderIDTxt.getText().trim();
         String currentVendorID = orderTable.getValueAt(selectedRow, 2).toString();
         String vendorStatus = orderTable.getValueAt(selectedRow, 7).toString().toLowerCase();
-
 
         if (!vendorStatus.equals("pending")) {
             JOptionPane.showMessageDialog(this, "Only pending orders can be rejected.");
@@ -342,6 +352,15 @@ public class ViewOrderFrame extends javax.swing.JFrame {
                     fw.write(updatedData.toString());
                 }
                 JOptionPane.showMessageDialog(null, "Order has been rejected successfully!");
+
+                boolean deliveryRemoved = FileManager.removeDeliveryTask(orderID);
+
+                if (deliveryRemoved) {
+                    JOptionPane.showMessageDialog(null, "Delivery task removed successfully.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No delivery task found for the rejected order ID.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
                 refreshData();
             } else {
                 JOptionPane.showMessageDialog(null, "Order ID not found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -350,7 +369,7 @@ public class ViewOrderFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error updating order status: " + e.getMessage());
         }
     }//GEN-LAST:event_rejectBtnActionPerformed
-
+    
     private void searchTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTxtKeyReleased
         String searchText = searchTxt.getText().trim().toLowerCase();
         DefaultTableModel model = (DefaultTableModel) orderTable.getModel();
