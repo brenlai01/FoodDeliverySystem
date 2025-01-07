@@ -3,6 +3,9 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[840, 494]"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -24,8 +27,8 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane1" min="-2" pref="784" max="-2" attributes="0"/>
@@ -44,19 +47,15 @@
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="276" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="assignBtn" min="-2" pref="93" max="-2" attributes="0"/>
-                          <Component id="acceptBtn" min="-2" pref="93" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="rejectBtn" alignment="1" min="-2" pref="93" max="-2" attributes="0"/>
-                          <Component id="returnBtn" alignment="1" min="-2" pref="93" max="-2" attributes="0"/>
-                      </Group>
+                      <EmptySpace min="-2" pref="226" max="-2" attributes="0"/>
+                      <Component id="acceptBtn" min="-2" pref="93" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                      <Component id="rejectBtn" min="-2" pref="93" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                      <Component id="returnBtn" min="-2" pref="93" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+              <EmptySpace pref="28" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -79,15 +78,11 @@
               <Component id="jScrollPane1" min="-2" pref="230" max="-2" attributes="0"/>
               <EmptySpace pref="46" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="acceptBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="rejectBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="assignBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="acceptBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="returnBtn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -250,14 +245,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Current Logged In Vendor ID: "/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="assignBtn">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Assign"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="assignBtnActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
