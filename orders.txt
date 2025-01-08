@@ -1,4 +1,2 @@
-O1:C001:V003:Chilli Pan Mee X 1 @ 12.0:Delivery:12.0:2024-12-16 19-16-39:Pending:Unassigned
-O2:C001:V003:Chilli Pan Mee X 1 @ 12.0:Delivery:12.0:2024-12-16 20-03-07:Pending:Unassigned
-O3:C001:V003:Chilli Pan Mee X 1 @ 12.0:Delivery:12.0:2025-01-07 00-06-18:Pending:Unassigned
-O4:C001:V003:Chilli Pan Mee X 1 @ 12.0:Delivery:12.0:2025-01-07 00-21-49:Pending:Unassigned
+O1:C001:V001:Teh Tarik X 1 @ 4.0:Delivery:4.0:2025-01-08 03-00-28:Pending:Unassigned
+O2:C001:V003:Chilli Pan Mee X 1 @ 12.0:Delivery:12.0:2025-01-08 03-00-40:Pending:Unassigned

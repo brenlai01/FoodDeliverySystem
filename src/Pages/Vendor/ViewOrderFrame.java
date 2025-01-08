@@ -1,10 +1,12 @@
 package Pages.Vendor;
 
 import FileManager.*;
+import Records.Order;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -90,11 +92,11 @@ public class ViewOrderFrame extends javax.swing.JFrame {
         rejectBtn = new javax.swing.JButton();
         returnBtn = new javax.swing.JButton();
         vendorIDLabel = new javax.swing.JLabel();
-        assignBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         orderIDTxt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(840, 494));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("View Order Dashboard");
@@ -176,13 +178,6 @@ public class ViewOrderFrame extends javax.swing.JFrame {
         vendorIDLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         vendorIDLabel.setText("Current Logged In Vendor ID: ");
 
-        assignBtn.setText("Assign");
-        assignBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assignBtnActionPerformed(evt);
-            }
-        });
-
         jLabel3.setText("Order ID:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -190,7 +185,7 @@ public class ViewOrderFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,16 +200,14 @@ public class ViewOrderFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(orderIDTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(vendorIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(276, 276, 276)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(assignBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(acceptBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(102, 102, 102)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rejectBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(returnBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(28, 28, 28))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(226, 226, 226)
+                        .addComponent(acceptBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65)
+                        .addComponent(rejectBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65)
+                        .addComponent(returnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,13 +226,10 @@ public class ViewOrderFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rejectBtn)
                     .addComponent(acceptBtn)
-                    .addComponent(rejectBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(assignBtn)
                     .addComponent(returnBtn))
-                .addGap(25, 25, 25))
+                .addGap(60, 60, 60))
         );
 
         pack();
@@ -251,18 +241,17 @@ public class ViewOrderFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_returnBtnActionPerformed
 
     private void acceptBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptBtnActionPerformed
-        String loggedInVendorId = CurrentUser.getLoggedInUser().getUid();
+        String loggedInVendorId = CurrentUser .getLoggedInUser ().getUid();
         int selectedRow = orderTable.getSelectedRow();
 
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Please select an order to accept.");
             return;
         }
-        
-        String orderID = orderIDTxt.getText().trim();
+
+        String orderID = orderIDTxt.getText().trim(); // Get the order ID from the text field
         String currentVendorID = orderTable.getValueAt(selectedRow, 2).toString();
         String vendorStatus = orderTable.getValueAt(selectedRow, 7).toString().toLowerCase();
-
 
         if (!vendorStatus.equals("pending")) {
             JOptionPane.showMessageDialog(this, "Only pending orders can be accepted.");
@@ -283,7 +272,7 @@ public class ViewOrderFrame extends javax.swing.JFrame {
                 String[] data = line.split(":");
                 if (data.length >= 8) {
                     if (data[0].equals(orderID) && data[2].equals(currentVendorID)) {
-                        data[7] = "Accepted";
+                        data[7] = "Accepted"; // Update vendor status to "Accepted"
                         line = String.join(":", data);
                         found = true;
                     }
@@ -292,10 +281,22 @@ public class ViewOrderFrame extends javax.swing.JFrame {
             }
 
             if (found) {
+                // Write the updated orders back to the file
                 try (FileWriter fw = new FileWriter("orders.txt")) {
                     fw.write(updatedData.toString());
                 }
                 JOptionPane.showMessageDialog(null, "Order has been accepted successfully!");
+
+                // Now update the delivery task associated with the accepted order
+                boolean deliveryUpdated = FileManager.acceptDeliveryTask(orderID, "Accepted"); // Call the method from FileManager
+
+                // Handle the result of the delivery update
+                if (deliveryUpdated) {
+                    JOptionPane.showMessageDialog(null, "Delivery task updated to accepted successfully.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No delivery task found for the accepted order ID.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
                 refreshData();
             } else {
                 JOptionPane.showMessageDialog(null, "Order ID not found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -303,21 +304,21 @@ public class ViewOrderFrame extends javax.swing.JFrame {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error updating order status: " + e.getMessage());
         }
+        
     }//GEN-LAST:event_acceptBtnActionPerformed
 
     private void rejectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectBtnActionPerformed
-        String loggedInVendorId = CurrentUser.getLoggedInUser().getUid();
+        String loggedInVendorId = CurrentUser .getLoggedInUser ().getUid();
         int selectedRow = orderTable.getSelectedRow();
 
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Please select an order to reject.");
             return;
         }
-        
+
         String orderID = orderIDTxt.getText().trim();
         String currentVendorID = orderTable.getValueAt(selectedRow, 2).toString();
         String vendorStatus = orderTable.getValueAt(selectedRow, 7).toString().toLowerCase();
-
 
         if (!vendorStatus.equals("pending")) {
             JOptionPane.showMessageDialog(this, "Only pending orders can be rejected.");
@@ -351,6 +352,15 @@ public class ViewOrderFrame extends javax.swing.JFrame {
                     fw.write(updatedData.toString());
                 }
                 JOptionPane.showMessageDialog(null, "Order has been rejected successfully!");
+
+                boolean deliveryRemoved = FileManager.removeDeliveryTask(orderID);
+
+                if (deliveryRemoved) {
+                    JOptionPane.showMessageDialog(null, "Delivery task removed successfully.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No delivery task found for the rejected order ID.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
                 refreshData();
             } else {
                 JOptionPane.showMessageDialog(null, "Order ID not found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -359,56 +369,7 @@ public class ViewOrderFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error updating order status: " + e.getMessage());
         }
     }//GEN-LAST:event_rejectBtnActionPerformed
-
-    private void assignBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignBtnActionPerformed
-        int selectedRow = orderTable.getSelectedRow();
-
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Please select an order to deliver.");
-            return;
-        }
-        
-        String orderID = orderIDTxt.getText().trim();
-        String currentVendorID = orderTable.getValueAt(selectedRow, 2).toString();
-        String deliveryStatus = orderTable.getValueAt(selectedRow, 8).toString().toLowerCase();
-
-
-        if (!deliveryStatus.equals("unassigned")) {
-            JOptionPane.showMessageDialog(this, "Only unassigned orders can be deliver.");
-            return;
-        }
-
-        try (BufferedReader br = new BufferedReader(new FileReader("orders.txt"))) {
-            StringBuilder updatedData = new StringBuilder();
-            String line;
-            boolean found = false;
-
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(":");
-                if (data.length >= 8) {
-                    if (data[0].equals(orderID) && data[2].equals(currentVendorID) && data[7].equals("Accepted")) {
-                        data[8] = "Delivering";
-                        line = String.join(":", data);
-                        found = true;
-                    }
-                }
-                updatedData.append(line).append("\n");
-            }
-
-            if (found) {
-                try (FileWriter fw = new FileWriter("orders.txt")) {
-                    fw.write(updatedData.toString());
-                }
-                JOptionPane.showMessageDialog(null, "Order now is being deliver!");
-                refreshData();
-            } else {
-                JOptionPane.showMessageDialog(null, "This order is still pending!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error updating order status: " + e.getMessage());
-        }
-    }//GEN-LAST:event_assignBtnActionPerformed
-
+    
     private void searchTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTxtKeyReleased
         String searchText = searchTxt.getText().trim().toLowerCase();
         DefaultTableModel model = (DefaultTableModel) orderTable.getModel();
@@ -489,7 +450,6 @@ public class ViewOrderFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton acceptBtn;
-    private javax.swing.JButton assignBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

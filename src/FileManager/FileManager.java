@@ -381,6 +381,28 @@ public class FileManager {
         }
     }
     
+    public static void updateCustomerBalance(String filepath, String customerID, double amount) {
+        // Load the current list of users (which includes customers) from the specified file
+        ArrayList<User> users = loadUsers(filepath);
+    
+        // Iterate through the list of users to find the matching customerID
+        for (User  user : users) {
+            if (user instanceof Customer && user.getUid().equals(customerID)) {
+                Customer customer = (Customer) user; // Cast to Customer
+            
+                // Use the deductCredit method to update the balance
+                if (customer.deductCredit(amount)) {
+                    // If the deduction was successful, write the updated users back to the file
+                    writeUsers(filepath, users);
+                } else {
+                    // Optionally, handle insufficient balance
+                    System.out.println("Insufficient balance for customer: " + customerID);
+                }
+                break; // Exit the loop once the customer is found and updated
+            }
+        }
+    }
+    
     
     // Method to load existing deliveries to an ArrayList from deliveries.txt
     public static ArrayList<Delivery> loadDeliveries(String filepath) {
@@ -390,17 +412,18 @@ public class FileManager {
             String line;
             while((line = br.readLine()) != null) {
                 String[] parts = line.split(":");
-                if (parts.length == 9) {
+                if (parts.length == 10) {
                     String deliveryID = parts[0];
                     String orderID = parts[1];
                     String customerID = parts[2];
                     double deliveryCharges = Double.parseDouble(parts[3]);
                     String address = parts[4];
-                    String runnerStatus = parts[5];
-                    String deliveryStatus = parts[6];
-                    String deliveryRunnerID = parts[7];
-                    String deliveredTime = parts[8];
-                    deliveries.add(new Delivery(deliveryID, orderID, customerID, deliveryCharges, address, runnerStatus, deliveryStatus, deliveryRunnerID, deliveredTime));
+                    String vendorStatus = parts[5];
+                    String runnerStatus = parts[6];
+                    String deliveryStatus = parts[7]; 
+                    String deliveryRunnerID = parts[8];
+                    String deliveredTime = parts[9];
+                    deliveries.add(new Delivery(deliveryID, orderID, customerID, deliveryCharges, address, runnerStatus, vendorStatus, deliveryStatus, deliveryRunnerID, deliveredTime));
                 }
             }
         } catch (IOException e) {
@@ -413,22 +436,37 @@ public class FileManager {
     // Called when a newly created delivery needs to be written into deliveries.txt
     // or when updated runnerStatus, deliveryStatus and deliveryRunnerID in deliveries.txt
     // e.g. runnerStatus: Unassigned -> Accepted
-    public static void writeDeliveries(String filepath, ArrayList<Delivery> deliveries) {
+    public static void appendDeliveries(String filepath, Delivery delivery) {
         
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))) {
-            for (Delivery delivery : deliveries) {
-                String line = delivery.getDeliveryID() + ":" + delivery.getOrderID() 
-                        + ":" + delivery.getCustomerID() + ":" + delivery.getDeliveryCharges() 
-                        + ":" + delivery.getAddress() + ":" + delivery.getRunnerStatus()
-                        + ":" + delivery.getDeliveryStatus() + delivery.getDeliveryRunnerID()
-                        + ":" + delivery.getDeliveredTime();
-                bw.write(line);
-                bw.newLine();
-            }
-            
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(filepath, true))) {
+           
+            String line = delivery.getDeliveryID() + ":" + delivery.getOrderID() 
+                    + ":" + delivery.getCustomerID() + ":" + delivery.getDeliveryCharges() 
+                    + ":" + delivery.getAddress() + ":" + delivery.getRunnerStatus()
+                    + ":" + delivery.getVendorStatus() + ":" + delivery.getDeliveryStatus() 
+                    + ":" + delivery.getDeliveryRunnerID() + ":" + delivery.getDeliveredTime();
+            bw.write(line);
+            bw.newLine();
         } catch (IOException e){
             e.printStackTrace();
         }
+    }
+    
+    // Method to generate new DeliveryID
+    public static String generateDeliveryID() {
+    
+        ArrayList<Delivery> deliveries = FileManager.loadDeliveries("deliveries.txt");
+        int lastDeliveryID = 0;
+        
+        for (Delivery delivery : deliveries) {
+            String deliveryID = delivery.getDeliveryID();
+            int deliveryNum = Integer.parseInt(deliveryID.substring(2));
+            
+            if (deliveryNum > lastDeliveryID) {
+                lastDeliveryID = deliveryNum;
+            }
+        }
+        return "DL" + (lastDeliveryID + 1);
     }
     
     // Method to load existing notifications
@@ -463,7 +501,7 @@ public class FileManager {
             for (Notification notification : notifications) {
                 String line = String.join(":", 
                     notification.getNotificationID(),
-                    notification.getCustomerID(),
+                    notification.getUserID(),
                     notification.getMessage(),
                     notification.getDateTime(),
                     notification.getStatus()
@@ -642,6 +680,66 @@ public class FileManager {
             }
         }
         return "RV" + String.format("%02d", maxID + 1); // Generate new ID
+    }
+    
+    public static boolean removeDeliveryTask(String orderID) {
+        boolean found = false;
+
+        try (BufferedReader br = new BufferedReader(new FileReader("deliveries.txt"))) {
+            StringBuilder updatedDeliveries = new StringBuilder();
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(":");
+                if (data.length >= 9) {
+                    if (!data[1].equals(orderID)) {
+                        updatedDeliveries.append(line).append("\n");
+                    } else {
+                        found = true;
+                    }
+                }
+            }
+
+            if (found) {
+                try (FileWriter fw = new FileWriter("deliveries.txt")) {
+                    fw.write(updatedDeliveries.toString());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return found;
+    }
+    
+    public static boolean acceptDeliveryTask(String orderID, String newStatus) {
+        boolean found = false;
+
+        try (BufferedReader br = new BufferedReader(new FileReader("deliveries.txt"))) {
+            StringBuilder updatedDeliveries = new StringBuilder();
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(":");
+                if (data.length >= 9) {
+                    if (data[1].equals(orderID)) {
+                        data[5] = newStatus;
+                        line = String.join(":", data);
+                        found = true;
+                    }
+                    updatedDeliveries.append(line).append("\n");
+                }
+            }
+
+            if (found) {
+                try (FileWriter fw = new FileWriter("deliveries.txt")) {
+                    fw.write(updatedDeliveries.toString());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return found;
     }
     
     

@@ -5,7 +5,18 @@
 package Pages.Vendor;
 import Models.*;
 import FileManager.*;
-import Pages.LoginFrame;
+import Pages.*;
+import Records.Notification;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.util.ArrayList;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 /**
  *
  * @author braxt
@@ -17,6 +28,7 @@ public class VendorFrame extends javax.swing.JFrame {
     public VendorFrame() {
         this.vendor = (Vendor) CurrentUser.getLoggedInUser();
         initComponents();
+        updateBadgeButton();
     }
 
     /**
@@ -201,8 +213,9 @@ public class VendorFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(VenDashPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(notiBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45)
+                        .addComponent(notiBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -212,8 +225,7 @@ public class VendorFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(ViewOdr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(ViewRevenuePnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 50, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addContainerGap(56, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(186, 186, 186)
                 .addComponent(LogOutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,9 +270,79 @@ public class VendorFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ViewOdrBtnActionPerformed
 
     private void notiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notiBtnActionPerformed
-        // TODO add your handling code here:
+        displayNotifications();
     }//GEN-LAST:event_notiBtnActionPerformed
 
+    private void displayNotifications() {
+    
+        String vendorID = CurrentUser.getLoggedInUser().getUid();
+        ArrayList<Notification> notifications = FileManager.loadNotifications("notifications.txt");
+        
+        notifications.sort((n1, n2) -> n2.getDateTime().compareTo(n1.getDateTime()));
+        
+        JPanel notificationPanel = new JPanel();
+        notificationPanel.setLayout(new BoxLayout(notificationPanel, BoxLayout.Y_AXIS)); 
+
+        boolean hasUnread = false;
+        boolean hasRead = false;
+        
+        JLabel newHeader = new JLabel("Notifications");
+        newHeader.setFont(newHeader.getFont().deriveFont(16f).deriveFont(Font.BOLD));
+        notificationPanel.add(newHeader);
+        
+        for (Notification notification : notifications) {
+            if (notification.getUserID().equals(vendorID) && notification.getStatus().equalsIgnoreCase("Unread")) {
+                JLabel notificationLabel = new JLabel(
+                    String.format("<html><b>%s</b><br>%s</html>", notification.getMessage(), notification.getDateTime())
+                );
+                notificationLabel.setForeground(Color.RED);
+                notificationLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+                notificationPanel.add(notificationLabel);
+                notification.setStatus("Read"); 
+                hasUnread = true;
+            } else if (notification.getUserID().equals(vendorID) && notification.getStatus().equalsIgnoreCase("Read")) {
+                JLabel notificationLabel = new JLabel(
+                    String.format("<html><b>%s</b><br>%s</html>", notification.getMessage(), notification.getDateTime())
+                );
+                notificationLabel.setForeground(Color.GRAY);
+                notificationLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+                notificationPanel.add(notificationLabel);
+                hasRead = true;
+            }
+        }
+        
+        if (!hasUnread && !hasRead) {
+            notificationPanel.add(new JLabel("No notifications."));
+        }
+        
+        FileManager.writeNotifications("notifications.txt", notifications);
+        
+        JScrollPane scrollPane = new JScrollPane(notificationPanel);
+        scrollPane.setPreferredSize(new Dimension(300, 200));
+        
+        JOptionPane.showMessageDialog(this, scrollPane, "Notifications", JOptionPane.INFORMATION_MESSAGE);
+        updateBadgeButton();
+    }
+
+    private void updateBadgeButton() {
+        ArrayList<Notification> notifications = FileManager.loadNotifications("notifications.txt");
+        String vendorID = CurrentUser.getLoggedInUser().getUid();
+
+        int unreadCount = 0;
+        for (Notification notification : notifications) {
+            if (notification.getUserID().equals(vendorID) && notification.getStatus().equalsIgnoreCase("Unread")) {
+                unreadCount++;
+            }
+        }
+
+        // Update the badge button text with unread count
+        if (unreadCount > 0) {
+            notiBtn.setText(String.valueOf(unreadCount));
+        } else {
+            notiBtn.setText(""); // Clear the badge text if no unread notifications
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */

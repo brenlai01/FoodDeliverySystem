@@ -71,11 +71,10 @@
                                           <Component id="DeleteReviewButton" min="-2" pref="95" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                                           <Component id="SubmitReviewButton" min="-2" pref="105" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jScrollPane2" min="-2" pref="333" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="9" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>

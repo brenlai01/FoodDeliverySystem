@@ -167,8 +167,10 @@ public class CustomerFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CustomerDashboard)
-                    .addComponent(cmd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(CustomerDashboard)))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -223,7 +225,8 @@ public class CustomerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ProvideComplainsButtonActionPerformed
 
     private void CheckTransactionHistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckTransactionHistoryButtonActionPerformed
-        // TODO add your handling code here:
+        new CustomerTransactionHistory().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_CheckTransactionHistoryButtonActionPerformed
 
     private void CheckOrderHistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckOrderHistoryButtonActionPerformed
@@ -267,7 +270,7 @@ public class CustomerFrame extends javax.swing.JFrame {
         notificationPanel.add(newHeader);
         
         for (Notification notification : notifications) {
-            if (notification.getCustomerID().equals(customerID) && notification.getStatus().equalsIgnoreCase("Unread")) {
+            if (notification.getUserID().equals(customerID) && notification.getStatus().equalsIgnoreCase("Unread")) {
                 JLabel notificationLabel = new JLabel(
                     String.format("<html><b>%s</b><br>%s</html>", notification.getMessage(), notification.getDateTime())
                 );
@@ -276,7 +279,7 @@ public class CustomerFrame extends javax.swing.JFrame {
                 notificationPanel.add(notificationLabel);
                 notification.setStatus("Read"); 
                 hasUnread = true;
-            } else if (notification.getCustomerID().equals(customerID) && notification.getStatus().equalsIgnoreCase("Read")) {
+            } else if (notification.getUserID().equals(customerID) && notification.getStatus().equalsIgnoreCase("Read")) {
                 JLabel notificationLabel = new JLabel(
                     String.format("<html><b>%s</b><br>%s</html>", notification.getMessage(), notification.getDateTime())
                 );
@@ -306,7 +309,7 @@ public class CustomerFrame extends javax.swing.JFrame {
 
         int unreadCount = 0;
         for (Notification notification : notifications) {
-            if (notification.getCustomerID().equals(customerID) && notification.getStatus().equalsIgnoreCase("Unread")) {
+            if (notification.getUserID().equals(customerID) && notification.getStatus().equalsIgnoreCase("Unread")) {
                 unreadCount++;
             }
         }
