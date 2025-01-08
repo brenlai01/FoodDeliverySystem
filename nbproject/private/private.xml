@@ -23,19 +23,11 @@
             <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Pages/Vendor/ManageItemFrame.java</file>
         </group>
         <group>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Pages/Vendor/ManageItemFrame.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Pages/DeliveryRunner/CurrentTask.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Pages/DeliveryRunner/UpdateStatus.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Pages/DeliveryRunner/CustReview.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Records/Delivery.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Records/Complaint.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Pages/DeliveryRunner/DRmenu.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/riderReviews.txt</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Pages/DeliveryRunner/ChooseTasks.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Pages/DeliveryRunner/RevenueDash.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/deliveries.txt</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Pages/Vendor/VendorFrame.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Records/Review.java</file>
+            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/Models/Customer.java</file>
+            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/orders.txt</file>
+            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/users.txt</file>
+            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/FileManager/FileManager.java</file>
+            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/FileManager/CurrentUser.java</file>
         </group>
     </open-files>
 </project-private>

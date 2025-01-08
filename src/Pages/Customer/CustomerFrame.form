@@ -152,7 +152,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="CancelOrderButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cancel"/>
+            <Property name="text" type="java.lang.String" value="View"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CancelOrderButtonActionPerformed"/>
@@ -161,7 +161,7 @@
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Cancel Order"/>
+            <Property name="text" type="java.lang.String" value="Order List"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="CheckOrderHistoryButton">

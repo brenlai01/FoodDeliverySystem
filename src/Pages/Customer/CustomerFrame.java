@@ -65,7 +65,7 @@ public class CustomerFrame extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Place Order");
 
-        CancelOrderButton.setText("Cancel");
+        CancelOrderButton.setText("View");
         CancelOrderButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CancelOrderButtonActionPerformed(evt);
@@ -73,7 +73,7 @@ public class CustomerFrame extends javax.swing.JFrame {
         });
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Cancel Order");
+        jLabel3.setText("Order List");
 
         CheckOrderHistoryButton.setText("View");
         CheckOrderHistoryButton.addActionListener(new java.awt.event.ActionListener() {
