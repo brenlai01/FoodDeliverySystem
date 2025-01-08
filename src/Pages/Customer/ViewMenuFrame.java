@@ -17,7 +17,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
     public ViewMenuFrame() {
         this.customer = (Customer) CurrentUser.getLoggedInUser();
         initComponents();
-        BalanceLabel.setText("Balance: RM" + CurrentUser.getLoggedInUser().getBalance());
+        BalanceLabel.setText("Balance: RM" + String.format("%.2f", CurrentUser.getLoggedInUser().getBalance()));
         loadVendorList();
         setupOrderSummaryTable();
         setOrderSummaryTableeSelectionListener();
@@ -36,7 +36,6 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         MainPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         Admin = new javax.swing.JLabel();
-        BalanceLabel = new javax.swing.JLabel();
         UserPanel = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         searchField = new javax.swing.JTextField();
@@ -71,9 +70,9 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         foodToRemove = new javax.swing.JFormattedTextField();
         removeItemButton = new javax.swing.JButton();
+        BalanceLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(740, 740));
 
         MainPanel.setPreferredSize(new java.awt.Dimension(740, 700));
         MainPanel.setRequestFocusEnabled(false);
@@ -88,9 +87,6 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         Admin.setPreferredSize(new java.awt.Dimension(400, 25));
         Admin.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
-        BalanceLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        BalanceLabel.setText("Balance: ");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -98,17 +94,11 @@ public class ViewMenuFrame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Admin, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 371, Short.MAX_VALUE)
-                .addComponent(BalanceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(487, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Admin, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BalanceLabel)
-                .addContainerGap())
         );
 
         MainPanel.add(jPanel2, java.awt.BorderLayout.NORTH);
@@ -260,6 +250,10 @@ public class ViewMenuFrame extends javax.swing.JFrame {
             }
         });
 
+        BalanceLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BalanceLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        BalanceLabel.setText("Balance: ");
+
         javax.swing.GroupLayout UserPanelLayout = new javax.swing.GroupLayout(UserPanel);
         UserPanel.setLayout(UserPanelLayout);
         UserPanelLayout.setHorizontalGroup(
@@ -317,12 +311,18 @@ public class ViewMenuFrame extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(UserPanelLayout.createSequentialGroup()
                         .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(selectedVendorField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(UserPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(BalanceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(UserPanelLayout.createSequentialGroup()
+                                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(selectedVendorField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
                     .addGroup(UserPanelLayout.createSequentialGroup()
                         .addComponent(dineInButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -337,7 +337,9 @@ public class ViewMenuFrame extends javax.swing.JFrame {
             UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UserPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel6)
+                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(BalanceLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -396,7 +398,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
                             .addComponent(jLabel8))
                         .addGap(27, 27, 27)
                         .addComponent(addToOrderButton)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         MainPanel.add(UserPanel, java.awt.BorderLayout.CENTER);
@@ -520,7 +522,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         
         JOptionPane.showMessageDialog(null, "Order placed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
         
-        BalanceLabel.setText("Balance: " + CurrentUser.getLoggedInUser().getBalance());
+        BalanceLabel.setText("Balance: RM" + String.format("%.2f", CurrentUser.getLoggedInUser().getBalance()));
         
         orderModel.setRowCount(0);
         extraChargesField.setText("0.00");

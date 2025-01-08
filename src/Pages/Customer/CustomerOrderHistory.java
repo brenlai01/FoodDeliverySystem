@@ -32,6 +32,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
             }
         });
         CustomerIDLabel.setText("Customer ID: " + CurrentUser.getLoggedInUser().getUid());
+        BalanceLabel.setText("Balance: RM" + String.format("%.2f", CurrentUser.getLoggedInUser().getBalance()));
         refreshData();
     }
     
@@ -71,10 +72,12 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
                                 break; // Exit the loop once the review is found
                             }
                         }
+                        
+                        String formattedPrice = String.format("%.2f", Double.parseDouble(data[5]));
 
                         String[] orderData = {
                             data[3], // Food Name
-                            data[5], // Price
+                            formattedPrice, // Price
                             data[4], // Order Type
                             data[6], // Order Date
                             data[7], // Vendor Status
@@ -116,6 +119,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
         CustomerIDLabel = new javax.swing.JLabel();
         UpdateButton = new javax.swing.JButton();
         CancelButton = new javax.swing.JButton();
+        BalanceLabel = new javax.swing.JLabel();
 
         OrderHistoryLabel.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         OrderHistoryLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -210,14 +214,17 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
             }
         });
 
+        BalanceLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BalanceLabel.setText("Balance: RM");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(OrderHistoryLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -241,22 +248,26 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
                                         .addComponent(SubmitReviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(27, 27, 27)))))
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(CustomerIDLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
+                            .addComponent(BalanceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(119, 119, 119))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(CustomerIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(121, 121, 121))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(OrderHistoryLabel1)
-                .addGap(22, 22, 22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(CustomerIDLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BalanceLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -275,7 +286,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -293,8 +304,8 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ReorderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReorderButtonActionPerformed
-        int selectedRow = OrderHistoryTable.getSelectedRow();
-        
+    int selectedRow = OrderHistoryTable.getSelectedRow();
+
         // Check if a row is selected
         if (selectedRow != -1) {
             // Retrieve order details from the selected row
@@ -309,11 +320,23 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
             String orderID = FileManager.getReOrderID("orders.txt"); // Generate a new order ID
             String newOrderTime = FileManager.getDateTime(); // Get current date and time
 
+            // Initialize delivery charges
+            double deliveryCharges = 0.0;
+
+            // If the order type is delivery, set the delivery charges
+            if (orderType.equalsIgnoreCase("Delivery")) {
+                // Assuming you have a method to get the delivery charges
+                deliveryCharges = 5.0; // Replace with actual delivery charge retrieval logic
+            }
+
+            // Total amount to deduct from the balance
+            double totalAmount = price + deliveryCharges;
+
             // Check if the customer has enough balance
             Customer customer = (Customer) CurrentUser .getLoggedInUser ();
-            if (customer.getBalance() >= price) {
+            if (customer.getBalance() >= totalAmount) {
                 // Deduct the amount from the customer's balance
-                if (FileManager.updateCustomerBalance("users.txt", customer.getUid(), price)) {
+                if (FileManager.updateCustomerBalance("users.txt", customer.getUid(), totalAmount)) {
                     // Create a new order string
                     String newOrder = String.format("%s:%s:%s:%s:%s:%.2f:%s:%s:%s",
                             orderID,
@@ -331,6 +354,16 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
 
                     // Show a success message to the user
                     JOptionPane.showMessageDialog(null, "Order placed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                    // Update the balance label
+                    // Retrieve the updated balance after the deduction
+                    double updatedBalance = FileManager.loadUsers("users.txt").stream()
+                            .filter(user -> user.getUid().equals(customer.getUid()))
+                            .map(User::getBalance)
+                            .findFirst()
+                            .orElse(0.0);
+
+                    BalanceLabel.setText("Balance: RM" + String.format("%.2f", updatedBalance));
                 } else {
                     // Handle the case where the balance could not be updated
                     JOptionPane.showMessageDialog(null, "Failed to place order due to insufficient balance.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -405,7 +438,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
             return;
         }
 
-        String orderID = (String) OrderHistoryTable.getValueAt(selectedRow, 6); // Assuming order ID is in the first column
+        String orderID = (String) OrderHistoryTable.getValueAt(selectedRow, 7); // Assuming order ID is in the first column
         String customerID = CurrentUser .getLoggedInUser ().getUid();
 
         // Load existing reviews
@@ -448,45 +481,69 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
 
         // Load existing orders using loadCancelOrders method
         ArrayList<Order> orders = FileManager.loadCancelOrders("orders.txt");
-        boolean orderFound = false;
 
-        // Check if the order exists and if it can be canceled
+        // Find the order by orderID
+        Order orderToCancel = null;
         for (Order order : orders) {
             if (order.getOrderID().equals(orderID)) {
-                orderFound = true;
-
-                // Check if vendor status is "Pending"
-                if (order.getVendorStatus().equals("Pending")) {
-                    // Refund the amount to the customer's balance
-                    Customer customer = (Customer) CurrentUser .getLoggedInUser ();
-                    double currentBalance = customer.getBalance();
-                    customer.setBalance(currentBalance + totalAmount); // Update the customer's balance
-
-                    // Remove the specific order object
-                    orders.remove(order); // This should only remove the matched order
-
-                    // Update the orders file
-                    FileManager.writeOrders("orders.txt", orders);
-
-                    // Update the user balance in users.txt
-                    ArrayList<User> users = FileManager.loadUsers("users.txt");
-                    for (User  user : users) {
-                        if (user instanceof Customer && user.getUid().equals(customer.getUid())) {
-                            user.setBalance(customer.getBalance()); // Update the user's balance
-                        }
-                    }
-                    FileManager.writeUsers("users.txt", users); // Update users file
-
-                    JOptionPane.showMessageDialog(this, "Order canceled successfully. Refund of RM" + totalAmount + " has been processed.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    refreshData(); // Refresh the order history table
-                } else {
-                    JOptionPane.showMessageDialog(this, "Order cannot be canceled as the vendor status is not 'Pending'.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                break; // Exit the loop after processing the order
+                orderToCancel = order;
+                break; // Exit the loop once the order is found
             }
         }
 
-        if (!orderFound) {
+        // Check if the order was found and if it can be canceled
+        if (orderToCancel != null) {
+            // Check if vendor status is "Pending"
+            if (orderToCancel.getVendorStatus().equals("Pending")) {
+                // Retrieve the delivery fee from the associated delivery record
+                double deliveryFee = 0.0; // Initialize delivery fee
+                ArrayList<Delivery> deliveries = FileManager.loadDeliveries("deliveries.txt"); // Load deliveries
+                for (Delivery delivery : deliveries) {
+                    if (delivery.getOrderID().equals(orderID)) {
+                        deliveryFee = delivery.getDeliveryCharges(); // Get the delivery charges
+                        break; // Exit the loop once found
+                    }
+                }
+
+                // Refund the amount to the customer's balance
+                Customer customer = (Customer) CurrentUser .getLoggedInUser ();
+                double currentBalance = customer.getBalance();
+                customer.setBalance(currentBalance + totalAmount + deliveryFee); // Update the customer's balance
+
+                // Remove the order from the list
+                orders.remove(orderToCancel); // Remove the matched order
+
+                // Update the orders file
+                FileManager.writeOrders("orders.txt", orders);
+
+                // Update the user balance in users.txt
+                ArrayList<User> users = FileManager.loadUsers("users.txt");
+                for (User  user : users) {
+                    if (user instanceof Customer && user.getUid().equals(customer.getUid())) {
+                        user.setBalance(customer.getBalance()); // Update the user's balance
+                    }
+                }
+                FileManager.writeUsers("users.txt", users); // Update users file
+
+                // Now remove the associated review
+                ArrayList<Review> reviews = FileManager.loadReviews("review.txt");
+                reviews.removeIf(review -> review.getOrderID().equals(orderID) && review.getCustomerID().equals(customer.getUid()));
+                FileManager.writeReviews("review.txt", reviews); // Write updated reviews back to the file
+
+                // Clear the ReviewTextArea since the review is removed
+                ReviewTextArea.setText("");
+
+                // Show success message
+                JOptionPane.showMessageDialog(this, "Order canceled successfully. Refund of RM" + String.format("%.2f", (totalAmount + deliveryFee)) + " has been processed.", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                // Update the balance label
+                BalanceLabel.setText("Balance: RM" + String.format("%.2f", customer.getBalance()));
+
+                refreshData(); // Refresh the order history table
+            } else {
+                JOptionPane.showMessageDialog(this, "Order cannot be canceled as the vendor status is not 'Pending'.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
             JOptionPane.showMessageDialog(this, "Order not found.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_CancelButtonActionPerformed
@@ -528,6 +585,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BalanceLabel;
     private javax.swing.JButton CancelButton;
     private javax.swing.JLabel CustomerIDLabel;
     private javax.swing.JButton DeleteReviewButton;
