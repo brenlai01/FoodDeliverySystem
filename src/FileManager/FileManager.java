@@ -458,26 +458,28 @@ public class FileManager {
         }
     }
     
-    public static void updateCustomerBalance(String filepath, String customerID, double amount) {
+    public static boolean updateCustomerBalance(String filepath, String customerID, double amount) {
         // Load the current list of users (which includes customers) from the specified file
         ArrayList<User> users = loadUsers(filepath);
-    
+        
         // Iterate through the list of users to find the matching customerID
         for (User  user : users) {
             if (user instanceof Customer && user.getUid().equals(customerID)) {
                 Customer customer = (Customer) user; // Cast to Customer
-            
+                
                 // Use the deductCredit method to update the balance
                 if (customer.deductCredit(amount)) {
                     // If the deduction was successful, write the updated users back to the file
                     writeUsers(filepath, users);
+                    return true; // Indicate success
                 } else {
-                    // Optionally, handle insufficient balance
+                    // Handle insufficient balance
                     System.out.println("Insufficient balance for customer: " + customerID);
+                    return false; // Indicate failure due to insufficient balance
                 }
-                break; // Exit the loop once the customer is found and updated
             }
         }
+        return false; // Indicate failure if customer not found
     }
     
     

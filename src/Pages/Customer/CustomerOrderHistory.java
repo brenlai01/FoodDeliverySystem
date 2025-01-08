@@ -298,39 +298,47 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
         // Check if a row is selected
         if (selectedRow != -1) {
             // Retrieve order details from the selected row
-            String foodName = (String) OrderHistoryTable.getValueAt(selectedRow, 0);
-            String priceString = (String) OrderHistoryTable.getValueAt(selectedRow, 1);
+            String foodName = (String) OrderHistoryTable.getValueAt(selectedRow, 0); // Food Name
+            String priceString = (String) OrderHistoryTable.getValueAt(selectedRow, 1); // Price
             double price = Double.parseDouble(priceString);
-            String orderType = (String) OrderHistoryTable.getValueAt(selectedRow, 2);
-            String originalOrderTime = (String) OrderHistoryTable.getValueAt(selectedRow, 3);
-            String customerID = CurrentUser .getLoggedInUser ().getUid();
-            String vendorID = (String) OrderHistoryTable.getValueAt(selectedRow, 6);
-            String vendorStatus = "Pending";
-            String deliveryStatus = "Unassigned";
-            String orderID = FileManager.getReOrderID("orders.txt");
-            //Get current date and time
-            String newOrderTime = FileManager.getDateTime();
-            
-            
-            String newOrder = String.format("%s:%s:%s:%s:%s:%.1f:%s:%s:%s",
-                    orderID,
-                    customerID,
-                    vendorID,
-                    foodName,
-                    orderType,
-                    price,
-                    newOrderTime,
-                    vendorStatus,
-                    deliveryStatus);
-            
-            // Update customer balance
-            FileManager.updateCustomerBalance("orders.txt", CurrentUser .getLoggedInUser ().getUid(), price);
-            
-            // Append the new order to the orders.txt file
-            FileManager.addReOrder("orders.txt", newOrder);
+            String orderType = (String) OrderHistoryTable.getValueAt(selectedRow, 2); // Order Type
+            String customerID = CurrentUser .getLoggedInUser ().getUid(); // Get logged-in customer ID
+            String vendorID = (String) OrderHistoryTable.getValueAt(selectedRow, 6); // Vendor ID
+            String vendorStatus = "Pending"; // Set initial vendor status
+            String deliveryStatus = "Unassigned"; // Set initial delivery status
+            String orderID = FileManager.getReOrderID("orders.txt"); // Generate a new order ID
+            String newOrderTime = FileManager.getDateTime(); // Get current date and time
 
-            // Show a success message to the user
-            JOptionPane.showMessageDialog(null, "Order placed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            // Check if the customer has enough balance
+            Customer customer = (Customer) CurrentUser .getLoggedInUser ();
+            if (customer.getBalance() >= price) {
+                // Deduct the amount from the customer's balance
+                if (FileManager.updateCustomerBalance("users.txt", customer.getUid(), price)) {
+                    // Create a new order string
+                    String newOrder = String.format("%s:%s:%s:%s:%s:%.2f:%s:%s:%s",
+                            orderID,
+                            customerID,
+                            vendorID,
+                            foodName,
+                            orderType,
+                            price,
+                            newOrderTime,
+                            vendorStatus,
+                            deliveryStatus);
+
+                    // Append the new order to the orders.txt file
+                    FileManager.addReOrder("orders.txt", newOrder);
+
+                    // Show a success message to the user
+                    JOptionPane.showMessageDialog(null, "Order placed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    // Handle the case where the balance could not be updated
+                    JOptionPane.showMessageDialog(null, "Failed to place order due to insufficient balance.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                // Show an error message if the balance is insufficient
+                JOptionPane.showMessageDialog(null, "Insufficient balance to place the order.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
             // Show an error message if no order is selected
             JOptionPane.showMessageDialog(null, "Please select an order to reorder.", "Error", JOptionPane.ERROR_MESSAGE);
