@@ -17,7 +17,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
     public ViewMenuFrame() {
         this.customer = (Customer) CurrentUser.getLoggedInUser();
         initComponents();
-        BalanceLabel.setText("Balance: " + CurrentUser.getLoggedInUser().getBalance());
+        BalanceLabel.setText("Balance: RM" + CurrentUser.getLoggedInUser().getBalance());
         loadVendorList();
         setupOrderSummaryTable();
         setOrderSummaryTableeSelectionListener();

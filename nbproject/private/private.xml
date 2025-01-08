@@ -25,7 +25,9 @@
         <group>
             <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/Models/Customer.java</file>
             <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/orders.txt</file>
+            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/Pages/Customer/CustomerFrame.java</file>
             <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/users.txt</file>
+            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/Pages/Customer/CustomerOrderHistory.java</file>
             <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/FileManager/FileManager.java</file>
             <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/FileManager/CurrentUser.java</file>
         </group>
