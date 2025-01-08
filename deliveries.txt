@@ -1,3 +1,2 @@
-DL1:O2:C001:5.0:123 Street:Accepted:Delivered:D001
-DL2:O1:C002:10.0:145 Street:Pending:Unassigned:N/A
-DL3:O3:C003:5.9:222 Street:Accepted:Delivered:D001
+DL1:O1:C001:5.0:asd:pending:unassigned:pending:N/A:N/A
+DL2:O2:C001:5.0:asd:pending:unassigned:pending:N/A:N/A
