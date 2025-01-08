@@ -147,23 +147,31 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
 
         OrderHistoryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Food Name", "Price", "Order Type", "Order Time", "Review", "Vendor ID", "Order ID"
+                "Food Name", "Price", "Order Type", "Order Time", "Vendor Status", "Review", "Vendor ID", "Order ID"
             }
         ));
         jScrollPane1.setViewportView(OrderHistoryTable);
         if (OrderHistoryTable.getColumnModel().getColumnCount() > 0) {
-            OrderHistoryTable.getColumnModel().getColumn(5).setMinWidth(0);
-            OrderHistoryTable.getColumnModel().getColumn(5).setPreferredWidth(0);
-            OrderHistoryTable.getColumnModel().getColumn(5).setMaxWidth(0);
+            OrderHistoryTable.getColumnModel().getColumn(1).setMinWidth(80);
+            OrderHistoryTable.getColumnModel().getColumn(1).setMaxWidth(80);
+            OrderHistoryTable.getColumnModel().getColumn(2).setMinWidth(150);
+            OrderHistoryTable.getColumnModel().getColumn(2).setMaxWidth(150);
+            OrderHistoryTable.getColumnModel().getColumn(3).setMinWidth(170);
+            OrderHistoryTable.getColumnModel().getColumn(3).setMaxWidth(170);
+            OrderHistoryTable.getColumnModel().getColumn(5).setMinWidth(300);
+            OrderHistoryTable.getColumnModel().getColumn(5).setMaxWidth(300);
             OrderHistoryTable.getColumnModel().getColumn(6).setMinWidth(0);
             OrderHistoryTable.getColumnModel().getColumn(6).setPreferredWidth(0);
             OrderHistoryTable.getColumnModel().getColumn(6).setMaxWidth(0);
+            OrderHistoryTable.getColumnModel().getColumn(7).setMinWidth(0);
+            OrderHistoryTable.getColumnModel().getColumn(7).setPreferredWidth(0);
+            OrderHistoryTable.getColumnModel().getColumn(7).setMaxWidth(0);
         }
 
         ReviewTextArea.setColumns(20);
@@ -223,21 +231,23 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
                             .addComponent(OrderHistoryLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(ReorderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
-                                        .addComponent(CustomerIDLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ReviewLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(CustomerIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addGap(504, 504, 504)
+                                        .addComponent(ReorderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(50, 50, 50)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(ReviewLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(55, 55, 55)
                                         .addComponent(DeleteReviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(38, 38, 38)
-                                        .addComponent(SubmitReviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 3, Short.MAX_VALUE)))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                                        .addComponent(SubmitReviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(27, 27, 27)))))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -254,11 +264,11 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
                 .addComponent(CustomerIDLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(ReviewLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ReorderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -328,6 +338,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
             // Show an error message if no order is selected
             JOptionPane.showMessageDialog(null, "Please select an order to reorder.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        refreshData();
     }//GEN-LAST:event_ReorderButtonActionPerformed
 
     private void ReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnButtonActionPerformed

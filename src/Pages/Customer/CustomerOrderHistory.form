@@ -57,24 +57,27 @@
                               <Component id="OrderHistoryLabel1" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="ReorderButton" min="-2" pref="103" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="jScrollPane1" alignment="0" pref="406" max="32767" attributes="0"/>
-                                          <Component id="CustomerIDLabel" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="CustomerIDLabel" alignment="1" min="-2" pref="406" max="-2" attributes="0"/>
+                                      <Component id="jScrollPane1" alignment="0" min="-2" pref="1103" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="504" max="-2" attributes="0"/>
+                                          <Component id="ReorderButton" min="-2" pref="103" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="ReviewLabel" alignment="1" max="32767" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                                          <Component id="DeleteReviewButton" min="-2" pref="95" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                                          <Component id="SubmitReviewButton" min="-2" pref="105" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="ReviewLabel" alignment="1" max="32767" attributes="0"/>
+                                              <Component id="jScrollPane2" alignment="1" pref="333" max="32767" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jScrollPane2" min="-2" pref="333" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                                          <Component id="DeleteReviewButton" min="-2" pref="95" max="-2" attributes="0"/>
+                                          <EmptySpace pref="57" max="32767" attributes="0"/>
+                                          <Component id="SubmitReviewButton" min="-2" pref="105" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -100,12 +103,12 @@
                   <Component id="CustomerIDLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jScrollPane1" min="-2" pref="342" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="ReviewLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jScrollPane2" min="-2" pref="316" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jScrollPane1" min="-2" pref="342" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -143,11 +146,12 @@
             <Component class="javax.swing.JTable" name="OrderHistoryTable">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="7" rowCount="4">
+                  <Table columnCount="8" rowCount="4">
                     <Column editable="true" title="Food Name" type="java.lang.Object"/>
                     <Column editable="true" title="Price" type="java.lang.Object"/>
                     <Column editable="true" title="Order Type" type="java.lang.Object"/>
                     <Column editable="true" title="Order Time" type="java.lang.Object"/>
+                    <Column editable="true" title="Vendor Status" type="java.lang.Object"/>
                     <Column editable="true" title="Review" type="java.lang.Object"/>
                     <Column editable="true" title="Vendor ID" type="java.lang.Object"/>
                     <Column editable="true" title="Order ID" type="java.lang.Object"/>
@@ -160,7 +164,17 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="80" minWidth="80" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="150" minWidth="150" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="170" minWidth="170" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -170,12 +184,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="300" minWidth="300" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
