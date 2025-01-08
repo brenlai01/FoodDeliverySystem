@@ -24,9 +24,10 @@ import javax.swing.table.DefaultTableModel;
 public class ChooseTasks extends javax.swing.JFrame {
 
     private DeliveryRunner  deliveryrunner;
+    
     public ChooseTasks() {
         initComponents();
-            this.deliveryrunner = (DeliveryRunner) CurrentUser.getLoggedInUser();
+        this.deliveryrunner = (DeliveryRunner) CurrentUser.getLoggedInUser();
         getData();
     }
     public void getData(){
@@ -60,11 +61,11 @@ public class ChooseTasks extends javax.swing.JFrame {
 
             },
             new String [] {
-                "DriverID", "no.", "Delivery No.", "Commision(RM)", "Address", "Status", "Completion Status"
+                "Delivery ID", "OrderID", "CustomerID", "Commision(RM)", "Address", "Status", "Completion Status", "DriverID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -73,11 +74,15 @@ public class ChooseTasks extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(Tasktbl);
         if (Tasktbl.getColumnModel().getColumnCount() > 0) {
-            Tasktbl.getColumnModel().getColumn(0).setPreferredWidth(10);
+            Tasktbl.getColumnModel().getColumn(0).setResizable(false);
+            Tasktbl.getColumnModel().getColumn(1).setPreferredWidth(10);
+            Tasktbl.getColumnModel().getColumn(2).setPreferredWidth(15);
+            Tasktbl.getColumnModel().getColumn(7).setPreferredWidth(0);
+            Tasktbl.getColumnModel().getColumn(7).setMaxWidth(0);
         }
 
         jLabel1.setFont(new java.awt.Font("Songti TC", 1, 17)); // NOI18N
-        jLabel1.setText("Please enter delivery code on which task you would like to accept : ");
+        jLabel1.setText("Please enter orderID on which task you would like to accept : ");
 
         refreshbtn.setBackground(new java.awt.Color(225, 237, 243));
         refreshbtn.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
@@ -151,37 +156,43 @@ public class ChooseTasks extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void refreshbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshbtnActionPerformed
-        
-        try{
+        try {
             String filename = "deliveries.txt";
             FileReader fr = new FileReader(filename);
             BufferedReader br = new BufferedReader(fr);
-            String read;
-              
+
             DefaultTableModel model = (DefaultTableModel) Tasktbl.getModel();
-            model.setRowCount(0);
+            model.setRowCount(0); // Clear the table before adding new rows
             Object[] tableLines = br.lines().toArray();
-            
-            for(int i = 0; i <tableLines.length; i++)
-            {
-                String line = tableLines[i].toString().trim();
+
+            for (Object tableLine : tableLines) {
+                String line = tableLine.toString().trim();
                 String[] dataRow = line.split(":");
-                model.addRow(dataRow);
+
+                // Ensure the data row has enough columns to avoid ArrayIndexOutOfBoundsException
+                if (dataRow.length >= 6) { // Assuming "Status" is the 6th column (dataRow[5])
+                    String status = dataRow[5]; // Adjust the index if the column number is different
+
+                    // Exclude rows where status is "Accepted"
+                    if (!"Accepted".equalsIgnoreCase(status)) {
+                        model.addRow(dataRow); // Add the filtered row to the table
+                    }
+                }
             }
-            
-           
-        }catch(IOException e){
+
+            br.close(); // Close the buffered reader
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
-                
         }
     }//GEN-LAST:event_refreshbtnActionPerformed
 
     private void confirmbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmbtnActionPerformed
-        String deliveryCode = Tasktf.getText();
-        if (deliveryCode.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Please enter a delivery code.");
+        String orderID = Tasktf.getText(); // Retrieve the input OrderID from the text field
+        if (orderID.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter an Order ID.");
             return;
         }
+
         File file = new File("deliveries.txt");
         StringBuilder updatedContent = new StringBuilder();
         boolean updated = false;
@@ -190,9 +201,10 @@ public class ChooseTasks extends javax.swing.JFrame {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(":");
-                if (parts.length > 6 && parts[2].equalsIgnoreCase(deliveryCode)) { // Ensure sufficient columns
-                    parts[5] = "Accepted";           // Update the status
-                    parts[6] = "Waiting for Driver"; // Update the completion status
+                if (parts.length > 6 && parts[1].equalsIgnoreCase(orderID)) { // to check if the 2nd column matches the OrderID
+                    parts[5] = "Accepted";        // Update the status
+                    parts[6] = "Ongoing";        // Update the completion status
+                    parts[7] = (""+CurrentUser.getLoggedInUser().getUid()); //check!! to update driverID 
                     updated = true;
                 }
                 updatedContent.append(String.join(":", parts)).append(System.lineSeparator());
@@ -200,15 +212,16 @@ public class ChooseTasks extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(ChooseTasks.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         if (updated) {
             try (FileWriter writer = new FileWriter(file)) {
                 writer.write(updatedContent.toString());
-                JOptionPane.showMessageDialog(null, "Status and completion status updated successfully!");
+                JOptionPane.showMessageDialog(null, "Order status and completion status updated successfully!");
             } catch (IOException ex) {
                 Logger.getLogger(ChooseTasks.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Delivery code not found.");
+            JOptionPane.showMessageDialog(null, "Order ID not found.");
         }
         
 // TODO add your handling code here:

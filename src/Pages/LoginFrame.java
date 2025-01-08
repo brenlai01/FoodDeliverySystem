@@ -4,6 +4,7 @@ import Pages.Vendor.*;
 import FileManager.*;
 import Models.*;
 import Pages.Customer.*;
+import Pages.DeliveryRunner.DRmenu;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -157,7 +158,7 @@ public class LoginFrame extends javax.swing.JFrame {
             } else if (loggedInUser instanceof Vendor) {
                new VendorFrame().setVisible(true);
             } else if (loggedInUser instanceof DeliveryRunner) {
-                //new DeliveryRunnerFrame().setVisible(true);
+                new DRmenu().setVisible(true);
             }
             this.dispose();
         } else {

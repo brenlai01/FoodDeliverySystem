@@ -4,6 +4,7 @@
  */
 package Pages.DeliveryRunner;
 
+import FileManager.CurrentUser;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -49,11 +50,11 @@ public class RevenueDash extends javax.swing.JFrame {
 
             },
             new String [] {
-                "DriverID", "no.", "Delivery No.", "Commision(RM)", "Address", "Status", "Completion Status"
+                "DeliveryID", "OrderID", "CustomerID", "Commision(RM)", "Address", "Status", "Completion Status", "DriverID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -61,6 +62,10 @@ public class RevenueDash extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(Tasktbl);
+        if (Tasktbl.getColumnModel().getColumnCount() > 0) {
+            Tasktbl.getColumnModel().getColumn(0).setPreferredWidth(10);
+            Tasktbl.getColumnModel().getColumn(1).setPreferredWidth(10);
+        }
 
         Exitbtn.setBackground(new java.awt.Color(225, 237, 243));
         Exitbtn.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
@@ -129,40 +134,54 @@ public class RevenueDash extends javax.swing.JFrame {
     }//GEN-LAST:event_ExitbtnActionPerformed
 
     private void refreshbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshbtnActionPerformed
+        try {
+            String filename = "deliveries.txt";
+            FileReader fr = new FileReader(filename);
+            BufferedReader br = new BufferedReader(fr);
 
-    try {
-        String filename = "deliveries.txt";
-        FileReader fr = new FileReader(filename);
-        BufferedReader br = new BufferedReader(fr);
-        
-        DefaultTableModel model = (DefaultTableModel) Tasktbl.getModel();
-        model.setRowCount(0); 
+            DefaultTableModel model = (DefaultTableModel) Tasktbl.getModel();
+            model.setRowCount(0); // Clear the table before adding new rows
 
-        Object[] tableLines = br.lines().toArray();
-        double totalCommission = 0.0; // Variable to hold the total commission
+            double totalCommission = 0.0; // Variable to hold the total commission
 
-        for (Object tableLine : tableLines) {
-            String line = tableLine.toString().trim();
-            String[] dataRow = line.split(":");
-            model.addRow(dataRow); // Add new row to the table
+            // Get the logged-in user's DriverID
+            String loggedInDriverID = CurrentUser.getLoggedInUser().getUid();
 
-            // to sum up the commission column
-            try {
-                double commission = Double.parseDouble(dataRow[3]); // Assuming the 4th column is commission
-                totalCommission += commission;
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                // Handle any potential issues with parsing(test)
-                System.err.println("Error parsing commission: " + e.getMessage());
+            Object[] tableLines = br.lines().toArray();
+            for (Object tableLine : tableLines) {
+                String line = tableLine.toString().trim();
+                String[] dataRow = line.split(":");
+
+                // Ensure the data row has enough columns to avoid ArrayIndexOutOfBoundsException
+                if (dataRow.length >= 8) {
+                    String completionStatus = dataRow[6]; // Assuming the 7th column is "Completion Status"
+                    String driverID = dataRow[7];        // Assuming the 8th column is "DriverID"
+
+                    // Filter rows with "Delivered" status and matching DriverID
+                    if ("Delivered".equalsIgnoreCase(completionStatus) && loggedInDriverID.equals(driverID)) {
+                        model.addRow(dataRow); // Add the row to the table
+
+                        // Attempt to parse and sum the commission value
+                        try {
+                            double commission = Double.parseDouble(dataRow[3]); // Assuming the 4th column is commission
+                            totalCommission += commission;
+                        } catch (NumberFormatException e) {
+                            System.err.println("Error parsing commission: " + e.getMessage());
+                        }
+                    }
+                }
             }
+
+            // Display the total commission in the text field
+            RevenuetxtF.setText(String.format("%.2f", totalCommission));
+
+            br.close(); // Close the buffered reader
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
-        // Display the total commission in the text field
-        RevenuetxtF.setText(String.format("%.2f", totalCommission));
-
-        br.close(); // Close the buffered reader
-    } catch (IOException e) {
-        JOptionPane.showMessageDialog(null, e.getMessage());
-    }
+    
+    
     }//GEN-LAST:event_refreshbtnActionPerformed
 
     /**

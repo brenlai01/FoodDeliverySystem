@@ -4,8 +4,11 @@
  */
 package Pages.DeliveryRunner;
 
+import FileManager.CurrentUser;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -69,10 +72,14 @@ public class UpdateStatus extends javax.swing.JFrame {
 
             },
             new String [] {
-                "DriverID", "no.", "Delivery No", "Commision(RM)", "Address", "Status", "Completion Status"
+                "DeliveryID", "OrderID", "CustomerID", "Commision(RM)", "Address", "Status", "Completion Status", "DriverID"
             }
         ));
         jScrollPane2.setViewportView(Tasktbl);
+        if (Tasktbl.getColumnModel().getColumnCount() > 0) {
+            Tasktbl.getColumnModel().getColumn(0).setPreferredWidth(10);
+            Tasktbl.getColumnModel().getColumn(1).setPreferredWidth(10);
+        }
 
         Exitbtn1.setBackground(new java.awt.Color(225, 237, 243));
         Exitbtn1.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
@@ -152,31 +159,87 @@ public class UpdateStatus extends javax.swing.JFrame {
     }//GEN-LAST:event_ExitbtnActionPerformed
 
     private void RefreshbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshbtnActionPerformed
-        try{
-            String filename = "deliveries.txt";
-            FileReader fr = new FileReader(filename);
-            BufferedReader br = new BufferedReader(fr);
-            String read;
-              
-            DefaultTableModel model = (DefaultTableModel) Tasktbl.getModel();
-            model.setRowCount(0);
-            Object[] tableLines = br.lines().toArray();
-            
-            for(int i = 0; i <tableLines.length; i++)
-            {
-                String line = tableLines[i].toString().trim();
-                String[] dataRow = line.split(":");
-                model.addRow(dataRow);
+        try {
+        String filename = "deliveries.txt";
+        FileReader fr = new FileReader(filename);
+        BufferedReader br = new BufferedReader(fr);
+
+        DefaultTableModel model = (DefaultTableModel) Tasktbl.getModel();
+        model.setRowCount(0); // Clear the table before adding new rows
+
+        // Get the logged-in Driver ID
+        String loggedInDriverID = CurrentUser.getLoggedInUser().getUid();
+        Object[] tableLines = br.lines().toArray();
+
+        for (Object tableLine : tableLines) {
+            String line = tableLine.toString().trim();
+            String[] dataRow = line.split(":");
+
+            // Ensure the data row has enough columns to avoid ArrayIndexOutOfBoundsException
+            if (dataRow.length >= 8) { 
+                String status = dataRow[5];           // Assuming "Status" is the 6th column (dataRow[5])
+                String completionStatus = dataRow[6]; // Assuming "Completion Status" is the 7th column (dataRow[6])
+                String driverID = dataRow[7];        // Assuming "DriverID" is the 8th column (dataRow[7])
+
+                // Add rows where status is "Accepted", completion status is "Ongoing", and DriverID matches
+                if ("Accepted".equalsIgnoreCase(status) 
+                        && "Ongoing".equalsIgnoreCase(completionStatus) 
+                        && loggedInDriverID.equals(driverID)) {
+                    model.addRow(dataRow); // Add the filtered row to the table
+                }
             }
-            
-           
-        }catch(IOException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
-                
-        }        // TODO add your handling code here:
+        }
+
+        br.close(); // Close the buffered reader
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+    }     // TODO add your handling code here:
     }//GEN-LAST:event_RefreshbtnActionPerformed
 
     private void UpdateStatusbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateStatusbtnActionPerformed
+        if (Tasktbl.getRowCount() == 0) {
+        JOptionPane.showMessageDialog(null, "No task available to update.");
+        return;
+        }
+
+        // Get the OrderID from the only row in the table
+        String orderID = Tasktbl.getValueAt(0, 1).toString(); // 1 refers to the second column, OrderID
+        File file = new File("deliveries.txt");
+        StringBuilder updatedContent = new StringBuilder();
+        boolean updated = false;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(":");
+                if (parts.length > 6 && parts[1].equalsIgnoreCase(orderID)) { // Check if the 2nd column matches the OrderID
+                    if (!"Delivered".equalsIgnoreCase(parts[6])) { // Ensure the status isn't already "Delivered"
+                        parts[6] = "Delivered"; // Update the completion status
+                        parts[7] = CurrentUser.getLoggedInUser().getUid();
+                        updated = true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "The task is already marked as 'Delivered'.");
+                        return;
+                    }
+                }
+                updatedContent.append(String.join(":", parts)).append(System.lineSeparator());
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Error reading the file: " + ex.getMessage());
+            return;
+        }
+
+        if (updated) {
+            try (FileWriter writer = new FileWriter(file)) {
+                writer.write(updatedContent.toString());
+                JOptionPane.showMessageDialog(null, "Task updated to 'Delivered' successfully!");
+                RefreshbtnActionPerformed(evt); // Refresh the table to reflect changes
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Error updating the file: " + ex.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No matching task found to update.");
+        } 
         
         // TODO add your handling code here:
     }//GEN-LAST:event_UpdateStatusbtnActionPerformed

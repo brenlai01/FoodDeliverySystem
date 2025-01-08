@@ -4,6 +4,13 @@
  */
 package Pages.DeliveryRunner;
 
+import FileManager.CurrentUser;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author vreesa
@@ -26,21 +33,116 @@ public class TaskHistory extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Tasktbl = new javax.swing.JTable();
+        Exitbtn1 = new javax.swing.JButton();
+        Refreshbtn = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        Tasktbl.setBackground(new java.awt.Color(225, 237, 243));
+        Tasktbl.setFont(new java.awt.Font("STIX Two Text", 0, 13)); // NOI18N
+        Tasktbl.setForeground(new java.awt.Color(0, 0, 102));
+        Tasktbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "DeliveryID", "OrderID", "CustomerID", "Commision(RM)", "Address", "Status", "Completion Status", "DriverID"
+            }
+        ));
+        jScrollPane2.setViewportView(Tasktbl);
+
+        Exitbtn1.setBackground(new java.awt.Color(225, 237, 243));
+        Exitbtn1.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
+        Exitbtn1.setForeground(new java.awt.Color(42, 49, 129));
+        Exitbtn1.setText("exit");
+        Exitbtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Exitbtn1ActionPerformed(evt);
+            }
+        });
+
+        Refreshbtn.setBackground(new java.awt.Color(225, 237, 243));
+        Refreshbtn.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
+        Refreshbtn.setForeground(new java.awt.Color(42, 49, 129));
+        Refreshbtn.setText("refresh");
+        Refreshbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RefreshbtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Exitbtn1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Refreshbtn)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Exitbtn1)
+                    .addComponent(Refreshbtn))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Exitbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Exitbtn1ActionPerformed
+        this.dispose();
+        new DRmenu().setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Exitbtn1ActionPerformed
+
+    private void RefreshbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshbtnActionPerformed
+        try {
+            String filename = "deliveries.txt";
+            FileReader fr = new FileReader(filename);
+            BufferedReader br = new BufferedReader(fr);
+            String read;
+
+            DefaultTableModel model = (DefaultTableModel) Tasktbl.getModel();
+            model.setRowCount(0); // Clear the table before adding filtered data
+
+            // Get the logged-in user's DriverID
+            String loggedInDriverID = CurrentUser.getLoggedInUser().getUid();
+
+            Object[] tableLines = br.lines().toArray();
+            for (Object lineObj : tableLines) {
+                String line = lineObj.toString().trim();
+                String[] dataRow = line.split(":");
+
+                // Ensure the data row has enough columns to prevent ArrayIndexOutOfBoundsException
+                if (dataRow.length >= 8) {
+                    String completionStatus = dataRow[6]; // Assuming the 7th column is "Completion Status"
+                    String driverID = dataRow[7];        // Assuming the 8th column is "DriverID"
+
+                    // Filter rows with "Delivered" status and matching DriverID
+                    if ("Delivered".equalsIgnoreCase(completionStatus) && loggedInDriverID.equals(driverID)) {
+                        model.addRow(dataRow); // Add the row to the table
+                    }
+                }
+            }
+            br.close();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }        
+// TODO add your handling code here:
+    }//GEN-LAST:event_RefreshbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +180,9 @@ public class TaskHistory extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Exitbtn1;
+    private javax.swing.JButton Refreshbtn;
+    private javax.swing.JTable Tasktbl;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

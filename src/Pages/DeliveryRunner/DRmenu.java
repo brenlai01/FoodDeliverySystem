@@ -4,6 +4,9 @@
  */
 package Pages.DeliveryRunner;
 
+import FileManager.CurrentUser;
+import Models.DeliveryRunner;
+import Pages.LoginFrame;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -15,14 +18,22 @@ import javax.swing.JOptionPane;
  * @author vreesa
  */
 public class DRmenu extends javax.swing.JFrame {
+    private DeliveryRunner  deliveryrunner;
 
     /**
      * Creates new form DRmenu
      */
     public DRmenu() {
+        this.deliveryrunner = (DeliveryRunner) CurrentUser.getLoggedInUser();
         initComponents();
-    }
+        displayDeliveryID(); // Call method to display deliveryID
 
+    }
+    
+    private void displayDeliveryID() {
+    DriverIDlbl.setText("Driver ID: " + CurrentUser.getLoggedInUser().getUid());
+    
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,9 +50,8 @@ public class DRmenu extends javax.swing.JFrame {
         UpdateTaskStatusbtn = new javax.swing.JButton();
         RevDashbtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
-        jButton1 = new javax.swing.JButton();
+        Exitbtn = new javax.swing.JButton();
+        DriverIDlbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 102));
@@ -110,13 +120,16 @@ public class DRmenu extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(42, 49, 129));
         jLabel1.setText("DELIVERY RUNNER DASHBOARD: ");
 
-        jScrollPane1.setViewportView(jTextPane1);
-
-        jButton1.setBackground(new java.awt.Color(225, 237, 243));
-        jButton1.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(42, 49, 129));
-        jButton1.setText("exit");
-        jButton1.setAlignmentY(0.0F);
+        Exitbtn.setBackground(new java.awt.Color(225, 237, 243));
+        Exitbtn.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
+        Exitbtn.setForeground(new java.awt.Color(42, 49, 129));
+        Exitbtn.setText("exit");
+        Exitbtn.setAlignmentY(0.0F);
+        Exitbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitbtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,12 +150,12 @@ public class DRmenu extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(DriverIDlbl))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton1)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                        .addComponent(Exitbtn)))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {RevDashbtn, UpdateTaskStatusbtn, ViewAvailableTaskbtn, ViewCurrentTaskbtn, ViewCustReviewbtn, ViewTaskHistorybtn});
@@ -151,9 +164,9 @@ public class DRmenu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(DriverIDlbl))
                 .addGap(50, 50, 50)
                 .addComponent(ViewAvailableTaskbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -167,7 +180,7 @@ public class DRmenu extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(RevDashbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
-                .addComponent(jButton1)
+                .addComponent(Exitbtn)
                 .addContainerGap())
         );
 
@@ -211,6 +224,12 @@ public class DRmenu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_ViewAvailableTaskbtnActionPerformed
 
+    private void ExitbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitbtnActionPerformed
+        this.dispose();
+        new LoginFrame().setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ExitbtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -247,15 +266,14 @@ public class DRmenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel DriverIDlbl;
+    private javax.swing.JButton Exitbtn;
     private javax.swing.JButton RevDashbtn;
     private javax.swing.JButton UpdateTaskStatusbtn;
     private javax.swing.JButton ViewAvailableTaskbtn;
     private javax.swing.JButton ViewCurrentTaskbtn;
     private javax.swing.JButton ViewCustReviewbtn;
     private javax.swing.JButton ViewTaskHistorybtn;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextPane jTextPane1;
     // End of variables declaration//GEN-END:variables
 }
