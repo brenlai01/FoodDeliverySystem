@@ -691,7 +691,7 @@ public class FileManager {
 
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(":");
-                if (data.length >= 9) {
+                if (data.length == 10) {
                     if (!data[1].equals(orderID)) {
                         updatedDeliveries.append(line).append("\n");
                     } else {
@@ -720,7 +720,7 @@ public class FileManager {
 
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(":");
-                if (data.length >= 9) {
+                if (data.length == 10) {
                     if (data[1].equals(orderID)) {
                         data[5] = newStatus;
                         line = String.join(":", data);
