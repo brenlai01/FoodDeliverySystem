@@ -3,3 +3,4 @@ O2:C001:V003:Chilli Pan Mee X 1 @ 12.0:Delivery:12.0:2025-01-08 03-00-40:Pending
 O3:C001:V003:Chilli Pan Mee X 1 @ 12.0:Delivery:12.0:2025-01-08 14-18-37:Pending:Unassigned
 O4:C002:V001:Nasi Lemak X 1 @ 9.0:Delivery:9.0:2025-01-08 14-23-41:Pending:Unassigned
 O5:C002:V001:Laksa X 1 @ 11.0, Nasi Lemak X 1 @ 9.0:Delivery:20.0:2025-01-08 14-30-25:Pending:Unassigned
+O6:C002:V001:Laksa X 1 @ 11.0, Nasi Lemak X 1 @ 9.0:Delivery:20.0:2025-01-08 15-02-33:Pending:Unassigned
