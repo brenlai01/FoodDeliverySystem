@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -72,14 +74,10 @@ public class UpdateStatus extends javax.swing.JFrame {
 
             },
             new String [] {
-                "DeliveryID", "OrderID", "CustomerID", "Commision(RM)", "Address", "Status", "Completion Status", "DriverID"
+                "DeliveryID", "OrderID", "CustomerID", "Commision(RM)", "Address", "VendorStatus", "Status", "Completion Status", "DriverID", "Delivery Time"
             }
         ));
         jScrollPane2.setViewportView(Tasktbl);
-        if (Tasktbl.getColumnModel().getColumnCount() > 0) {
-            Tasktbl.getColumnModel().getColumn(0).setPreferredWidth(10);
-            Tasktbl.getColumnModel().getColumn(1).setPreferredWidth(10);
-        }
 
         Exitbtn1.setBackground(new java.awt.Color(225, 237, 243));
         Exitbtn1.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
@@ -120,7 +118,7 @@ public class UpdateStatus extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addContainerGap(619, Short.MAX_VALUE))
+                        .addContainerGap(654, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,7 +138,7 @@ public class UpdateStatus extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(UpdateStatusbtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,9 +175,9 @@ public class UpdateStatus extends javax.swing.JFrame {
 
             // Ensure the data row has enough columns to avoid ArrayIndexOutOfBoundsException
             if (dataRow.length >= 8) { 
-                String status = dataRow[5];           // Assuming "Status" is the 6th column (dataRow[5])
-                String completionStatus = dataRow[6]; // Assuming "Completion Status" is the 7th column (dataRow[6])
-                String driverID = dataRow[7];        // Assuming "DriverID" is the 8th column (dataRow[7])
+                String status = dataRow[6];           // Assuming "Status" is the 6th column (dataRow[5])
+                String completionStatus = dataRow[7]; // Assuming "Completion Status" is the 7th column (dataRow[6])
+                String driverID = dataRow[8];        // Assuming "DriverID" is the 8th column (dataRow[7])
 
                 // Add rows where status is "Accepted", completion status is "Ongoing", and DriverID matches
                 if ("Accepted".equalsIgnoreCase(status) 
@@ -214,8 +212,14 @@ public class UpdateStatus extends javax.swing.JFrame {
                 String[] parts = line.split(":");
                 if (parts.length > 6 && parts[1].equalsIgnoreCase(orderID)) { // Check if the 2nd column matches the OrderID
                     if (!"Delivered".equalsIgnoreCase(parts[6])) { // Ensure the status isn't already "Delivered"
-                        parts[6] = "Delivered"; // Update the completion status
-                        parts[7] = CurrentUser.getLoggedInUser().getUid();
+                        parts[7] = "Delivered"; // Update the completion status                      
+                        parts[8] = CurrentUser.getLoggedInUser().getUid();
+                        //get time 
+                        LocalDateTime now = LocalDateTime.now();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                        
+                        parts[9] =  now.format(formatter);
+                        
                         updated = true;
                     } else {
                         JOptionPane.showMessageDialog(null, "The task is already marked as 'Delivered'.");

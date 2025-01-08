@@ -48,7 +48,7 @@ public class TaskHistory extends javax.swing.JFrame {
 
             },
             new String [] {
-                "DeliveryID", "OrderID", "CustomerID", "Commision(RM)", "Address", "Status", "Completion Status", "DriverID"
+                "DeliveryID", "OrderID", "CustomerID", "Commision(RM)", "Address", "Vendor Status", "Runner Status", "Delivery Status", "DriverID", "Delivery Time"
             }
         ));
         jScrollPane2.setViewportView(Tasktbl);
@@ -128,8 +128,8 @@ public class TaskHistory extends javax.swing.JFrame {
 
                 // Ensure the data row has enough columns to prevent ArrayIndexOutOfBoundsException
                 if (dataRow.length >= 8) {
-                    String completionStatus = dataRow[6]; // Assuming the 7th column is "Completion Status"
-                    String driverID = dataRow[7];        // Assuming the 8th column is "DriverID"
+                    String completionStatus = dataRow[7]; // Assuming the 7th column is "Completion Status"
+                    String driverID = dataRow[8];        // Assuming the 8th column is "DriverID"
 
                     // Filter rows with "Delivered" status and matching DriverID
                     if ("Delivered".equalsIgnoreCase(completionStatus) && loggedInDriverID.equals(driverID)) {

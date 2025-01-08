@@ -61,11 +61,11 @@ public class ChooseTasks extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Delivery ID", "OrderID", "CustomerID", "Commision(RM)", "Address", "Status", "Completion Status", "DriverID"
+                "Delivery ID", "OrderID", "CustomerID", "Commision(RM)", "Address", "Vendor Status", "Status", "Completion Status", "DriverID", "Delivery Time"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -74,11 +74,12 @@ public class ChooseTasks extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(Tasktbl);
         if (Tasktbl.getColumnModel().getColumnCount() > 0) {
-            Tasktbl.getColumnModel().getColumn(0).setResizable(false);
-            Tasktbl.getColumnModel().getColumn(1).setPreferredWidth(10);
             Tasktbl.getColumnModel().getColumn(2).setPreferredWidth(15);
-            Tasktbl.getColumnModel().getColumn(7).setPreferredWidth(0);
-            Tasktbl.getColumnModel().getColumn(7).setMaxWidth(0);
+            Tasktbl.getColumnModel().getColumn(5).setResizable(false);
+            Tasktbl.getColumnModel().getColumn(8).setPreferredWidth(0);
+            Tasktbl.getColumnModel().getColumn(8).setMaxWidth(0);
+            Tasktbl.getColumnModel().getColumn(9).setPreferredWidth(0);
+            Tasktbl.getColumnModel().getColumn(9).setMaxWidth(0);
         }
 
         jLabel1.setFont(new java.awt.Font("Songti TC", 1, 17)); // NOI18N
@@ -171,10 +172,10 @@ public class ChooseTasks extends javax.swing.JFrame {
 
                 // Ensure the data row has enough columns to avoid ArrayIndexOutOfBoundsException
                 if (dataRow.length >= 6) { // Assuming "Status" is the 6th column (dataRow[5])
-                    String status = dataRow[5]; // Adjust the index if the column number is different
-
+                    String Rstatus = dataRow[6]; // DriverStatus
+                    String Vstatus = dataRow[5]; //Vendor Status
                     // Exclude rows where status is "Accepted"
-                    if (!"Accepted".equalsIgnoreCase(status)) {
+                    if (!"Accepted".equalsIgnoreCase(Rstatus) && ("Accepted".equalsIgnoreCase(Vstatus))) {
                         model.addRow(dataRow); // Add the filtered row to the table
                     }
                 }
@@ -202,9 +203,9 @@ public class ChooseTasks extends javax.swing.JFrame {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(":");
                 if (parts.length > 6 && parts[1].equalsIgnoreCase(orderID)) { // to check if the 2nd column matches the OrderID
-                    parts[5] = "Accepted";        // Update the status
-                    parts[6] = "Ongoing";        // Update the completion status
-                    parts[7] = (""+CurrentUser.getLoggedInUser().getUid()); //check!! to update driverID 
+                    parts[6] = "Accepted";        // Update the status
+                    parts[7] = "Ongoing";        // Update the completion status
+                    parts[8] = (""+CurrentUser.getLoggedInUser().getUid()); //check!! to update driverID 
                     updated = true;
                 }
                 updatedContent.append(String.join(":", parts)).append(System.lineSeparator());

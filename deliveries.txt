@@ -1,2 +1,4 @@
-DL1:O1:C001:5.0:asd:pending:unassigned:pending:N/A:N/A
-DL2:O2:C001:5.0:asd:pending:unassigned:pending:N/A:N/A
+DL1:O1:C001:5.0:Street:pending:unassigned:pending:N/A:N/A
+DL2:O2:C001:5.0:Street:Accepted:Accepted:Delivered:D001:2025-01-08 18:10:20
+DL3:O3:C002:5.0:Street:Accepted:unassigned:pending:N/A:N/A
+DL4:O4:C002:5.0:Street:pending:unassigned:pending:N/A:N/A

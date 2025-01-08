@@ -51,7 +51,7 @@ public class CurrentTask extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Delivery No.", "OrderID", "Customer ID", "Commision(RM)", "Address", "Status", "Completion Status", "DriverID"
+                "Delivery No.", "OrderID", "Customer ID", "Commision(RM)", "Address", "Vendor Status", "Status", "Completion Status", "DriverID", "Delivery Time"
             }
         ));
         jScrollPane2.setViewportView(Tasktbl);
@@ -144,9 +144,9 @@ public class CurrentTask extends javax.swing.JFrame {
 
                 // Ensure the data row has enough columns to avoid ArrayIndexOutOfBoundsException
                 if (dataRow.length >= 8) { 
-                    String status = dataRow[5];           // Assuming "Status" is the 6th column (dataRow[5])
-                    String completionStatus = dataRow[6]; // Assuming "Completion Status" is the 7th column (dataRow[6])
-                    String driverID = dataRow[7];        // Assuming "DriverID" is the 8th column (dataRow[7])
+                    String status = dataRow[6];           // Assuming "Status" is the 6th column (dataRow[5])
+                    String completionStatus = dataRow[7]; // Assuming "Completion Status" is the 7th column (dataRow[6])
+                    String driverID = dataRow[8];        // Assuming "DriverID" is the 8th column (dataRow[7])
 
                     // Add rows where status is "Accepted", completion status is "Ongoing", and DriverID matches
                     if ("Accepted".equalsIgnoreCase(status) 
