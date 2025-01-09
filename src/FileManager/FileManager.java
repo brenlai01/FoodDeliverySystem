@@ -761,65 +761,7 @@ public class FileManager {
         return "RV" + String.format("%02d", maxID + 1); // Generate new ID
     }
     
-    public static boolean removeDeliveryTask(String orderID) {
-        boolean found = false;
 
-        try (BufferedReader br = new BufferedReader(new FileReader("deliveries.txt"))) {
-            StringBuilder updatedDeliveries = new StringBuilder();
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(":");
-                if (data.length == 10) {
-                    if (!data[1].equals(orderID)) {
-                        updatedDeliveries.append(line).append("\n");
-                    } else {
-                        found = true;
-                    }
-                }
-            }
-
-            if (found) {
-                try (FileWriter fw = new FileWriter("deliveries.txt")) {
-                    fw.write(updatedDeliveries.toString());
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return found;
-    }
-    
-    public static boolean acceptDeliveryTask(String orderID, String newStatus) {
-        boolean found = false;
-
-        try (BufferedReader br = new BufferedReader(new FileReader("deliveries.txt"))) {
-            StringBuilder updatedDeliveries = new StringBuilder();
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(":");
-                if (data.length == 10) {
-                    if (data[1].equals(orderID)) {
-                        data[5] = newStatus;
-                        line = String.join(":", data);
-                        found = true;
-                    }
-                    updatedDeliveries.append(line).append("\n");
-                }
-            }
-
-            if (found) {
-                try (FileWriter fw = new FileWriter("deliveries.txt")) {
-                    fw.write(updatedDeliveries.toString());
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return found;
-    }
     
     
 }    
