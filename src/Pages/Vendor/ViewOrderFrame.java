@@ -322,6 +322,7 @@ public class ViewOrderFrame extends javax.swing.JFrame {
         String vendorStatus = orderTable.getValueAt(selectedRow, 7).toString().toLowerCase();
         String customerID = orderTable.getValueAt(selectedRow, 1).toString();
         String dateTime = orderTable.getValueAt(selectedRow, 6).toString();
+        String foodItems = orderTable.getValueAt(selectedRow, 3).toString();
 
         if (!vendorStatus.equals("pending")) {
             JOptionPane.showMessageDialog(this, "Only pending orders can be rejected.");
@@ -357,6 +358,8 @@ public class ViewOrderFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Order has been rejected successfully!");
                 
                 Vendor.refundUserAmount(customerID, dateTime);
+                Vendor.refundNotification(customerID, foodItems);
+                Vendor.refundTransaction(customerID, dateTime);
                 
                 boolean deliveryRemoved = Vendor.removeDeliveryTask(orderID);
 

@@ -1,9 +1,14 @@
 package Models;
 
+import Enum.TransactionType;
+import FileManager.FileManager;
+import Records.Notification;
+import Records.Transaction;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Vendor extends User{
     
@@ -104,7 +109,6 @@ public class Vendor extends User{
             return;
         }
 
-        // Step 2: Update the user's balance in users.txt
         try (BufferedReader br = new BufferedReader(new FileReader("users.txt"))) {
             StringBuilder updatedUsers = new StringBuilder();
             String line;
@@ -112,12 +116,12 @@ public class Vendor extends User{
 
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(":");
-                if (data.length >= 5) { // Assuming user data has at least 5 fields
-                    if (data[1].equals(customerID)) { // Check if this is the user we want to update
-                        double currentBalance = Double.parseDouble(data[4]); // Balance is at index 4
-                        currentBalance += amountToRefund; // Add the refund amount to the current balance
-                        data[4] = String.valueOf(currentBalance); // Update the balance in the array
-                        userFound = true; // Mark that we found the user
+                if (data.length >= 5) {
+                    if (data[1].equals(customerID)) {
+                        double currentBalance = Double.parseDouble(data[4]);
+                        currentBalance += amountToRefund;
+                        data[4] = String.valueOf(currentBalance);
+                        userFound = true;
                     }
                 }
                 updatedUsers.append(String.join(":", data)).append("\n");
@@ -134,6 +138,44 @@ public class Vendor extends User{
         } catch (IOException e) {
             System.err.println("Error updating user balance: " + e.getMessage());
         }
+    }
+    
+    public static void refundNotification(String cID, String items) {
+        ArrayList<Notification> notifications = FileManager.loadNotifications("notifications.txt");
+        String nid = FileManager.getNotificationID(notifications);
+        String date = FileManager.getDateTime();
+        String msg = "Your order has been refunded. Order > [" + items + "]";
+        Notification notification = new Notification(nid, cID, msg, date, "Unread");
+        notifications.add(notification);
+        FileManager.writeNotifications("notifications.txt", notifications);
+    }
+    
+    public static void refundTransaction (String customerID, String dateTime){
+        double amountToRefund = 0.0;
+        
+        try (BufferedReader br = new BufferedReader(new FileReader("transactions.txt"))) {
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(":");
+                if (data.length >= 4 && data[1].equals(customerID) && data[4].equals(dateTime)) {
+                    amountToRefund = Double.parseDouble(data[3]);
+                    System.out.println(amountToRefund);
+                    break;
+                }
+
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading transactions: " + e.getMessage());
+            return;
+        }
+                
+        ArrayList<Transaction> txns = FileManager.loadTxns("transactions.txt");
+        String date = FileManager.getDateTime();
+        String txnID = FileManager.getTxnID(txns);
+        Transaction txn = new Transaction(txnID, customerID, TransactionType.REFUND, amountToRefund, date);
+        txns.add(txn);
+        FileManager.writeTxns("transactions.txt", txns);
     }
     
 }
