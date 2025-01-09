@@ -23,14 +23,11 @@
             <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Pages/Vendor/ManageItemFrame.java</file>
         </group>
         <group>
-            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/Models/Customer.java</file>
-            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/review.txt</file>
-            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/orders.txt</file>
-            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/Records/OrderItem.java</file>
-            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/users.txt</file>
-            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/Records/Order.java</file>
-            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/Pages/Customer/CustomerOrderHistory.java</file>
-            <file>file:/C:/Users/User/Desktop/Java/FoodDeliverySystem/src/FileManager/FileManager.java</file>
+            <file>file:/C:/Users/brenl/APU/JavaNetbeans/FoodDeliverySystem/src/Records/OrderItem.java</file>
+            <file>file:/C:/Users/brenl/APU/JavaNetbeans/FoodDeliverySystem/src/FileManager/FileManager.java</file>
+            <file>file:/C:/Users/brenl/APU/JavaNetbeans/FoodDeliverySystem/src/Records/Notification.java</file>
+            <file>file:/C:/Users/brenl/APU/JavaNetbeans/FoodDeliverySystem/src/Pages/Admin/TopUpFrame.java</file>
+            <file>file:/C:/Users/brenl/APU/JavaNetbeans/FoodDeliverySystem/src/Pages/Customer/ViewMenuFrame.java</file>
         </group>
     </open-files>
 </project-private>

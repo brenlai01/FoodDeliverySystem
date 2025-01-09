@@ -520,6 +520,13 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         txns.add(txn);
         FileManager.writeTxns("transactions.txt", txns);
         
+        ArrayList<Notification> notifications = FileManager.loadNotifications("notifications.txt");
+        String nid = FileManager.getNotificationID(notifications);
+        String msg = "You have a new order. Items " + items.toString();
+        Notification notification = new Notification(nid, vendorID, msg, date, "Unread");
+        notifications.add(notification);
+        FileManager.writeNotifications("notifications.txt", notifications);
+        
         JOptionPane.showMessageDialog(null, "Order placed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
         
         BalanceLabel.setText("Balance: RM" + String.format("%.2f", CurrentUser.getLoggedInUser().getBalance()));

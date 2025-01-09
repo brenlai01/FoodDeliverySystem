@@ -1,7 +1,1 @@
-N7:C002:Your balance has been topped up by RM100.0:2025-01-07 12-23-04:Read
-N6:C001:Your balance has been topped up by RM17.0:2024-12-26 21-26-04:Read
-N5:C001:Your balance has been topped up by RM 20.00:2024-12-20 10-05-00:Read
-N4:C001:Your balance has been topped up by RM 20.00:2024-12-19 10-05-00:Read
-N3:C001:Your balance has been topped up by RM 20.00:2024-12-18 10-05-00:Read
-N2:C001:Your balance has been topped up by RM 25.00:2024-12-17 10-05-00:Read
-N1:C002:Your balance has been topped up by RM 50.00:2024-12-16 10-05-00:Read
+N1:V002:You have a new order. Items > [Chicken Burger X 1 @ 8.0, Char Kuey Teow X 1 @ 10.0]:2025-01-09 14-33-18:Read
