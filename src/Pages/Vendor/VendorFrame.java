@@ -142,6 +142,11 @@ public class VendorFrame extends javax.swing.JFrame {
         ReviewOdrLbl.setText("Customer Review");
 
         ReviewOdrBtn.setText("View Review");
+        ReviewOdrBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReviewOdrBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout ReviewOdrPnlLayout = new javax.swing.GroupLayout(ReviewOdrPnl);
         ReviewOdrPnl.setLayout(ReviewOdrPnlLayout);
@@ -225,11 +230,11 @@ public class VendorFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(ViewOdr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(ViewRevenuePnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(56, Short.MAX_VALUE))))
+                        .addGap(56, 56, 56))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(186, 186, 186)
                 .addComponent(LogOutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,6 +277,11 @@ public class VendorFrame extends javax.swing.JFrame {
     private void notiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notiBtnActionPerformed
         displayNotifications();
     }//GEN-LAST:event_notiBtnActionPerformed
+
+    private void ReviewOdrBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReviewOdrBtnActionPerformed
+        new ViewReviewFrame().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ReviewOdrBtnActionPerformed
 
     private void displayNotifications() {
     

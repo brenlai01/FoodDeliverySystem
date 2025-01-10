@@ -99,9 +99,12 @@ public class CustomerTransactionHistory extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(TransactionHistoryTable);
         if (TransactionHistoryTable.getColumnModel().getColumnCount() > 0) {
-            TransactionHistoryTable.getColumnModel().getColumn(0).setPreferredWidth(15);
-            TransactionHistoryTable.getColumnModel().getColumn(1).setPreferredWidth(0);
-            TransactionHistoryTable.getColumnModel().getColumn(2).setPreferredWidth(10);
+            TransactionHistoryTable.getColumnModel().getColumn(0).setMinWidth(100);
+            TransactionHistoryTable.getColumnModel().getColumn(0).setMaxWidth(100);
+            TransactionHistoryTable.getColumnModel().getColumn(1).setMinWidth(150);
+            TransactionHistoryTable.getColumnModel().getColumn(1).setMaxWidth(150);
+            TransactionHistoryTable.getColumnModel().getColumn(2).setMinWidth(90);
+            TransactionHistoryTable.getColumnModel().getColumn(2).setMaxWidth(90);
         }
 
         ReturnButton.setText("Return");

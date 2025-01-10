@@ -311,6 +311,83 @@ public class FileManager {
             e.printStackTrace();
         }
     }
+    
+    // Method to write updated orders ArrayList into orders.txt
+    public static void writeOrders(String filepath, ArrayList<Order> orders) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))) {
+            for (Order order : orders) {
+                StringBuilder orderLine = new StringBuilder();
+
+                orderLine.append(order.getOrderID()).append(":")
+                         .append(order.getCustomerID()).append(":")
+                         .append(order.getVendorID()).append(":");
+
+                ArrayList<OrderItem> items = order.getItems();
+
+                for (int i = 0; i < items.size(); i++) {
+                    OrderItem item = items.get(i);
+                    orderLine.append(item.getFoodName()).append(" X ")
+                              .append(item.getQuantity()).append(" @ ")
+                              .append(item.getPrice());
+                    if (i < items.size() - 1) {
+                        orderLine.append(", ");
+                    }
+                }
+
+                orderLine.append(":").append(order.getOrderType())
+                         .append(":").append(order.getTotalAmount())
+                         .append(":").append(order.getDateTime())
+                         .append(":").append(order.getVendorStatus())
+                         .append(":").append(order.getDeliveryStatus());
+
+                bw.write(orderLine.toString());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    //this is for load the Cancel Order method
+    public static ArrayList<Order> loadCancelOrders(String filepath) {
+        ArrayList<Order> orders = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(":");
+                if (data.length >= 9) { // Ensure it matches the expected number of fields
+                    String orderID = data[0];
+                    String customerID = data[1];
+                    String vendorID = data[2];
+                    String[] itemStrings = data[3].split(", "); // Split items by comma
+                    ArrayList<OrderItem> items = new ArrayList<>();
+
+                    // Parse each item
+                    for (String itemString : itemStrings) {
+                        String[] itemData = itemString.split(" X | @ ");
+                        String foodName = itemData[0];
+                        int quantity = Integer.parseInt(itemData[1]);
+                        double price = Double.parseDouble(itemData[2]);
+                        items.add(new OrderItem(foodName, quantity, price));
+                    }
+
+                    String orderType = data[4];
+                    double totalAmount = Double.parseDouble(data[5]);
+                    String dateTime = data[6];
+                    String vendorStatus = data[7];
+                    String deliveryStatus = data[8];
+
+                    // Create a new Order object and add it to the list
+                    Order order = new Order(orderID, customerID, vendorID, items, orderType, totalAmount, dateTime, vendorStatus, deliveryStatus);
+                    orders.add(order);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return orders;
+    }
+
     // Method for customer to make new order to append to orders.txt
     public static void addNewOrder(String filepath, Order order) {
         
@@ -381,26 +458,28 @@ public class FileManager {
         }
     }
     
-    public static void updateCustomerBalance(String filepath, String customerID, double amount) {
+    public static boolean updateCustomerBalance(String filepath, String customerID, double amount) {
         // Load the current list of users (which includes customers) from the specified file
         ArrayList<User> users = loadUsers(filepath);
-    
+        
         // Iterate through the list of users to find the matching customerID
         for (User  user : users) {
             if (user instanceof Customer && user.getUid().equals(customerID)) {
                 Customer customer = (Customer) user; // Cast to Customer
-            
+                
                 // Use the deductCredit method to update the balance
                 if (customer.deductCredit(amount)) {
                     // If the deduction was successful, write the updated users back to the file
                     writeUsers(filepath, users);
+                    return true; // Indicate success
                 } else {
-                    // Optionally, handle insufficient balance
+                    // Handle insufficient balance
                     System.out.println("Insufficient balance for customer: " + customerID);
+                    return false; // Indicate failure due to insufficient balance
                 }
-                break; // Exit the loop once the customer is found and updated
             }
         }
+        return false; // Indicate failure if customer not found
     }
     
     
@@ -682,65 +761,7 @@ public class FileManager {
         return "RV" + String.format("%02d", maxID + 1); // Generate new ID
     }
     
-    public static boolean removeDeliveryTask(String orderID) {
-        boolean found = false;
 
-        try (BufferedReader br = new BufferedReader(new FileReader("deliveries.txt"))) {
-            StringBuilder updatedDeliveries = new StringBuilder();
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(":");
-                if (data.length == 10) {
-                    if (!data[1].equals(orderID)) {
-                        updatedDeliveries.append(line).append("\n");
-                    } else {
-                        found = true;
-                    }
-                }
-            }
-
-            if (found) {
-                try (FileWriter fw = new FileWriter("deliveries.txt")) {
-                    fw.write(updatedDeliveries.toString());
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return found;
-    }
-    
-    public static boolean acceptDeliveryTask(String orderID, String newStatus) {
-        boolean found = false;
-
-        try (BufferedReader br = new BufferedReader(new FileReader("deliveries.txt"))) {
-            StringBuilder updatedDeliveries = new StringBuilder();
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(":");
-                if (data.length == 10) {
-                    if (data[1].equals(orderID)) {
-                        data[5] = newStatus;
-                        line = String.join(":", data);
-                        found = true;
-                    }
-                    updatedDeliveries.append(line).append("\n");
-                }
-            }
-
-            if (found) {
-                try (FileWriter fw = new FileWriter("deliveries.txt")) {
-                    fw.write(updatedDeliveries.toString());
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return found;
-    }
     
     
 }    

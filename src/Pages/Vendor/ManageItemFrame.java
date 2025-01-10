@@ -265,7 +265,18 @@ public class ManageItemFrame extends javax.swing.JFrame {
                 "Vendor ID", "Food ID", "Food Name", "Price", "Description"
             }
         ));
+        foodTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(foodTable);
+        if (foodTable.getColumnModel().getColumnCount() > 0) {
+            foodTable.getColumnModel().getColumn(0).setMinWidth(67);
+            foodTable.getColumnModel().getColumn(0).setMaxWidth(67);
+            foodTable.getColumnModel().getColumn(1).setMinWidth(60);
+            foodTable.getColumnModel().getColumn(1).setMaxWidth(60);
+            foodTable.getColumnModel().getColumn(2).setMinWidth(100);
+            foodTable.getColumnModel().getColumn(2).setMaxWidth(100);
+            foodTable.getColumnModel().getColumn(3).setMinWidth(50);
+            foodTable.getColumnModel().getColumn(3).setMaxWidth(50);
+        }
 
         MngeItmLbl.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         MngeItmLbl.setText("Manage Item Dashboard");
@@ -284,8 +295,8 @@ public class ManageItemFrame extends javax.swing.JFrame {
                         .addComponent(MngeItmLbl)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MngeItmPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(MngeItmPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

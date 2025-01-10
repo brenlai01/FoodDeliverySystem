@@ -34,7 +34,7 @@ public class OrderItem {
     
     @Override
     public String toString() {
-        return foodName + " x " + quantity + " @ " + price;
+        return foodName + " X " + quantity + " @ " + price;
     }
 }
 

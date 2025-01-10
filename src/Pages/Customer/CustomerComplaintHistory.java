@@ -123,7 +123,8 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(ComplaintHistoryTable);
         if (ComplaintHistoryTable.getColumnModel().getColumnCount() > 0) {
-            ComplaintHistoryTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+            ComplaintHistoryTable.getColumnModel().getColumn(0).setMinWidth(50);
+            ComplaintHistoryTable.getColumnModel().getColumn(0).setMaxWidth(50);
         }
 
         UpdateButton.setText("Update");

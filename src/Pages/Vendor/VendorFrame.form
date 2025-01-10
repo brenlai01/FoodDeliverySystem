@@ -43,14 +43,14 @@
                           <Component id="ViewOdr" max="32767" attributes="0"/>
                           <Component id="ViewRevenuePnl" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="56" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="186" max="-2" attributes="0"/>
               <Component id="LogOutBtn" min="-2" pref="88" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -236,6 +236,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="View Review"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ReviewOdrBtnActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
