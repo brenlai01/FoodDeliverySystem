@@ -31,7 +31,8 @@ public class DRmenu extends javax.swing.JFrame {
     }
     
     private void displayDeliveryID() {
-    DriverIDlbl.setText("Driver ID: " + CurrentUser.getLoggedInUser().getUid());
+    jLabel2.setText("" +CurrentUser.getLoggedInUser().getUid());
+    //displays Driver ID 
     
 }
     /**
@@ -43,93 +44,95 @@ public class DRmenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jEditorPane1 = new javax.swing.JEditorPane();
         ViewTaskHistorybtn = new javax.swing.JButton();
         ViewAvailableTaskbtn = new javax.swing.JButton();
         ViewCurrentTaskbtn = new javax.swing.JButton();
         ViewCustReviewbtn = new javax.swing.JButton();
         UpdateTaskStatusbtn = new javax.swing.JButton();
-        RevDashbtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         Exitbtn = new javax.swing.JButton();
         DriverIDlbl = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+
+        jScrollPane1.setViewportView(jEditorPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 102));
 
-        ViewTaskHistorybtn.setBackground(new java.awt.Color(225, 237, 243));
+        ViewTaskHistorybtn.setBackground(new java.awt.Color(0, 51, 51));
         ViewTaskHistorybtn.setFont(new java.awt.Font("STIX Two Text", 1, 13)); // NOI18N
-        ViewTaskHistorybtn.setForeground(new java.awt.Color(42, 49, 129));
-        ViewTaskHistorybtn.setText("view task history");
+        ViewTaskHistorybtn.setForeground(new java.awt.Color(227, 244, 227));
+        ViewTaskHistorybtn.setText("View Task History & Revenue");
         ViewTaskHistorybtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ViewTaskHistorybtnActionPerformed(evt);
             }
         });
 
-        ViewAvailableTaskbtn.setBackground(new java.awt.Color(225, 237, 243));
+        ViewAvailableTaskbtn.setBackground(new java.awt.Color(0, 51, 51));
         ViewAvailableTaskbtn.setFont(new java.awt.Font("STIX Two Text", 1, 13)); // NOI18N
-        ViewAvailableTaskbtn.setForeground(new java.awt.Color(42, 49, 129));
-        ViewAvailableTaskbtn.setText("view available tasks");
+        ViewAvailableTaskbtn.setForeground(new java.awt.Color(227, 244, 227));
+        ViewAvailableTaskbtn.setText("View Available Tasks");
+        ViewAvailableTaskbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ViewAvailableTaskbtnMouseEntered(evt);
+            }
+        });
         ViewAvailableTaskbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ViewAvailableTaskbtnActionPerformed(evt);
             }
         });
 
-        ViewCurrentTaskbtn.setBackground(new java.awt.Color(225, 237, 243));
+        ViewCurrentTaskbtn.setBackground(new java.awt.Color(0, 51, 51));
         ViewCurrentTaskbtn.setFont(new java.awt.Font("STIX Two Text", 1, 13)); // NOI18N
-        ViewCurrentTaskbtn.setForeground(new java.awt.Color(42, 49, 129));
-        ViewCurrentTaskbtn.setText("view current task");
+        ViewCurrentTaskbtn.setForeground(new java.awt.Color(227, 244, 227));
+        ViewCurrentTaskbtn.setText("View Current Task");
         ViewCurrentTaskbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ViewCurrentTaskbtnActionPerformed(evt);
             }
         });
 
-        ViewCustReviewbtn.setBackground(new java.awt.Color(225, 237, 243));
+        ViewCustReviewbtn.setBackground(new java.awt.Color(0, 51, 51));
         ViewCustReviewbtn.setFont(new java.awt.Font("STIX Two Text", 1, 13)); // NOI18N
-        ViewCustReviewbtn.setForeground(new java.awt.Color(42, 49, 129));
-        ViewCustReviewbtn.setText("view customer review");
+        ViewCustReviewbtn.setForeground(new java.awt.Color(227, 244, 227));
+        ViewCustReviewbtn.setText("View Customer Review");
         ViewCustReviewbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ViewCustReviewbtnActionPerformed(evt);
             }
         });
 
-        UpdateTaskStatusbtn.setBackground(new java.awt.Color(225, 237, 243));
+        UpdateTaskStatusbtn.setBackground(new java.awt.Color(0, 51, 51));
         UpdateTaskStatusbtn.setFont(new java.awt.Font("STIX Two Text", 1, 13)); // NOI18N
-        UpdateTaskStatusbtn.setForeground(new java.awt.Color(42, 49, 129));
-        UpdateTaskStatusbtn.setText("update task status");
+        UpdateTaskStatusbtn.setForeground(new java.awt.Color(227, 244, 227));
+        UpdateTaskStatusbtn.setText("Update Task Status");
         UpdateTaskStatusbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UpdateTaskStatusbtnActionPerformed(evt);
             }
         });
 
-        RevDashbtn.setBackground(new java.awt.Color(225, 237, 243));
-        RevDashbtn.setFont(new java.awt.Font("STIX Two Text", 1, 13)); // NOI18N
-        RevDashbtn.setForeground(new java.awt.Color(42, 49, 129));
-        RevDashbtn.setText("revenue dashboard");
-        RevDashbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RevDashbtnActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("STIX Two Text", 3, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(42, 49, 129));
+        jLabel1.setForeground(new java.awt.Color(0, 51, 51));
         jLabel1.setText("DELIVERY RUNNER DASHBOARD: ");
 
-        Exitbtn.setBackground(new java.awt.Color(225, 237, 243));
+        Exitbtn.setBackground(new java.awt.Color(51, 35, 0));
         Exitbtn.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
-        Exitbtn.setForeground(new java.awt.Color(42, 49, 129));
-        Exitbtn.setText("exit");
+        Exitbtn.setForeground(new java.awt.Color(255, 255, 255));
+        Exitbtn.setText("Exit");
         Exitbtn.setAlignmentY(0.0F);
         Exitbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ExitbtnActionPerformed(evt);
             }
         });
+
+        jLabel2.setFont(new java.awt.Font("STIX Two Text", 3, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 51, 51));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,23 +145,22 @@ public class DRmenu extends javax.swing.JFrame {
                     .addComponent(ViewCurrentTaskbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ViewAvailableTaskbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(UpdateTaskStatusbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ViewTaskHistorybtn, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RevDashbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(68, 68, 68))
+                    .addComponent(ViewTaskHistorybtn, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(75, 75, 75))
             .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Exitbtn)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
                         .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(DriverIDlbl))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Exitbtn)))
-                .addContainerGap(130, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(DriverIDlbl)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {RevDashbtn, UpdateTaskStatusbtn, ViewAvailableTaskbtn, ViewCurrentTaskbtn, ViewCustReviewbtn, ViewTaskHistorybtn});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {UpdateTaskStatusbtn, ViewAvailableTaskbtn, ViewCurrentTaskbtn, ViewCustReviewbtn, ViewTaskHistorybtn});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,7 +168,8 @@ public class DRmenu extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(DriverIDlbl))
+                    .addComponent(DriverIDlbl)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50)
                 .addComponent(ViewAvailableTaskbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -177,14 +180,12 @@ public class DRmenu extends javax.swing.JFrame {
                 .addComponent(ViewTaskHistorybtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(ViewCustReviewbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(RevDashbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(Exitbtn)
-                .addContainerGap())
+                .addGap(15, 15, 15))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {RevDashbtn, UpdateTaskStatusbtn, ViewAvailableTaskbtn, ViewCurrentTaskbtn, ViewCustReviewbtn, ViewTaskHistorybtn});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {UpdateTaskStatusbtn, ViewAvailableTaskbtn, ViewCurrentTaskbtn, ViewCustReviewbtn, ViewTaskHistorybtn});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -212,12 +213,6 @@ public class DRmenu extends javax.swing.JFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_UpdateTaskStatusbtnActionPerformed
 
-    private void RevDashbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RevDashbtnActionPerformed
-        this.dispose();
-        new RevenueDash().setVisible(true);
-// TODO add your handling code here:
-    }//GEN-LAST:event_RevDashbtnActionPerformed
-
     private void ViewAvailableTaskbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewAvailableTaskbtnActionPerformed
         this.dispose();
         new ChooseTasks().setVisible(true); //open another form
@@ -229,6 +224,10 @@ public class DRmenu extends javax.swing.JFrame {
         new LoginFrame().setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_ExitbtnActionPerformed
+
+    private void ViewAvailableTaskbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ViewAvailableTaskbtnMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ViewAvailableTaskbtnMouseEntered
 
     /**
      * @param args the command line arguments
@@ -268,12 +267,14 @@ public class DRmenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel DriverIDlbl;
     private javax.swing.JButton Exitbtn;
-    private javax.swing.JButton RevDashbtn;
     private javax.swing.JButton UpdateTaskStatusbtn;
     private javax.swing.JButton ViewAvailableTaskbtn;
     private javax.swing.JButton ViewCurrentTaskbtn;
     private javax.swing.JButton ViewCustReviewbtn;
     private javax.swing.JButton ViewTaskHistorybtn;
+    private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

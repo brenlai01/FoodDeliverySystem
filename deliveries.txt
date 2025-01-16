@@ -1,1 +1,4 @@
 DL1:O1:C001:5.0:123 Street:pending:unassigned:pending:N/A:N/A
+DL2:O3:C001:5.0:123 Street:Accepted:Accepted:Delivered:D001:2025-01-10 16.26.49
+DL3:O2:C001:5.0:123 Street:Accepted:Accepted:Delivered:D001:2025-01-14 10.37.14
+

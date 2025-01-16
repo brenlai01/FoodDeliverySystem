@@ -34,6 +34,7 @@ public class ChooseTasks extends javax.swing.JFrame {
         
         
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,7 +55,7 @@ public class ChooseTasks extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Tasktbl.setBackground(new java.awt.Color(225, 237, 243));
+        Tasktbl.setBackground(new java.awt.Color(227, 244, 227));
         Tasktbl.setFont(new java.awt.Font("Songti TC", 1, 13)); // NOI18N
         Tasktbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -74,8 +75,9 @@ public class ChooseTasks extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(Tasktbl);
         if (Tasktbl.getColumnModel().getColumnCount() > 0) {
-            Tasktbl.getColumnModel().getColumn(2).setPreferredWidth(15);
-            Tasktbl.getColumnModel().getColumn(5).setResizable(false);
+            Tasktbl.getColumnModel().getColumn(0).setPreferredWidth(15);
+            Tasktbl.getColumnModel().getColumn(1).setPreferredWidth(20);
+            Tasktbl.getColumnModel().getColumn(2).setPreferredWidth(10);
             Tasktbl.getColumnModel().getColumn(8).setPreferredWidth(0);
             Tasktbl.getColumnModel().getColumn(8).setMaxWidth(0);
             Tasktbl.getColumnModel().getColumn(9).setPreferredWidth(0);
@@ -85,26 +87,29 @@ public class ChooseTasks extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Songti TC", 1, 17)); // NOI18N
         jLabel1.setText("Please enter orderID on which task you would like to accept : ");
 
-        refreshbtn.setBackground(new java.awt.Color(225, 237, 243));
+        refreshbtn.setBackground(new java.awt.Color(0, 51, 51));
         refreshbtn.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
-        refreshbtn.setText("refresh table");
+        refreshbtn.setForeground(new java.awt.Color(227, 244, 227));
+        refreshbtn.setText("Refresh Table");
         refreshbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 refreshbtnActionPerformed(evt);
             }
         });
 
-        confirmbtn.setBackground(new java.awt.Color(225, 237, 243));
+        confirmbtn.setBackground(new java.awt.Color(0, 51, 51));
         confirmbtn.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
-        confirmbtn.setText("confirm");
+        confirmbtn.setForeground(new java.awt.Color(227, 244, 227));
+        confirmbtn.setText("Confirm");
         confirmbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confirmbtnActionPerformed(evt);
             }
         });
 
-        Exitbtn.setBackground(new java.awt.Color(225, 237, 243));
+        Exitbtn.setBackground(new java.awt.Color(51, 35, 0));
         Exitbtn.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
+        Exitbtn.setForeground(new java.awt.Color(255, 255, 255));
         Exitbtn.setText("Exit");
         Exitbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

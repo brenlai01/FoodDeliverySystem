@@ -63,12 +63,11 @@ public class UpdateStatus extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel2.setFont(new java.awt.Font("STIX Two Text", 3, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(42, 49, 129));
+        jLabel2.setForeground(new java.awt.Color(0, 51, 51));
         jLabel2.setText("Current Task :");
 
-        Tasktbl.setBackground(new java.awt.Color(225, 237, 243));
+        Tasktbl.setBackground(new java.awt.Color(227, 244, 227));
         Tasktbl.setFont(new java.awt.Font("STIX Two Text", 0, 13)); // NOI18N
-        Tasktbl.setForeground(new java.awt.Color(0, 0, 102));
         Tasktbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -79,29 +78,29 @@ public class UpdateStatus extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(Tasktbl);
 
-        Exitbtn1.setBackground(new java.awt.Color(225, 237, 243));
+        Exitbtn1.setBackground(new java.awt.Color(51, 35, 0));
         Exitbtn1.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
-        Exitbtn1.setForeground(new java.awt.Color(42, 49, 129));
-        Exitbtn1.setText("exit");
+        Exitbtn1.setForeground(new java.awt.Color(255, 255, 255));
+        Exitbtn1.setText("Exit");
         Exitbtn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Exitbtn1ActionPerformed(evt);
             }
         });
 
-        Refreshbtn.setBackground(new java.awt.Color(225, 237, 243));
+        Refreshbtn.setBackground(new java.awt.Color(0, 51, 51));
         Refreshbtn.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
-        Refreshbtn.setForeground(new java.awt.Color(42, 49, 129));
-        Refreshbtn.setText("refresh");
+        Refreshbtn.setForeground(new java.awt.Color(227, 244, 227));
+        Refreshbtn.setText("Refresh");
         Refreshbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RefreshbtnActionPerformed(evt);
             }
         });
 
-        UpdateStatusbtn.setBackground(new java.awt.Color(225, 237, 243));
+        UpdateStatusbtn.setBackground(new java.awt.Color(0, 51, 51));
         UpdateStatusbtn.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
-        UpdateStatusbtn.setForeground(new java.awt.Color(42, 49, 129));
+        UpdateStatusbtn.setForeground(new java.awt.Color(227, 244, 227));
         UpdateStatusbtn.setText("Update Status");
         UpdateStatusbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,8 +136,8 @@ public class UpdateStatus extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(UpdateStatusbtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,7 +215,7 @@ public class UpdateStatus extends javax.swing.JFrame {
                         parts[8] = CurrentUser.getLoggedInUser().getUid();
                         //get time 
                         LocalDateTime now = LocalDateTime.now();
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss");
                         
                         parts[9] =  now.format(formatter);
                         

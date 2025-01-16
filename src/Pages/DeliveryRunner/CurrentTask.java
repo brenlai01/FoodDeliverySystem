@@ -45,7 +45,8 @@ public class CurrentTask extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Tasktbl.setBackground(new java.awt.Color(225, 237, 243));
+        Tasktbl.setBackground(new java.awt.Color(227, 244, 227));
+        Tasktbl.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
         Tasktbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -56,27 +57,27 @@ public class CurrentTask extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(Tasktbl);
         if (Tasktbl.getColumnModel().getColumnCount() > 0) {
-            Tasktbl.getColumnModel().getColumn(0).setPreferredWidth(10);
-            Tasktbl.getColumnModel().getColumn(1).setPreferredWidth(10);
+            Tasktbl.getColumnModel().getColumn(0).setPreferredWidth(15);
+            Tasktbl.getColumnModel().getColumn(1).setPreferredWidth(15);
         }
 
         jLabel1.setFont(new java.awt.Font("STIX Two Text", 3, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(42, 49, 129));
         jLabel1.setText("Current Task :");
 
-        Refreshbtn.setBackground(new java.awt.Color(225, 237, 243));
+        Refreshbtn.setBackground(new java.awt.Color(0, 51, 51));
         Refreshbtn.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
-        Refreshbtn.setForeground(new java.awt.Color(42, 49, 129));
-        Refreshbtn.setText("refresh");
+        Refreshbtn.setForeground(new java.awt.Color(227, 244, 227));
+        Refreshbtn.setText("Refresh");
         Refreshbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RefreshbtnActionPerformed(evt);
             }
         });
 
-        Exitbtn.setBackground(new java.awt.Color(225, 237, 243));
+        Exitbtn.setBackground(new java.awt.Color(51, 35, 0));
         Exitbtn.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
-        Exitbtn.setForeground(new java.awt.Color(42, 49, 129));
+        Exitbtn.setForeground(new java.awt.Color(255, 255, 255));
         Exitbtn.setText("exit");
         Exitbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,16 +92,16 @@ public class CurrentTask extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(Exitbtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Refreshbtn))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel1))
-                .addContainerGap(14, Short.MAX_VALUE))
+                                .addComponent(Refreshbtn)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,10 +111,10 @@ public class CurrentTask extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Refreshbtn)
-                    .addComponent(Exitbtn))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Exitbtn)
+                    .addComponent(Refreshbtn))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();

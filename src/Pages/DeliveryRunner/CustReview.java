@@ -39,9 +39,9 @@ public class CustReview extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Refreshbtn.setBackground(new java.awt.Color(225, 237, 243));
+        Refreshbtn.setBackground(new java.awt.Color(0, 51, 51));
         Refreshbtn.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
-        Refreshbtn.setForeground(new java.awt.Color(42, 49, 129));
+        Refreshbtn.setForeground(new java.awt.Color(227, 244, 227));
         Refreshbtn.setText("Refresh");
         Refreshbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,9 +63,9 @@ public class CustReview extends javax.swing.JFrame {
             Reviewtbl.getColumnModel().getColumn(1).setPreferredWidth(5);
         }
 
-        Exitbtn1.setBackground(new java.awt.Color(225, 237, 243));
+        Exitbtn1.setBackground(new java.awt.Color(51, 35, 0));
         Exitbtn1.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
-        Exitbtn1.setForeground(new java.awt.Color(42, 49, 129));
+        Exitbtn1.setForeground(new java.awt.Color(255, 255, 255));
         Exitbtn1.setText("Exit");
         Exitbtn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,7 +94,7 @@ public class CustReview extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Refreshbtn)
                     .addComponent(Exitbtn1))
