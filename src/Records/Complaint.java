@@ -5,15 +5,19 @@ public class Complaint {
    private String complaintID;
    private String uniID;
    private String complaintInfo; 
+   private String managerReply;
+   private String complaintStatus; // unresolved -> resolved
    
-   public Complaint(String customerID, String complaintID, String uniID, String complaintInfo){
+   public Complaint(String customerID, String complaintID, String uniID, String complaintInfo, String reply, String status){
        this.customerID = customerID;
        this.complaintID = complaintID;
        this.uniID = uniID;
        this.complaintInfo = complaintInfo;
+       this.managerReply = reply;
+       this.complaintStatus = status;
    }
    
-   //getter
+   //getter & setter
    public String getCustomerID(){
        return customerID;
    }
@@ -32,6 +36,21 @@ public class Complaint {
    
    public void setComplaintInfo(String complaintInfo){
        this.complaintInfo = complaintInfo;
+   }
+   
+   public String getManagerReply() {
+       return managerReply;
+   }
+   
+   public void setManagerReply(String reply) {
+       this.managerReply = reply;
+   }
+   public String getComplaintStatus(){
+       return complaintStatus;
+   }
+   
+   public void setComplaintStatus(String status) {
+       this.complaintStatus = status;
    }
    
    //change to string method

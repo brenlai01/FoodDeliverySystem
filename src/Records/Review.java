@@ -7,6 +7,7 @@ public class Review {
     private String vendorID;
     private String orderID; // New field for order ID
     private String reviewInfo;
+    private int rating; // 1 to 5 stars
     
     public Review(String customerID, String reviewID, String vendorID, String orderID, String reviewInfo) {
         this.customerID = customerID;

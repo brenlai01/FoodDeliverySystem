@@ -130,9 +130,9 @@
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="UpdateButton" alignment="0" min="-2" pref="41" max="-2" attributes="0"/>
-                      <Component id="ReturnButton" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                      <Component id="ReturnButton" min="-2" pref="44" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -197,7 +197,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="300" minWidth="300" prefWidth="-1" resizable="true">
+                    <Column maxWidth="0" minWidth="0" prefWidth="0" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
