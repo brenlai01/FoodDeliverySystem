@@ -201,49 +201,108 @@ public class UpdateStatus extends javax.swing.JFrame {
 
         // Get the OrderID from the only row in the table
         String orderID = Tasktbl.getValueAt(0, 1).toString(); // 1 refers to the second column, OrderID
-        File file = new File("deliveries.txt");
-        StringBuilder updatedContent = new StringBuilder();
+        File deliveriesFile = new File("deliveries.txt");
+        File ordersFile = new File("orders.txt");
+        File usersFile = new File("users.txt");
+
+        StringBuilder updatedDeliveriesContent = new StringBuilder();
+        StringBuilder updatedUsersContent = new StringBuilder();
         boolean updated = false;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(":");
-                if (parts.length > 6 && parts[1].equalsIgnoreCase(orderID)) { // Check if the 2nd column matches the OrderID
-                    if (!"Delivered".equalsIgnoreCase(parts[6])) { // Ensure the status isn't already "Delivered"
-                        parts[7] = "Delivered"; // Update the completion status                      
-                        parts[8] = CurrentUser.getLoggedInUser().getUid();
-                        //get time 
-                        LocalDateTime now = LocalDateTime.now();
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss");
-                        
-                        parts[9] =  now.format(formatter);
-                        
-                        updated = true;
-                    } else {
-                        JOptionPane.showMessageDialog(null, "The task is already marked as 'Delivered'.");
-                        return;
+        String vendorID = null;
+        double driverRevenue = 0.0;
+        double totalRevenue = 0.0;
+
+        try {
+            // Read the orders.txt file to find the vendorID and totalRevenue
+            try (BufferedReader ordersReader = new BufferedReader(new FileReader(ordersFile))) {
+                String line;
+                while ((line = ordersReader.readLine()) != null) {
+                    String[] parts = line.split(":");
+                    if (parts.length > 5 && parts[0].equalsIgnoreCase(orderID)) { // Check if OrderID matches
+                        vendorID = parts[2]; // VendorID is at index 1
+                        totalRevenue = Double.parseDouble(parts[5]); // Total Revenue is at index 5
+                        break;
                     }
                 }
-                updatedContent.append(String.join(":", parts)).append(System.lineSeparator());
             }
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Error reading the file: " + ex.getMessage());
-            return;
-        }
 
-        if (updated) {
-            try (FileWriter writer = new FileWriter(file)) {
-                writer.write(updatedContent.toString());
-                JOptionPane.showMessageDialog(null, "Task updated to 'Delivered' successfully!");
-                RefreshbtnActionPerformed(evt); // Refresh the table to reflect changes
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Error updating the file: " + ex.getMessage());
+            if (vendorID == null) {
+                JOptionPane.showMessageDialog(null, "No matching OrderID found in orders.txt.");
+                return;
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "No matching task found to update.");
-        } 
-        
+
+            // Read and update deliveries.txt
+            try (BufferedReader deliveriesReader = new BufferedReader(new FileReader(deliveriesFile))) {
+                String line;
+                while ((line = deliveriesReader.readLine()) != null) {
+                    String[] parts = line.split(":");
+                    if (parts.length > 6 && parts[1].equalsIgnoreCase(orderID)) { // Check if OrderID matches
+                        if (!"Delivered".equalsIgnoreCase(parts[6])) { // Ensure the status isn't already "Delivered"
+                            parts[7] = "Delivered"; // Update the completion status                      
+                            parts[8] = CurrentUser.getLoggedInUser().getUid();
+
+                            //get the drivers revenue ammount
+                            driverRevenue = Double.parseDouble(parts[3]);
+                   
+                            // Get the current time
+                            LocalDateTime now = LocalDateTime.now();
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss");
+                            parts[9] = now.format(formatter);
+
+                            updated = true;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "The task is already marked as 'Delivered'.");
+                            return;
+                        }
+                    }
+                    updatedDeliveriesContent.append(String.join(":", parts)).append(System.lineSeparator());
+                }
+            }
+
+            if (!updated) {
+                JOptionPane.showMessageDialog(null, "No matching task found to update in deliveries.txt.");
+                return;
+            }
+
+            // Read and update users.txt
+            try (BufferedReader usersReader = new BufferedReader(new FileReader(usersFile))) {
+                String line;
+                while ((line = usersReader.readLine()) != null) {
+                    String[] parts = line.split(":");
+
+                    // Update revenue for vendorID
+                    if (parts.length > 4 && parts[1].equalsIgnoreCase(vendorID)) { // VendorID is at index 0
+                        double currentRevenue = Double.parseDouble(parts[4]); // Revenue field is at index 4
+                        parts[4] = String.valueOf(currentRevenue + totalRevenue);
+                    }
+
+                    // Update revenue for driverID
+                    if (parts.length > 4 && parts[1].equalsIgnoreCase(CurrentUser.getLoggedInUser().getUid())) { // DriverID
+                        double currentRevenue = Double.parseDouble(parts[4]); // Revenue field is at index 4
+                        parts[4] = String.valueOf(currentRevenue + driverRevenue);
+                    }
+
+                    updatedUsersContent.append(String.join(":", parts)).append(System.lineSeparator());
+                }
+            }
+
+            // Write updates back to deliveries.txt
+            try (FileWriter deliveriesWriter = new FileWriter(deliveriesFile)) {
+                deliveriesWriter.write(updatedDeliveriesContent.toString());
+            }
+
+            // Write updates back to users.txt
+            try (FileWriter usersWriter = new FileWriter(usersFile)) {
+                usersWriter.write(updatedUsersContent.toString());
+            }
+
+            JOptionPane.showMessageDialog(null, "Task updated to 'Delivered' successfully!");
+            RefreshbtnActionPerformed(evt); // Refresh the table to reflect changes
+
+        } catch (IOException | NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }    
         // TODO add your handling code here:
     }//GEN-LAST:event_UpdateStatusbtnActionPerformed
 
