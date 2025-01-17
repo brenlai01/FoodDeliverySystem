@@ -27,7 +27,9 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
     private void OrderHistoryTableMouseClicked(java.awt.event.MouseEvent evt) {                                      
         int selectedRow = OrderHistoryTable.getSelectedRow();
         if (selectedRow != -1) {
-            ReviewTextArea.setText((String) OrderHistoryTable.getValueAt(selectedRow, 5));
+            // Retrieve the review from the sixth column (index 6)
+            String reviewInfo = (String) OrderHistoryTable.getValueAt(selectedRow, 6);
+            ReviewTextArea.setText(reviewInfo); // Show the existing review
         }
     }
     
@@ -69,6 +71,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
                             data[4], // Order Type
                             data[6], // Order Date
                             data[7], // Vendor Status
+                            data[8], //Delivery  Status
                             reviewInfo, // Review
                             data[2], // Vendor ID (not displayed)
                             data[0]  // Order ID
@@ -100,7 +103,6 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
         DeleteReviewButton = new javax.swing.JButton();
         ReturnButton = new javax.swing.JButton();
         CustomerIDLabel = new javax.swing.JLabel();
-        UpdateButton = new javax.swing.JButton();
         CancelButton = new javax.swing.JButton();
         BalanceLabel = new javax.swing.JLabel();
 
@@ -116,13 +118,13 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
 
         OrderHistoryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Food Name", "Price", "Order Type", "Order Time", "Vendor Status", "Review", "Vendor ID", "Order ID"
+                "Food Name", "Price", "Order Type", "Order Time", "Vendor Status", "Delivery Status", "Review", "Vendor ID", "Order ID"
             }
         ));
         jScrollPane1.setViewportView(OrderHistoryTable);
@@ -135,15 +137,17 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
             OrderHistoryTable.getColumnModel().getColumn(3).setMaxWidth(170);
             OrderHistoryTable.getColumnModel().getColumn(4).setMinWidth(140);
             OrderHistoryTable.getColumnModel().getColumn(4).setMaxWidth(140);
-            OrderHistoryTable.getColumnModel().getColumn(5).setMinWidth(0);
-            OrderHistoryTable.getColumnModel().getColumn(5).setPreferredWidth(0);
-            OrderHistoryTable.getColumnModel().getColumn(5).setMaxWidth(0);
+            OrderHistoryTable.getColumnModel().getColumn(5).setMinWidth(140);
+            OrderHistoryTable.getColumnModel().getColumn(5).setMaxWidth(140);
             OrderHistoryTable.getColumnModel().getColumn(6).setMinWidth(0);
             OrderHistoryTable.getColumnModel().getColumn(6).setPreferredWidth(0);
             OrderHistoryTable.getColumnModel().getColumn(6).setMaxWidth(0);
             OrderHistoryTable.getColumnModel().getColumn(7).setMinWidth(0);
             OrderHistoryTable.getColumnModel().getColumn(7).setPreferredWidth(0);
             OrderHistoryTable.getColumnModel().getColumn(7).setMaxWidth(0);
+            OrderHistoryTable.getColumnModel().getColumn(8).setMinWidth(0);
+            OrderHistoryTable.getColumnModel().getColumn(8).setPreferredWidth(0);
+            OrderHistoryTable.getColumnModel().getColumn(8).setMaxWidth(0);
         }
 
         ReviewTextArea.setColumns(20);
@@ -183,13 +187,6 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
 
         CustomerIDLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         CustomerIDLabel.setText("Customer ID:");
-
-        UpdateButton.setText("Update");
-        UpdateButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpdateButtonActionPerformed(evt);
-            }
-        });
 
         CancelButton.setText("Cancel");
         CancelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -239,9 +236,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(121, 121, 121))))
+                        .addGap(121, 1346, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,9 +262,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
                         .addComponent(DeleteReviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(SubmitReviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -298,7 +291,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
             double price = Double.parseDouble(priceString);
             String orderType = (String) OrderHistoryTable.getValueAt(selectedRow, 2); // Order Type
             String customerID = CurrentUser .getLoggedInUser ().getUid(); // Get logged-in customer ID
-            String vendorID = (String) OrderHistoryTable.getValueAt(selectedRow, 6); // Vendor ID
+            String vendorID = (String) OrderHistoryTable.getValueAt(selectedRow, 7); // Vendor ID
             String vendorStatus = "Pending"; // Set initial vendor status
             String deliveryStatus = "Unassigned"; // Set initial delivery status
             String orderID = FileManager.getReOrderID("orders.txt"); // Generate a new order ID
@@ -375,11 +368,19 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
             return;
         }
 
-        String orderID = (String) OrderHistoryTable.getValueAt(selectedRow, 7); // Assuming order ID is in the first column
-        String vendorID = (String) OrderHistoryTable.getValueAt(selectedRow, 6); // Assuming vendor ID is in the fifth column
-        String reviewInfo = ReviewTextArea.getText(); // Assuming you have a JTextArea named reviewTextArea
+        String orderID = (String) OrderHistoryTable.getValueAt(selectedRow, 8); // Assuming order ID is in the eighth column
+        String vendorID = (String) OrderHistoryTable.getValueAt(selectedRow, 7); // Assuming vendor ID is in the seventh column
+        String reviewInfo = ReviewTextArea.getText(); // Get the review text
         String customerID = CurrentUser .getLoggedInUser ().getUid();
-    
+
+        // Check the delivery status of the selected order
+        String deliveryStatus = (String) OrderHistoryTable.getValueAt(selectedRow, 5); // Assuming delivery status is in the fifth column
+        if (!"Delivered".equalsIgnoreCase(deliveryStatus)) {
+            JOptionPane.showMessageDialog(this, "You can only submit a review once the order has been delivered.");
+            ReviewTextArea.setText(""); // Clear the text area
+            return;
+        }
+
         if (reviewInfo.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Review cannot be empty.");
             return;
@@ -392,7 +393,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
         for (Review review : reviews) {
             if (review.getOrderID().equals(orderID) && review.getCustomerID().equals(customerID)) {
                 // Update existing review
-                review.setReviewInfo(reviewInfo);
+                review.setReviewInfo(reviewInfo); // Update the review with new info
                 reviewExists = true;
                 break;
             }
@@ -402,17 +403,13 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
             // Update the review in the file
             FileManager.writeReviews("review.txt", reviews);
             JOptionPane.showMessageDialog(this, "Review updated successfully.");
-            ReviewTextArea.setText("");
+            ReviewTextArea.setText(""); // Clear the text area
         } else {
-            // Create a new review
-            String reviewID = FileManager.getReviewIDForCustomer(customerID, "review.txt"); // Get or generate review ID
-            Review newReview = new Review(customerID, reviewID, vendorID, orderID, reviewInfo);
-            FileManager.addNewReview("review.txt", newReview);
-            JOptionPane.showMessageDialog(this, "Review submitted successfully.");
-            ReviewTextArea.setText("");
+            // Inform the user that they can only have one review per order
+            JOptionPane.showMessageDialog(this, "You can only submit one review per order. Please update the existing review instead.");
         }
 
-    refreshData();
+        refreshData();
     }//GEN-LAST:event_SubmitReviewButtonActionPerformed
 
     private void DeleteReviewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteReviewButtonActionPerformed
@@ -422,7 +419,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
             return;
         }
 
-        String orderID = (String) OrderHistoryTable.getValueAt(selectedRow, 7); // Assuming order ID is in the first column
+        String orderID = (String) OrderHistoryTable.getValueAt(selectedRow, 8); // Assuming order ID is in the first column
         String customerID = CurrentUser .getLoggedInUser ().getUid();
 
         // Load existing reviews
@@ -449,18 +446,14 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
         refreshData();
     }//GEN-LAST:event_DeleteReviewButtonActionPerformed
 
-    private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
-        SubmitReviewButtonActionPerformed(evt);
-    }//GEN-LAST:event_UpdateButtonActionPerformed
-
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
         int selectedRow = OrderHistoryTable.getSelectedRow();
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Please select an order to cancel.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+           JOptionPane.showMessageDialog(this, "Please select an order to cancel.", "Error", JOptionPane.ERROR_MESSAGE);
+           return;
         }
 
-        String orderID = (String) OrderHistoryTable.getValueAt(selectedRow, 7); // Assuming orderID is in the 7th column
+        String orderID = (String) OrderHistoryTable.getValueAt(selectedRow, 8); // Assuming orderID is in the 8th column
         double totalAmount = Double.parseDouble((String) OrderHistoryTable.getValueAt(selectedRow, 1)); // Assuming price is in the 2nd column
 
         // Load existing orders using loadCancelOrders method
@@ -482,9 +475,13 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
                 // Retrieve the delivery fee from the associated delivery record
                 double deliveryFee = 0.0; // Initialize delivery fee
                 ArrayList<Delivery> deliveries = FileManager.loadDeliveries("deliveries.txt"); // Load deliveries
+                Delivery deliveryToRemove = null; // Initialize delivery to remove
+
+                // Find the delivery associated with the order
                 for (Delivery delivery : deliveries) {
                     if (delivery.getOrderID().equals(orderID)) {
                         deliveryFee = delivery.getDeliveryCharges(); // Get the delivery charges
+                        deliveryToRemove = delivery; // Mark this delivery for removal
                         break; // Exit the loop once found
                     }
                 }
@@ -513,6 +510,12 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
                 ArrayList<Review> reviews = FileManager.loadReviews("review.txt");
                 reviews.removeIf(review -> review.getOrderID().equals(orderID) && review.getCustomerID().equals(customer.getUid()));
                 FileManager.writeReviews("review.txt", reviews); // Write updated reviews back to the file
+
+                // Remove the delivery record if it exists
+                if (deliveryToRemove != null) {
+                    deliveries.remove(deliveryToRemove); // Remove the matched delivery
+                    FileManager.writeDeliveries("deliveries.txt", deliveries); // Write updated deliveries back to the file
+                }
 
                 // Clear the ReviewTextArea since the review is removed
                 ReviewTextArea.setText("");
@@ -581,7 +584,6 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
     private javax.swing.JLabel ReviewLabel;
     private javax.swing.JTextArea ReviewTextArea;
     private javax.swing.JButton SubmitReviewButton;
-    private javax.swing.JButton UpdateButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

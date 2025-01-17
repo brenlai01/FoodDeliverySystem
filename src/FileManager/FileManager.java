@@ -548,6 +548,23 @@ public class FileManager {
         return "DL" + (lastDeliveryID + 1);
     }
     
+    // Method to write the updated deliveries ArrayList into deliveries.txt
+    public static void writeDeliveries(String filepath, ArrayList<Delivery> deliveries) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))) {
+            for (Delivery delivery : deliveries) {
+                String line = delivery.getDeliveryID() + ":" + delivery.getOrderID() 
+                        + ":" + delivery.getCustomerID() + ":" + delivery.getDeliveryCharges() 
+                        + ":" + delivery.getAddress() + ":" + delivery.getRunnerStatus()
+                        + ":" + delivery.getVendorStatus() + ":" + delivery.getDeliveryStatus() 
+                        + ":" + delivery.getDeliveryRunnerID() + ":" + delivery.getDeliveredTime();
+                bw.write(line);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     // Method to load existing notifications
     public static ArrayList<Notification> loadNotifications(String filepath) {
         
