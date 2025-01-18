@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -73,6 +75,52 @@ public class ViewOrderFrame extends javax.swing.JFrame {
             System.out.println("Selected order ID: " + orderIDTxt.getText());
         }
     }
+    
+    private void displayOrdersAccordingPeriod() {
+        String selectedPeriod = (String) periodCBox.getSelectedItem();
+        String loggedInVendorId = CurrentUser .getLoggedInUser ().getUid();
+        double totalRevenue = 0;
+
+        DefaultTableModel model = (DefaultTableModel) orderTable.getModel();
+        model.setRowCount(0);
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss"); // Adjust as needed
+
+        try (BufferedReader br = new BufferedReader(new FileReader("orders.txt"))) {
+            String line;
+            LocalDate today = LocalDate.now();
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(":");
+                if (data.length >= 9 && data[2].equals(loggedInVendorId)) {
+                    // Parse the order date from the 7th field (index 6)
+                    LocalDate orderDate = LocalDate.parse(data[6].trim(), dateFormatter);
+
+                    // Check the selected period
+                    boolean isInPeriod = false;
+                    switch (selectedPeriod.toLowerCase()) {
+                        case "daily":
+                            isInPeriod = orderDate.isEqual(today);
+                            break;
+                        case "monthly":
+                            isInPeriod = orderDate.getYear() == today.getYear() && orderDate.getMonth() == today.getMonth();
+                            break;
+                        case "quarterly":
+                            isInPeriod = orderDate.getYear() == today.getYear() && (orderDate.getMonthValue() - 1) / 3 == (today.getMonthValue() - 1) / 3;
+                            break;
+                        case "yearly":
+                            isInPeriod = orderDate.getYear() == today.getYear();
+                            break;
+                    }
+
+                    if (isInPeriod) {
+                        model.addRow(new Object[]{data[0], data[1], data[2], data[3], data[5], data[4], data[6], data[7], data[8]}); // Add relevant data to the table
+                    }
+                }
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -95,9 +143,10 @@ public class ViewOrderFrame extends javax.swing.JFrame {
         vendorIDLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         orderIDTxt = new javax.swing.JTextField();
+        periodCBox = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(840, 494));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("View Order Dashboard");
@@ -181,6 +230,15 @@ public class ViewOrderFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Order ID:");
 
+        periodCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Daily", "Monthly", "Quarterly", "Yearly" }));
+        periodCBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                periodCBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Select Period:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -190,17 +248,22 @@ public class ViewOrderFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 784, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(orderIDTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(vendorIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(vendorIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(20, 20, 20)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(orderIDTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel4)
+                                    .addGap(39, 39, 39)
+                                    .addComponent(periodCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 784, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(226, 226, 226)
                         .addComponent(acceptBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -222,7 +285,9 @@ public class ViewOrderFrame extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(orderIDTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(periodCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
@@ -305,7 +370,6 @@ public class ViewOrderFrame extends javax.swing.JFrame {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error updating order status: " + e.getMessage());
         }
-        
     }//GEN-LAST:event_acceptBtnActionPerformed
 
     private void rejectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectBtnActionPerformed
@@ -421,6 +485,10 @@ public class ViewOrderFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchTxtKeyReleased
 
+    private void periodCBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_periodCBoxActionPerformed
+        displayOrdersAccordingPeriod();
+    }//GEN-LAST:event_periodCBoxActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -461,10 +529,12 @@ public class ViewOrderFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField orderIDTxt;
     private javax.swing.JTable orderTable;
+    private javax.swing.JComboBox<String> periodCBox;
     private javax.swing.JButton rejectBtn;
     private javax.swing.JButton returnBtn;
     private javax.swing.JTextField searchTxt;

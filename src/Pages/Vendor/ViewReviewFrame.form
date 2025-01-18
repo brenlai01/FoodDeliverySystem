@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -58,8 +58,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -67,6 +66,7 @@
                           <Component id="searchTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Component id="vendorIDLabel" min="-2" max="-2" attributes="0"/>
@@ -128,11 +128,12 @@
         <Component class="javax.swing.JTable" name="reviewTable">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="5" rowCount="4">
+              <Table columnCount="6" rowCount="4">
                 <Column editable="true" title="Review ID" type="java.lang.Object"/>
                 <Column editable="true" title="Customer ID" type="java.lang.Object"/>
                 <Column editable="true" title="Vendor ID" type="java.lang.Object"/>
                 <Column editable="true" title="Order ID" type="java.lang.Object"/>
+                <Column editable="true" title="Ratings" type="java.lang.Object"/>
                 <Column editable="true" title="Review" type="java.lang.Object"/>
               </Table>
             </Property>
@@ -154,6 +155,11 @@
                   <Renderer/>
                 </Column>
                 <Column maxWidth="66" minWidth="66" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="60" minWidth="60" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>

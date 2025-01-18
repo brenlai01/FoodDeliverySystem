@@ -634,12 +634,16 @@ public class FileManager {
             String line;
             while ((line = br.readLine()) != null){
                 String[] parts = line.split(":");
-                if (parts.length == 4){
+                if (parts.length == 6){
                     String customerID = parts[0];
                     String complaintID = parts[1];
                     String uniID = parts[2];
                     String complaintInfo = parts[3];
-                    complaints.add(new Complaint(customerID, complaintID, uniID, complaintInfo));
+                    String managerReply = parts[4];
+                    String complaintStatus = parts [5];
+                    
+                    complaints.add(new Complaint(customerID, complaintID, uniID, 
+                            complaintInfo, managerReply, complaintStatus));
                 }
             }
         }catch(IOException e){

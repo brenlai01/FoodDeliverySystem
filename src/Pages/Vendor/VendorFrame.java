@@ -170,6 +170,11 @@ public class VendorFrame extends javax.swing.JFrame {
         );
 
         ViewRevenueBtn.setText("Revenue");
+        ViewRevenueBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ViewRevenueBtnActionPerformed(evt);
+            }
+        });
 
         ViewRevenueLbl.setText("View Revenue");
 
@@ -282,6 +287,11 @@ public class VendorFrame extends javax.swing.JFrame {
         new ViewReviewFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ReviewOdrBtnActionPerformed
+
+    private void ViewRevenueBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewRevenueBtnActionPerformed
+        new ViewRevenueFrame().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ViewRevenueBtnActionPerformed
 
     private void displayNotifications() {
     

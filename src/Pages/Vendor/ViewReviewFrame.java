@@ -41,12 +41,13 @@ public class ViewReviewFrame extends javax.swing.JFrame {
             String read;
             while ((read = br.readLine()) != null) {
                 String[] data = read.split(":");
-                if (data.length >= 5) {
+                if (data.length >= 6) {
                     String[] orderData = {
                         data[1],
                         data[0],
                         data[2],
                         data[3],
+                        data[5],
                         data[4]
                     };
 
@@ -57,11 +58,11 @@ public class ViewReviewFrame extends javax.swing.JFrame {
                 }
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error reading orders data: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error reading reviews data: " + e.getMessage());
         }
 
         if (!hasOrders) {
-            JOptionPane.showMessageDialog(null, "No orders found for the current vendor.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No review found for this vendor.", "Information", JOptionPane.INFORMATION_MESSAGE);
         }
     }
     
@@ -112,13 +113,13 @@ public class ViewReviewFrame extends javax.swing.JFrame {
 
         reviewTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Review ID", "Customer ID", "Vendor ID", "Order ID", "Review"
+                "Review ID", "Customer ID", "Vendor ID", "Order ID", "Ratings", "Review"
             }
         ));
         jScrollPane1.setViewportView(reviewTable);
@@ -131,6 +132,8 @@ public class ViewReviewFrame extends javax.swing.JFrame {
             reviewTable.getColumnModel().getColumn(2).setMaxWidth(68);
             reviewTable.getColumnModel().getColumn(3).setMinWidth(66);
             reviewTable.getColumnModel().getColumn(3).setMaxWidth(66);
+            reviewTable.getColumnModel().getColumn(4).setMinWidth(60);
+            reviewTable.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 
         returnBtn.setText("Return");
@@ -173,13 +176,13 @@ public class ViewReviewFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(searchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(searchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel1))
                 .addGap(20, 20, 20)
                 .addComponent(vendorIDLabel)
                 .addGap(14, 14, 14)
@@ -217,18 +220,19 @@ public class ViewReviewFrame extends javax.swing.JFrame {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(":");
-                if (data.length >= 5) {
+                if (data.length >= 6) {
                     if(data[2].equals(loggedInVendorId)){
                         String reviewID = data[1].trim().toLowerCase();
                         String customerID = data[0].trim().toLowerCase();
                         String vendorID = data[2].trim().toLowerCase();
                         String orderID = data[3].trim().toLowerCase();
+                        String ratings = data[5].trim().toLowerCase();
                         String review = data[4].trim().toLowerCase();
 
                         if (reviewID.contains(searchText) || customerID.contains(searchText) || 
                             vendorID.contains(searchText) || orderID.contains(searchText) ||
-                            review.contains(searchText)) {
-                            model.addRow(new Object[]{data[1], data[0], data[2], data[3], data[4]});
+                            ratings.contains(searchText) || review.contains(searchText)) {
+                            model.addRow(new Object[]{data[1], data[0], data[2], data[3], data[5], data[4]});
                         }
                     }
                 }
