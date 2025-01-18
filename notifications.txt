@@ -2,3 +2,4 @@ N1:V002:You have a new order. Items > [Chicken Burger X 1 @ 8.0, Char Kuey Teow 
 N2:V003:You have a new order. Items [Chilli Pan Mee X 1 @ 12.0]:2025-01-17 22-47-41:Unread
 N3:V003:You have a new order. Items [Chilli Pan Mee X 1 @ 12.0]:2025-01-17 22-48-46:Unread
 N4:V003:You have a new order. Items [Chilli Pan Mee X 1 @ 12.0]:2025-01-17 22-53-28:Unread
+N5:V001:You have a new order. Items [Teh Tarik X 1 @ 4.0]:2025-01-19 01-26-12:Unread

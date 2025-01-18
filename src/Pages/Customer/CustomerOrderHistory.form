@@ -94,7 +94,9 @@
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="ReturnButton" min="-2" pref="102" max="-2" attributes="0"/>
-                          <EmptySpace min="121" pref="1346" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="UpdateReviewButton" min="-2" pref="87" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -128,7 +130,10 @@
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="ReturnButton" min="-2" pref="44" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="ReturnButton" min="-2" pref="44" max="-2" attributes="0"/>
+                      <Component id="UpdateReviewButton" min="-2" pref="36" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -300,6 +305,14 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Balance: RM"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="UpdateReviewButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Update"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="UpdateReviewButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
