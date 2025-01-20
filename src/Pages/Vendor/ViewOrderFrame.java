@@ -318,6 +318,8 @@ public class ViewOrderFrame extends javax.swing.JFrame {
         String orderID = orderIDTxt.getText().trim(); // Get the order ID from the text field
         String currentVendorID = orderTable.getValueAt(selectedRow, 2).toString();
         String vendorStatus = orderTable.getValueAt(selectedRow, 7).toString().toLowerCase();
+        String orderType = orderTable.getValueAt(selectedRow, 5).toString().toLowerCase();
+        double totalPrice = Double.parseDouble(orderTable.getValueAt(selectedRow, 4).toString());
 
         if (!vendorStatus.equals("pending")) {
             JOptionPane.showMessageDialog(this, "Only pending orders can be accepted.");
@@ -352,17 +354,28 @@ public class ViewOrderFrame extends javax.swing.JFrame {
                     fw.write(updatedData.toString());
                 }
                 JOptionPane.showMessageDialog(null, "Order has been accepted successfully!");
+                
+                if (orderType.equals("delivery")){
+                    // Now update the delivery task associated with the accepted order
+                    boolean deliveryUpdated = Vendor.acceptDeliveryTask(orderID, "Accepted"); // Call the method from FileManager
 
-                // Now update the delivery task associated with the accepted order
-                boolean deliveryUpdated = Vendor.acceptDeliveryTask(orderID, "Accepted"); // Call the method from FileManager
-
-                // Handle the result of the delivery update
-                if (deliveryUpdated) {
-                    JOptionPane.showMessageDialog(null, "Delivery task updated to accepted successfully.");
-                } else {
-                    JOptionPane.showMessageDialog(null, "No delivery task found for the accepted order ID.", "Error", JOptionPane.ERROR_MESSAGE);
+                    // Handle the result of the delivery update
+                    if (deliveryUpdated) {
+                        JOptionPane.showMessageDialog(null, "Delivery task updated to accepted successfully.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No delivery task found for the accepted order ID.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }else if (orderType.equals("dine-in")|| orderType.equals("takeaway")){
+                    ArrayList<User> users = FileManager.loadUsers("users.txt");
+                    
+                    for(User user: users) {
+                        if(user.getUid().equalsIgnoreCase(loggedInVendorId)) {
+                            user.setBalance(user.getBalance() + totalPrice);
+                        }
+                    }
+                    FileManager.writeUsers("users.txt", users);
                 }
-
+                
                 refreshData();
             } else {
                 JOptionPane.showMessageDialog(null, "Order ID not found!", "Error", JOptionPane.ERROR_MESSAGE);
