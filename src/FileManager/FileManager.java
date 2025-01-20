@@ -664,6 +664,25 @@ public class FileManager {
         }
     }
     
+    public static Complaint submitComplaint(String customerID, String complaintInfo, String filepath) {
+        String complaintID = getComplaintIDForCustomer(customerID, filepath);
+        String uniID = generateUniqueComplaintID(filepath);
+        String managerReply = ""; // Initialize manager reply as empty
+        String complaintStatus = "Pending"; // Set initial status to Pending
+
+        // Create a new complaint
+        Complaint newComplaint = new Complaint(customerID, complaintID, uniID, complaintInfo, managerReply, complaintStatus);
+
+        // Load existing complaints
+        ArrayList<Complaint> allComplaints = LoadComplaints(filepath);
+        allComplaints.add(newComplaint); // Add the new complaint to the list
+
+        // Write all complaints back to the file
+        writeComplaints(filepath, allComplaints);
+
+        return newComplaint; // Return the newly created complaint
+    }
+    
     //Check complaintID exist or not
     public static String getComplaintIDForCustomer(String customerID, String filepath){
         ArrayList<Complaint> complaints = LoadComplaints(filepath);

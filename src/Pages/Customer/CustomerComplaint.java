@@ -1,6 +1,7 @@
 package Pages.Customer;
 
 import FileManager.CurrentUser;
+import FileManager.FileManager;
 import Models.Customer;
 import Records.Complaint;
 import javax.swing.JOptionPane;
@@ -104,24 +105,23 @@ public class CustomerComplaint extends javax.swing.JFrame {
     }//GEN-LAST:event_ReturnComplaintButtonActionPerformed
 
     private void SubmitComplaintButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitComplaintButtonActionPerformed
-        String customerID = CurrentUser.getLoggedInUser().getUid();
+        String customerID = CurrentUser .getLoggedInUser ().getUid();
         String complaintInfo = ComplaintTextArea.getText().trim();
-        
-        //check if the complaint text field is empty
-        if (complaintInfo.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Complains cannot be empty!", "Input Error", JOptionPane.ERROR_MESSAGE);
+
+        // Check if the complaint text field is empty
+        if (complaintInfo.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Complaints cannot be empty!", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        Customer customer = new Customer(customerID, "username", "password", 0.0); // Replace with actual values
 
-        // Submit the complaint
-        Complaint newComplaint = customer.submitComplaint(complaintInfo);
-        
+        // Submit the complaint using FileManager
+        Complaint newComplaint = FileManager.submitComplaint(customerID, complaintInfo, "complaint.txt");
+
         if (newComplaint != null) {
-        JOptionPane.showMessageDialog(this, "Complains submitted successfully! Your Complains ID is: " + newComplaint.getComplaintID(), "Success", JOptionPane.INFORMATION_MESSAGE);
-        ComplaintTextArea.setText(""); // Clear the text field after submission
+            JOptionPane.showMessageDialog(this, "Complaint submitted successfully! Your Complaint ID is: " + newComplaint.getComplaintID(), "Success", JOptionPane.INFORMATION_MESSAGE);
+            ComplaintTextArea.setText(""); // Clear the text field after submission
         } else {
-        JOptionPane.showMessageDialog(this, "Failed to submit complains. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Failed to submit complaint. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_SubmitComplaintButtonActionPerformed
 
