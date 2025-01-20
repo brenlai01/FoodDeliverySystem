@@ -4,14 +4,17 @@
  */
 package Pages.DeliveryRunner;
 
-import FileManager.CurrentUser;
+import FileManager.*;
 import Models.DeliveryRunner;
+import Records.Notification;
+import Records.Order;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -226,11 +229,29 @@ public class ChooseTasks extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(ChooseTasks.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            ArrayList<Order> orders = FileManager.loadOrders("orders.txt");
+            ArrayList<Notification> notifications = FileManager.loadNotifications("notifications.txt");
+            
+            for(Order order: orders){
+                if(order.getOrderID().equalsIgnoreCase(orderID)){
+                    order.setDeliveryStatus("Delivering");
+                    String nid = FileManager.getNotificationID(notifications);
+                    String msg = "Your order is on the way! OrderID = " + order.getOrderID();
+                    Notification notification = new Notification(nid, order.getCustomerID(), msg, FileManager.getDateTime(), "Unread");
+                    notifications.add(notification);
+                }
+            }
+            FileManager.writeOrders("orders.txt", orders);
+            FileManager.writeNotifications("notifications.txt", notifications);
+                    
         } else {
             JOptionPane.showMessageDialog(null, "Order ID not found.");
         }
         
-// TODO add your handling code here:
+        
+        
+
     }//GEN-LAST:event_confirmbtnActionPerformed
 
     private void ExitbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitbtnActionPerformed
