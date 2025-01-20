@@ -496,7 +496,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         FileManager.writeUsers("users.txt", users);
         
         // Getting details for creating new order and adding new order to orders.txt
-        String orderID = generateOrderID();
+        String orderID = FileManager.generateOrderID("orders.txt");
         String vendorID = selectedVendorID;
         String orderType = selectedOrderType;
         String date = FileManager.getDateTime();
@@ -781,21 +781,6 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         orderAmountField.setEditable(false);
     }
 
-    // Method for generating IDs
-    private String generateOrderID() {
-        ArrayList<Order> existingOrders = FileManager.loadOrders("orders.txt");
-        int lastOrderID = 0;
-        
-        for (Order order : existingOrders) {
-            String orderID = order.getOrderID();
-            int orderNum = Integer.parseInt(orderID.substring(1));
-            
-            if (orderNum > lastOrderID) {
-                lastOrderID = orderNum;
-            }
-        }
-        return "O" + (lastOrderID + 1);
-    }
     
     // Method to create delivery record if customer choose delivery option
     // Called when placeOrderButton is clicked

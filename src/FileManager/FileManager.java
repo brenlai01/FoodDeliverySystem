@@ -426,8 +426,8 @@ public class FileManager {
     }
     
     
-    // Method to generate a  reorder ID
-    public static String getReOrderID(String filepath) {
+    // Method to generate a order ID
+    public static String generateOrderID(String filepath) {
         int lastOrderID = 0;
         
         try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
