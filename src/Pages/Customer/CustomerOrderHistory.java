@@ -1,10 +1,10 @@
 package Pages.Customer;
 
+import Enum.TransactionType;
 import FileManager.*;
 import Models.Customer;
 import Models.User;
 import Records.*;
-import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -306,7 +306,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
             String vendorID = (String) OrderHistoryTable.getValueAt(selectedRow, 7); // Vendor ID
             String vendorStatus = "Pending"; // Set initial vendor status
             String deliveryStatus = "Unassigned"; // Set initial delivery status
-            String orderID = FileManager.getReOrderID("orders.txt"); // Generate a new order ID
+            String orderID = FileManager.generateOrderID("orders.txt"); // Generate a new order ID
             String newOrderTime = FileManager.getDateTime(); // Get current date and time
 
             // Initialize delivery charges
@@ -528,6 +528,24 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
                     deliveries.remove(deliveryToRemove); // Remove the matched delivery
                     FileManager.writeDeliveries("deliveries.txt", deliveries); // Write updated deliveries back to the file
                 }
+                
+                // Create a refund transaction record
+                ArrayList<Transaction> txns = FileManager.loadTxns("transactions.txt");
+        
+                String customerID = CurrentUser .getLoggedInUser ().getUid();
+                String date = FileManager.getDateTime();
+                String txnID = FileManager.getTxnID(txns);
+                Transaction txn = new Transaction(txnID, customerID, TransactionType.REFUND, totalAmount, date);
+                txns.add(txn);
+                FileManager.writeTxns("transactions.txt", txns);
+                
+                // Create order cancel notification for vendor
+                ArrayList<Notification> notifications = FileManager.loadNotifications("notifications.txt");
+                String nid = FileManager.getNotificationID(notifications);
+                String msg = "A customer has cancel an order. Items " + orderToCancel.getItems().toString();
+                Notification notification = new Notification(nid, orderToCancel.getVendorID(), msg, date, "Unread");
+                notifications.add(notification);
+                FileManager.writeNotifications("notifications.txt", notifications);
 
                 // Clear the ReviewTextArea since the review is removed
                 ReviewTextArea.setText("");

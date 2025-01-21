@@ -43,14 +43,15 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
     private void ComplaintHistoryTableMouseClicked(java.awt.event.MouseEvent evt) {                                      
         int selectedRow = ComplaintHistoryTable.getSelectedRow();
         if (selectedRow != -1) {
-            ComplaintInfoText.setText((String) ComplaintHistoryTable.getValueAt(selectedRow, 1));
+            ComplaintInfoText.setText((String) ComplaintHistoryTable.getValueAt(selectedRow, 2));
+            ReplyTextArea.setText((String) ComplaintHistoryTable.getValueAt(selectedRow, 3));
         }
     }
 
     public void refreshData() {
         try {
             DefaultTableModel model = (DefaultTableModel) ComplaintHistoryTable.getModel();
-            model.setRowCount(0); //clear data
+            model.setRowCount(0); // Clear data
 
             String complaintFile = "complaint.txt";
             FileReader fr = new FileReader(complaintFile);
@@ -61,11 +62,13 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
 
             while ((read = br.readLine()) != null) {
                 String[] data = read.split(":");
-                if (data.length == 4) {
+                if (data.length >= 5) { // Ensure we have enough data
                     if (data[0].equals(loggedInCustomerId)) {
                         String[] complaintData = {
-                            data[2],
-                            data[3]
+                            data[2], // uniID
+                            data[5], // complaintStatus
+                            data[3], // complaintInfo
+                            data[4]  // managerReply
                         };
                         model.addRow(complaintData);
                     }
@@ -99,6 +102,9 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
         DetailsLable = new javax.swing.JLabel();
         CutomerIDLabel = new javax.swing.JLabel();
         ComplaintIDLabel = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        ReplyTextArea = new javax.swing.JTextArea();
+        ReplyLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,13 +124,15 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Details"
+                "ID", "Status", "Details", "Reply"
             }
         ));
         jScrollPane1.setViewportView(ComplaintHistoryTable);
         if (ComplaintHistoryTable.getColumnModel().getColumnCount() > 0) {
             ComplaintHistoryTable.getColumnModel().getColumn(0).setMinWidth(50);
             ComplaintHistoryTable.getColumnModel().getColumn(0).setMaxWidth(50);
+            ComplaintHistoryTable.getColumnModel().getColumn(1).setMinWidth(120);
+            ComplaintHistoryTable.getColumnModel().getColumn(1).setMaxWidth(120);
         }
 
         UpdateButton.setText("Update");
@@ -152,39 +160,50 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
 
         ComplaintIDLabel.setText("Complains ID:");
 
+        ReplyTextArea.setColumns(20);
+        ReplyTextArea.setRows(5);
+        jScrollPane3.setViewportView(ReplyTextArea);
+
+        ReplyLabel.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        ReplyLabel.setText("Reply by Manager:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(160, 160, 160))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(DetailsLable)
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(DetailsLable)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(CutomerIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(ComplaintIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(64, 64, 64)
+                                .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54)
+                                .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(CutomerIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ComplaintIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(ReplyLabel)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane3))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -198,18 +217,20 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(DetailsLable)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72)
-                .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(64, 64, 64))
+                    .addComponent(DetailsLable)
+                    .addComponent(ReplyLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -243,6 +264,9 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
             // Write updated complaints back to the file
             FileManager.writeComplaints("complaint.txt", complaints);
             JOptionPane.showMessageDialog(this, "Complains deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            
+            ComplaintInfoText.setText("");
+            ReplyTextArea.setText("");
             refreshData();
         }else{
             JOptionPane.showMessageDialog(this, "Please select a complains to delete.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -251,13 +275,13 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
 
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
         int selectedRow = ComplaintHistoryTable.getSelectedRow();
-        if (selectedRow != -1){
+        if (selectedRow != -1) {
             String uniID = (String) ComplaintHistoryTable.getValueAt(selectedRow, 0); // Get uniID
             String updatedInfo = ComplaintInfoText.getText().trim(); // Get updated complaint info
             
-            if(updatedInfo.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Complaint cannot be empty!", "Input Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            if (updatedInfo.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Complaint cannot be empty!", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
             
             // Load existing complaints
@@ -271,10 +295,13 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
             
             // Write updated complaints back to the file
             FileManager.writeComplaints("complaint.txt", complaints);
-            JOptionPane.showMessageDialog(this, "Complains updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Complaints updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            
+            ComplaintInfoText.setText("");
+            ReplyTextArea.setText("");
             refreshData();
-        }else{
-            JOptionPane.showMessageDialog(this, "Please select a complains to update.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a complaint to update.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_UpdateButtonActionPerformed
 
@@ -320,11 +347,14 @@ public class CustomerComplaintHistory extends javax.swing.JFrame {
     private javax.swing.JLabel CutomerIDLabel;
     private javax.swing.JButton DeleteButton;
     private javax.swing.JLabel DetailsLable;
+    private javax.swing.JLabel ReplyLabel;
+    private javax.swing.JTextArea ReplyTextArea;
     private javax.swing.JButton ReturnButton;
     private javax.swing.JButton UpdateButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 }

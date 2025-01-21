@@ -29,7 +29,7 @@ public class Vendor extends User{
         this.balance = balance;
     }
     
-        public static boolean removeDeliveryTask(String orderID) {
+    public static boolean removeDeliveryTask(String orderID) {
         boolean found = false;
 
         try (BufferedReader br = new BufferedReader(new FileReader("deliveries.txt"))) {
