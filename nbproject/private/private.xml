@@ -22,17 +22,6 @@
         <group name="FoodDeliverySystem">
             <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Pages/Vendor/ManageItemFrame.java</file>
         </group>
-        <group>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/FileManager/CurrentUser.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/FileManager/FileManager.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Pages/DeliveryRunner/CurrentTask.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Models/DeliveryRunner.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/users.txt</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Main.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Pages/DeliveryRunner/ChooseTasks.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Pages/LoginFrame.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/deliveries.txt</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/orders.txt</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
