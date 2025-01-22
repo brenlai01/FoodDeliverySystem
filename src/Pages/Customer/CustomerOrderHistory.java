@@ -326,6 +326,23 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
             if (customer.getBalance() >= totalAmount) {
                 // Deduct the amount from the customer's balance
                 if (FileManager.updateCustomerBalance("users.txt", customer.getUid(), totalAmount)) {
+                    
+                    if(orderType.equalsIgnoreCase("delivery")){
+                        
+                        String deliveryAddress = JOptionPane.showInputDialog(null, "Please enter delivery address:", "Delivery Address", JOptionPane.QUESTION_MESSAGE);
+        
+                        if (deliveryAddress == null || deliveryAddress.isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Delivery Address is required.", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                        
+                        ArrayList<Delivery> deliveries = FileManager.loadDeliveries("deliveries.txt");
+                        
+                        String deliveryID = FileManager.generateDeliveryID();  
+                        
+                        Delivery delivery = new Delivery(deliveryID, orderID, customerID, deliveryCharges, deliveryAddress, "pending", "unassigned", "pending", "N/A", "N/A");
+                        FileManager.appendDeliveries("deliveries.txt", delivery);
+                    }
                     // Create a new order string
                     String newOrder = String.format("%s:%s:%s:%s:%s:%.2f:%s:%s:%s",
                             orderID,
