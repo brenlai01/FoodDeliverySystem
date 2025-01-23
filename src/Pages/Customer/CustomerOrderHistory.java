@@ -520,8 +520,12 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
                 double currentBalance = customer.getBalance();
                 customer.setBalance(currentBalance + totalAmount + deliveryFee); // Update the customer's balance
 
-                // Remove the order from the list
-                orders.remove(orderToCancel); // Remove the matched order
+                for (Order order : orders) {
+                    if (order.getCustomerID().equals(customer.getUid())) {
+                        order.setVendorStatus("Cancelled");
+                        break; // Exit the loop once the order is found
+                    }
+                }
 
                 // Update the orders file
                 FileManager.writeOrders("orders.txt", orders);
