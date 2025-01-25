@@ -49,7 +49,8 @@ public class ViewRevenueFrame extends javax.swing.JFrame {
                         data[6]
                     };
 
-                    if (data[2].equals(loggedInVendorId) && deliveryStatus.equals("Delivered")) {
+                    if ((data[2].equals(loggedInVendorId) && data[7].equals("Accepted")) && (data[8].equals("Delivered")||
+                        data[4].equals("Dine-in") || data[4].equals("Takeaway"))) {
                         model.addRow(orderData);
                         hasOrders = true;
                     }
@@ -79,31 +80,36 @@ public class ViewRevenueFrame extends javax.swing.JFrame {
             LocalDate today = LocalDate.now();
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(":");
-                if (data.length >= 9 && data[2].equals(loggedInVendorId)) {
-                    // Parse the order date from the 7th field (index 6)
-                    LocalDate orderDate = LocalDate.parse(data[6].trim(), dateFormatter);
-                    double totalPrice = Double.parseDouble(data[5].trim());
+                if (data.length >= 9) {
+                    if ((data[2].equals(loggedInVendorId) && data[7].equals("Accepted")) && 
+                        (data[8].equals("Delivered")|| data[4].equals("Dine-in") || 
+                         data[4].equals("Takeaway"))){
+                        // Parse the order date from the 7th field (index 6)
+                        LocalDate orderDate = LocalDate.parse(data[6].trim(), dateFormatter);
+                        double totalPrice = Double.parseDouble(data[5].trim());
 
-                    // Check the selected period
-                    boolean isInPeriod = false;
-                    switch (selectedPeriod.toLowerCase()) {
-                        case "daily":
-                            isInPeriod = orderDate.isEqual(today);
-                            break;
-                        case "monthly":
-                            isInPeriod = orderDate.getYear() == today.getYear() && orderDate.getMonth() == today.getMonth();
-                            break;
-                        case "quarterly":
-                            isInPeriod = orderDate.getYear() == today.getYear() && (orderDate.getMonthValue() - 1) / 3 == (today.getMonthValue() - 1) / 3;
-                            break;
-                        case "yearly":
-                            isInPeriod = orderDate.getYear() == today.getYear();
-                            break;
-                    }
+                        // Check the selected period
+                        boolean isInPeriod = false;
+                        switch (selectedPeriod.toLowerCase()) {
+                            case "daily":
+                                isInPeriod = orderDate.isEqual(today);
+                                break;
+                            case "monthly":
+                                isInPeriod = orderDate.getYear() == today.getYear() && orderDate.getMonth() == today.getMonth();
+                                break;
+                            case "quarterly":
+                                isInPeriod = orderDate.getYear() == today.getYear() && (orderDate.getMonthValue() - 1) / 3 == (today.getMonthValue() - 1) / 3;
+                                break;
+                            case "yearly":
+                                isInPeriod = orderDate.getYear() == today.getYear();
+                                break;
+                        }
 
-                    if (isInPeriod) {
-                        totalRevenue += totalPrice;
-                        model.addRow(new Object[]{data[0], data[2], data[3], data[5], data[6]}); // Add relevant data to the table
+                        if (isInPeriod) {
+                            totalRevenue += totalPrice;
+                            model.addRow(new Object[]{data[0], data[2], data[3], data[5], data[6]}); // Add relevant data to the table
+
+                        }
                     }
                 }
             }
