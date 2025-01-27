@@ -41,7 +41,7 @@ public class ViewReviewFrame extends javax.swing.JFrame {
             String read;
             while ((read = br.readLine()) != null) {
                 String[] data = read.split(":");
-                if (data.length >= 6) {
+                if (data.length >= 10) {
                     String[] orderData = {
                         data[1],
                         data[0],
@@ -220,7 +220,7 @@ public class ViewReviewFrame extends javax.swing.JFrame {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(":");
-                if (data.length >= 6) {
+                if (data.length >= 10) {
                     if(data[2].equals(loggedInVendorId)){
                         String reviewID = data[1].trim().toLowerCase();
                         String customerID = data[0].trim().toLowerCase();
