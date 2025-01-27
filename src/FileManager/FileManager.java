@@ -703,14 +703,18 @@ public class FileManager {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(":");
-                if (parts.length == 5) {
+                if (parts.length == 9) {
                     String customerID = parts[0];
                     String reviewID = parts[1];
                     String vendorID = parts[2];
                     String orderID = parts[3];
-                    String reviewInfo = parts[4];
-
-                    reviews.add(new Review(customerID, reviewID, vendorID, orderID, reviewInfo));
+                    String orderReview = parts[4];
+                    int orderRating = Integer.parseInt(parts[5]);
+                    String deliveryID = parts[6];
+                    String deliveryReview = parts[7];
+                    int deliveryRating = Integer.parseInt(parts[8]);
+                    
+                    reviews.add(new Review(customerID, reviewID, vendorID, orderID, orderReview, orderRating, deliveryID, deliveryReview, deliveryRating));
                 }
             }
         } catch (IOException e) {
@@ -719,57 +723,16 @@ public class FileManager {
         return reviews;
     }
     
-    //write review function
     public static void writeReviews(String filepath, ArrayList<Review> reviews) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))) {
+            
             for (Review review : reviews) {
-                bw.write(review.toString());
+                String line = review.toString();
+                bw.write(line);
                 bw.newLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    
-    public static void addNewReview(String filepath, Review review) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath, true))) {
-            // Write the review to the file
-            bw.write(review.toString());
-            bw.newLine(); // Add a new line after the review
-        } catch (IOException e) {
-            e.printStackTrace(); // Print the stack trace for any IO exceptions
-        }
-    }
-    
-    // Check reviewID exists or not
-    public static String getReviewIDForCustomer(String customerID, String filepath) {
-        ArrayList<Review> reviews = loadReviews(filepath); // Load existing reviews
-        for (Review review : reviews) {
-            if (review.getCustomerID().equals(customerID)) {
-                return review.getReviewID(); // Return existing reviewID
-            }
-        }
-        return generateNewReviewID(filepath); // Generate new ID if not exist
-    }
-    
-    // Generate new reviewID
-    private static String generateNewReviewID(String filepath) {
-        ArrayList<Review> reviews = loadReviews(filepath);
-        int maxID = 0;
-
-        for (Review review : reviews) {
-            String reviewID = review.getReviewID();
-            if (reviewID.startsWith("RV")) { // Assuming review IDs start with 'RV'
-                int id = Integer.parseInt(reviewID.substring(2)); // Extract numeric part of ID
-                if (id > maxID) {
-                    maxID = id; // Find the maximum ID
-                }
-            }
-        }
-        return "RV" + String.format("%02d", maxID + 1); // Generate new ID
-    }
-    
-
-    
-    
+    }  
 }    

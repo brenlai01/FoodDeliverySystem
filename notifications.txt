@@ -1,7 +1,8 @@
+N8:V002:You have a new order. Items [Chicken Burger X 1 @ 8.0]:2025-01-27 22-03-06:Read
+N7:C001:Your order has been delivered! OrderID = O2:2025-01-23 14-49-03:Read
+N6:C001:Your order is on the way! OrderID = O2:2025-01-23 14-48-44:Read
 N5:V003:You have a new order. Items [Chilli Pan Mee X 1 @ 12.0]:2025-01-23 14-47-48:Read
 N4:V001:A customer has cancel an order. Items [Nasi Lemak X 1 @ 9.0]:2025-01-23 14-47-18:Unread
 N3:V001:You have a new order. Items [Nasi Lemak X 1 @ 9.0]:2025-01-23 14-47-04:Unread
 N2:V001:A customer has cancel an order. Items [Nasi Lemak X 1 @ 9.0]:2025-01-23 13-33-13:Unread
 N1:V001:You have a new order. Items [Nasi Lemak X 1 @ 9.0]:2025-01-23 13-33-04:Unread
-N6:C001:Your order is on the way! OrderID = O2:2025-01-23 14-48-44:Unread
-N7:C001:Your order has been delivered! OrderID = O2:2025-01-23 14-49-03:Unread
