@@ -225,7 +225,7 @@ public class ChooseTasks extends javax.swing.JFrame {
         if (updated) {
             try (FileWriter writer = new FileWriter(file)) {
                 writer.write(updatedContent.toString());
-                JOptionPane.showMessageDialog(null, "Order status and completion status updated successfully!");
+                JOptionPane.showMessageDialog(null, "Order Accepted!");
             } catch (IOException ex) {
                 Logger.getLogger(ChooseTasks.class.getName()).log(Level.SEVERE, null, ex);
             }
