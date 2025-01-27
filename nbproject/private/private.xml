@@ -23,16 +23,14 @@
             <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Pages/Vendor/ManageItemFrame.java</file>
         </group>
         <group>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Pages/DeliveryRunner/DRmenu.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Pages/DeliveryRunner/TaskHistory.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Pages/DeliveryRunner/UpdateStatus.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Pages/Manager/ManagerFrame.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Pages/DeliveryRunner/ChooseTasks.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Pages/DeliveryRunner/RevenueDash.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Pages/DeliveryRunner/CustReview.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Records/Delivery.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/src/Pages/LoginFrame.java</file>
-            <file>file:/Users/vreesa/NetBeansProjects/FoodDeliverySystem/deliveries.txt</file>
+            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/src/Pages/Customer/CustomerOrderHistory.java</file>
+            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/orders.txt</file>
+            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/src/Pages/Customer/StarRating.java</file>
+            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/src/Pages/Vendor/ViewOrderFrame.java</file>
+            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/review.txt</file>
+            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/src/Records/Review.java</file>
+            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/src/FileManager/FileManager.java</file>
+            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/deliveries.txt</file>
         </group>
     </open-files>
 </project-private>
