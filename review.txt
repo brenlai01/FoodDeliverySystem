@@ -1,2 +1,2 @@
-C001:R1:V003:O2:Best PanMee in  town.:5:DL1:Delivered within 20mins.:5
-C001:R2:V002:O3:Burger Patty was juicy.:5:null:null:0
+C001:R1:V002:O3:Burger patty was very juicy. Would order again.:5:null:null:null:0
+C001:R2:V003:O2:Best Chilli PanMee in town:5:D001:DL1:Food was delivered in less than 20 mins.:5

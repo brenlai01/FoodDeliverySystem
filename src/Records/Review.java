@@ -8,21 +8,23 @@ public class Review {
     private String orderID; // New field for order ID
     private String orderReview; // Review for order (Only vendor can see)
     private int orderRating; // 1 to 5 stars
+    private String deliveryRunnerID;
     private String deliveryID;
     private String deliveryReview; // Review for deliveryRunner (Only runner can see) Manager can see both
     private int deliveryRating;
      
     
     public Review(String customerID, String reviewID, String vendorID, String orderID, String orderReview, int orderRating, 
-            String deliveryID, String deliveryReview, int deliveryRating) {
+            String deliveryRunnerID, String deliveryID, String deliveryReview, int deliveryRating) {
         
         this.customerID = customerID;
         this.reviewID = reviewID;
         this.vendorID = vendorID;
-        this.orderID = orderID; // Initialize order ID
-        this.deliveryID = deliveryID;
+        this.orderID = orderID; 
         this.orderReview = orderReview;
         this.orderRating = orderRating;
+        this.deliveryRunnerID = deliveryRunnerID; 
+        this.deliveryID = deliveryID;
         this.deliveryReview = deliveryReview;
         this.deliveryRating = deliveryRating;
     }
@@ -63,6 +65,10 @@ public class Review {
         return deliveryRating;
     }
     
+    public String getDeliveryRunnerID() {
+        return deliveryRunnerID;
+    }
+    
     public void setCustomerID(String customerID) {
         this.customerID = customerID;
     }
@@ -98,9 +104,13 @@ public class Review {
     public void setDeliveryRating(int deliveryRating) {
         this.deliveryRating = deliveryRating;
     }
+    
+    public void setDeliveryRunnerID(String deliveryRunnerID) {
+        this.deliveryRunnerID = deliveryRunnerID;
+    }
 
     @Override
     public String toString() {
-        return customerID + ":" + reviewID + ":" + vendorID + ":" + orderID + ":"  + orderReview + ":" + orderRating + ":" + deliveryID + ":" + deliveryReview + ":" + deliveryRating;
+        return customerID + ":" + reviewID + ":" + vendorID + ":" + orderID + ":"  + orderReview + ":" + orderRating + ":" + deliveryRunnerID + ":" + deliveryID + ":" + deliveryReview + ":" + deliveryRating;
     }    
 }

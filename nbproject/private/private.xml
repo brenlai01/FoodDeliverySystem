@@ -23,11 +23,13 @@
             <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Pages/Vendor/ManageItemFrame.java</file>
         </group>
         <group>
+            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/src/Pages/Customer/CustomerOrderHistory.java</file>
             <file>file:/D:/brenl%201/Github/FoodDeliverySystem/orders.txt</file>
-            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/src/Pages/Customer/ViewMenuFrame.java</file>
-            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/users.txt</file>
+            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/src/Pages/Customer/StarRating.java</file>
+            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/src/Pages/Vendor/ViewOrderFrame.java</file>
+            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/review.txt</file>
+            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/src/Records/Review.java</file>
             <file>file:/D:/brenl%201/Github/FoodDeliverySystem/src/FileManager/FileManager.java</file>
-            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/src/Records/Delivery.java</file>
             <file>file:/D:/brenl%201/Github/FoodDeliverySystem/deliveries.txt</file>
         </group>
     </open-files>

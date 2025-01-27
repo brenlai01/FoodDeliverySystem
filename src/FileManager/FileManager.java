@@ -703,18 +703,19 @@ public class FileManager {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(":");
-                if (parts.length == 9) {
+                if (parts.length == 10) {
                     String customerID = parts[0];
                     String reviewID = parts[1];
                     String vendorID = parts[2];
                     String orderID = parts[3];
                     String orderReview = parts[4];
                     int orderRating = Integer.parseInt(parts[5]);
-                    String deliveryID = parts[6];
-                    String deliveryReview = parts[7];
-                    int deliveryRating = Integer.parseInt(parts[8]);
+                    String deliveryRunnerID = parts[6];
+                    String deliveryID = parts[7];
+                    String deliveryReview = parts[8];
+                    int deliveryRating = Integer.parseInt(parts[9]);
                     
-                    reviews.add(new Review(customerID, reviewID, vendorID, orderID, orderReview, orderRating, deliveryID, deliveryReview, deliveryRating));
+                    reviews.add(new Review(customerID, reviewID, vendorID, orderID, orderReview, orderRating, deliveryRunnerID, deliveryID, deliveryReview, deliveryRating));
                 }
             }
         } catch (IOException e) {
