@@ -1,8 +1,16 @@
-N8:V002:You have a new order. Items [Chicken Burger X 1 @ 8.0]:2025-01-27 22-03-06:Read
-N7:C001:Your order has been delivered! OrderID = O2:2025-01-23 14-49-03:Read
-N6:C001:Your order is on the way! OrderID = O2:2025-01-23 14-48-44:Read
-N5:V003:You have a new order. Items [Chilli Pan Mee X 1 @ 12.0]:2025-01-23 14-47-48:Read
-N4:V001:A customer has cancel an order. Items [Nasi Lemak X 1 @ 9.0]:2025-01-23 14-47-18:Unread
-N3:V001:You have a new order. Items [Nasi Lemak X 1 @ 9.0]:2025-01-23 14-47-04:Unread
-N2:V001:A customer has cancel an order. Items [Nasi Lemak X 1 @ 9.0]:2025-01-23 13-33-13:Unread
-N1:V001:You have a new order. Items [Nasi Lemak X 1 @ 9.0]:2025-01-23 13-33-04:Unread
+N12:C001:Your order has been delivered! OrderID = O5:2025-02-01 22-28-48:Read
+N11:C001:Your order has been delivered! OrderID = O4:2025-02-01 22-28-45:Read
+N10:C001:Your order has been delivered! OrderID = O1:2025-02-01 22-28-43:Read
+N9:C001:Your order is on the way! OrderID = O5:2025-02-01 22-28-34:Read
+N8:C001:Your order is on the way! OrderID = O4:2025-02-01 22-28-30:Read
+N7:C001:Your order is on the way! OrderID = O1:2025-02-01 22-28-18:Read
+N6:V001:You have a new order. Items [Teh Tarik X 1 @ 4.0]:2025-02-01 22-26-48:Read
+N5:V001:You have a new order. Items [Nasi Lemak X 1 @ 9.0]:2025-02-01 22-26-38:Read
+N4:V001:A customer has cancel an order. Items [Laksa X 1 @ 11.0]:2025-02-01 21-57-20:Read
+N3:V001:A customer has cancel an order. Items [Nasi Lemak X 1 @ 9.0, Teh Tarik X 1 @ 4.0]:2025-02-01 21-53-39:Read
+N2:V001:You have a new order. Items [Nasi Lemak X 1 @ 9.0, Teh Tarik X 1 @ 4.0]:2025-02-01 21-53-24:Read
+N1:V001:You have a new order. Items [Laksa X 1 @ 11.0]:2025-02-01 21-53-06:Read
+N13:V003:You have a new order. Items [Chilli Pan Mee X 1 @ 12.0]:2025-02-01 22-29-33:Unread
+N14:V003:You have a new order. Items [Chilli Pan Mee X 1 @ 12.0]:2025-02-01 22-39-14:Unread
+N15:V001:You have a new order. Items [Laksa X 1 @ 11.0]:2025-02-01 22-54-03:Unread
+N16:V003:You have a new order. Items [Chilli Pan Mee X 1 @ 12.0]:2025-02-01 23-03-36:Unread
