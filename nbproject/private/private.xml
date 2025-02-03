@@ -31,16 +31,12 @@
             <file>file:/C:/Users/braxt/Desktop/FoodDeliverySystem/src/Pages/Vendor/ManageItemFrame.java</file>
         </group>
         <group>
-            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/src/Pages/Customer/CustomerOrderHistory.java</file>
-            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/notifications.txt</file>
-            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/vouchers.txt</file>
-            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/orders.txt</file>
-            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/review.txt</file>
-            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/src/Pages/Customer/ViewMenuFrame.java</file>
-            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/transactions.txt</file>
-            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/src/FileManager/FileManager.java</file>
-            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/deliveries.txt</file>
-            <file>file:/D:/brenl%201/Github/FoodDeliverySystem/src/Records/Voucher.java</file>
+            <file>file:/C:/Users/Chew%20WB/Documents/APU/Year%202/Sem%201/Java/Assignment/FoodDeliverySystem/src/Pages/Vendor/VendorFrame.java</file>
+            <file>file:/C:/Users/Chew%20WB/Documents/APU/Year%202/Sem%201/Java/Assignment/FoodDeliverySystem/src/Pages/Admin/AdminFrame.java</file>
+            <file>file:/C:/Users/Chew%20WB/Documents/APU/Year%202/Sem%201/Java/Assignment/FoodDeliverySystem/src/Pages/DeliveryRunner/ChooseTasks.java</file>
+            <file>file:/C:/Users/Chew%20WB/Documents/APU/Year%202/Sem%201/Java/Assignment/FoodDeliverySystem/src/Pages/Manager/ManagerFrame.java</file>
+            <file>file:/C:/Users/Chew%20WB/Documents/APU/Year%202/Sem%201/Java/Assignment/FoodDeliverySystem/src/Models/Manager.java</file>
+            <file>file:/C:/Users/Chew%20WB/Documents/APU/Year%202/Sem%201/Java/Assignment/FoodDeliverySystem/src/Pages/Vendor/ManageItemFrame.java</file>
         </group>
     </open-files>
 </project-private>
