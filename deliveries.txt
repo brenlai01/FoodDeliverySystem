@@ -1,1 +1,4 @@
-DL1:O2:C001:5.0:123 Street:Accepted:Accepted:Delivered:D001:2025-01-23 14.49.03
+DL1:O1:C001:5.0:123 Street:Accepted:Accepted:Delivered:D001:2025-02-01 22.28.43
+DL2:O4:C001:5.0:123 Street:Accepted:Accepted:Delivered:D001:2025-02-01 22.28.45
+DL3:O5:C001:5.0:123 Street:Accepted:Accepted:Delivered:D001:2025-02-01 22.28.48
+DL4:O6:C001:0.0:123 Street:pending:unassigned:pending:N/A:N/A

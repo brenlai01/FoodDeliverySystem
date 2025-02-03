@@ -3,6 +3,7 @@ import Enum.TransactionType;
 import FileManager.*;
 import Models.*;
 import Records.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -18,6 +19,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         this.customer = (Customer) CurrentUser.getLoggedInUser();
         initComponents();
         BalanceLabel.setText("Balance: RM" + String.format("%.2f", CurrentUser.getLoggedInUser().getBalance()));
+        checkAndCreateVouchers();
         loadVendorList();
         setupOrderSummaryTable();
         setOrderSummaryTableeSelectionListener();
@@ -71,9 +73,12 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         foodToRemove = new javax.swing.JFormattedTextField();
         removeItemButton = new javax.swing.JButton();
         BalanceLabel = new javax.swing.JLabel();
+        voucherDiscountField = new javax.swing.JFormattedTextField();
+        jLabel10 = new javax.swing.JLabel();
+        voucher = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(820, 750));
+        setPreferredSize(new java.awt.Dimension(850, 750));
 
         MainPanel.setPreferredSize(new java.awt.Dimension(740, 700));
         MainPanel.setRequestFocusEnabled(false);
@@ -255,6 +260,23 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         BalanceLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         BalanceLabel.setText("Balance: ");
 
+        voucherDiscountField.setEditable(false);
+        voucherDiscountField.setPreferredSize(new java.awt.Dimension(5, 25));
+        voucherDiscountField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voucherDiscountFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setText("Voucher");
+
+        voucher.setText("Vouchers");
+        voucher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voucherActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout UserPanelLayout = new javax.swing.GroupLayout(UserPanel);
         UserPanel.setLayout(UserPanelLayout);
         UserPanelLayout.setHorizontalGroup(
@@ -277,19 +299,23 @@ public class ViewMenuFrame extends javax.swing.JFrame {
                                         .addGap(12, 12, 12)
                                         .addComponent(removeItemButton)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(UserPanelLayout.createSequentialGroup()
+                                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserPanelLayout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(orderAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(UserPanelLayout.createSequentialGroup()
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserPanelLayout.createSequentialGroup()
                                         .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(extraChargesField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(UserPanelLayout.createSequentialGroup()
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserPanelLayout.createSequentialGroup()
                                         .addComponent(jLabel5)
                                         .addGap(24, 24, 24)
-                                        .addComponent(totalAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(totalAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(voucherDiscountField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(UserPanelLayout.createSequentialGroup()
                                 .addComponent(jScrollPane2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -301,13 +327,15 @@ public class ViewMenuFrame extends javax.swing.JFrame {
                                         .addGap(40, 40, 40)
                                         .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(selectedFoodField, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(foodQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(foodQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserPanelLayout.createSequentialGroup()
                                         .addComponent(addToOrderButton)
                                         .addGap(39, 39, 39))))
                             .addGroup(UserPanelLayout.createSequentialGroup()
                                 .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(voucher)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(returnButton)))
                         .addContainerGap())
                     .addGroup(UserPanelLayout.createSequentialGroup()
@@ -344,7 +372,8 @@ public class ViewMenuFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(returnButton))
+                    .addComponent(returnButton)
+                    .addComponent(voucher, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -360,35 +389,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
                     .addGroup(UserPanelLayout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(UserPanelLayout.createSequentialGroup()
-                                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel3)
-                                    .addComponent(orderAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(extraChargesField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel4))
-                                    .addComponent(foodToRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel5)
-                                        .addComponent(totalAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(removeItemButton))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(dineInButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(takeAwayButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(deliveryButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(placeOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(UserPanelLayout.createSequentialGroup()
                         .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(selectedFoodField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -399,6 +400,41 @@ public class ViewMenuFrame extends javax.swing.JFrame {
                             .addComponent(jLabel8))
                         .addGap(27, 27, 27)
                         .addComponent(addToOrderButton)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(UserPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(UserPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(foodToRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(removeItemButton))))
+                    .addGroup(UserPanelLayout.createSequentialGroup()
+                        .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(orderAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(extraChargesField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(voucherDiscountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(totalAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dineInButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(takeAwayButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deliveryButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(placeOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
@@ -466,6 +502,24 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         
         // Final Amount of order including extraCharges
         double totalAmount = orderAmount + extraCharges;
+        double discountAmount = 0.0;
+        String usedVoucherID = null;  // Track used voucher ID
+
+        // Check if a voucher was applied
+        if (!voucherDiscountField.getText().trim().isEmpty()) {
+            ArrayList<Voucher> vouchers = FileManager.loadVouchers("vouchers.txt");
+
+            for (Voucher voucher : vouchers) {
+                if (voucher.getCustomerID().equals(CurrentUser.getLoggedInUser().getUid()) && !voucher.getIsUsed()) {
+                    discountAmount = 5.00; // Apply free shipping discount (5 RM)
+                    usedVoucherID = voucher.getVoucherID(); // Track the voucher ID
+                    voucher.setIsUsed(true); // Mark as used
+                    break; // Stop after applying the first available voucher
+                }
+            }
+            
+            FileManager.writeVouchers("vouchers.txt", vouchers);
+        }
         
         // confirmation pop-up 
         int confirm = JOptionPane.showConfirmDialog(null, "The total amount of is RM " + String.format("%.2f", totalAmount) 
@@ -521,6 +575,10 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         txns.add(txn);
         FileManager.writeTxns("transactions.txt", txns);
         
+        if (usedVoucherID != null) {
+            JOptionPane.showMessageDialog(null, "Voucher " + usedVoucherID + " applied successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
         ArrayList<Notification> notifications = FileManager.loadNotifications("notifications.txt");
         String nid = FileManager.getNotificationID(notifications);
         String msg = "You have a new order. Items " + items.toString();
@@ -535,6 +593,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         orderModel.setRowCount(0);
         extraChargesField.setText("0.00");
         totalAmountField.setText("0.00");
+        voucherDiscountField.setText("");
         selectedOrderType = null;
     }//GEN-LAST:event_placeOrderButtonActionPerformed
 
@@ -634,6 +693,68 @@ public class ViewMenuFrame extends javax.swing.JFrame {
     private void orderAmountFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderAmountFieldActionPerformed
 
     }//GEN-LAST:event_orderAmountFieldActionPerformed
+
+    private void voucherDiscountFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voucherDiscountFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_voucherDiscountFieldActionPerformed
+
+    private void voucherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voucherActionPerformed
+        
+        String customerID = CurrentUser.getLoggedInUser().getUid();
+        ArrayList<Voucher> vouchers = FileManager.loadVouchers("vouchers.txt");
+
+        // Filter out only the unused vouchers for this customer
+        ArrayList<Voucher> availableVouchers = new ArrayList<>();
+        for (Voucher v : vouchers) {
+            if (v.getCustomerID().equals(customerID) && !v.getIsUsed()) {
+                availableVouchers.add(v);
+                System.out.println(availableVouchers);
+                System.out.println(v.getIsUsed());
+            }
+        }
+
+        // Check if there are no available vouchers
+        if (availableVouchers.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "You have no available vouchers.", "No Vouchers", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        // Create an array of voucher IDs for selection
+        String[] voucherOptions = new String[availableVouchers.size()];
+        for (int i = 0; i < availableVouchers.size(); i++) {
+            voucherOptions[i] = availableVouchers.get(i).getVoucherID();
+        }
+
+        // Show pop-up for customer to select a voucher
+        String selectedVoucher = (String) JOptionPane.showInputDialog(
+                this, 
+                "Select a voucher to apply:", 
+                "Voucher Selection", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                voucherOptions, 
+                voucherOptions[0]); 
+
+        // If the user selected a voucher, apply it
+        if (selectedVoucher != null) {
+            for (Voucher v : availableVouchers) {
+                if (v.getVoucherID().equals(selectedVoucher)) {
+                    v.useVoucher(); // Mark voucher as used  
+
+                    // Apply free shipping (set extra charges to 0)
+                    extraChargesField.setText("0.00");
+
+                    // Display the discount in voucherDiscountField
+                    voucherDiscountField.setText(v.getVoucherID());
+                    voucherDiscountField.setForeground(Color.GREEN); // Make text green to indicate success
+                   
+                    totalAmountField.setText(orderAmountField.getText());
+                    JOptionPane.showMessageDialog(this, "Voucher applied successfully! Delivery is free.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                }
+            }
+        }
+    }//GEN-LAST:event_voucherActionPerformed
     
     // Below are methods for table setups and loading data into ArrayList
     private void loadVendorList() {
@@ -778,7 +899,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
     
     private void updateOrderAmountText() {
         double orderAmount = calculateOrderAmount();
-        orderAmountField.setText(String.valueOf(orderAmount));
+        orderAmountField.setText(String.format("%.2f",orderAmount));
         orderAmountField.setEditable(false);
     }
 
@@ -801,36 +922,50 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         return true;
     }
     
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewMenuFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewMenuFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewMenuFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViewMenuFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        
+    // Method to count orders to create new voucher if customer is valid
+    private void checkAndCreateVouchers() {
+        String customerID = CurrentUser.getLoggedInUser().getUid();
 
-        /* Create and display the form */
+        ArrayList<Order> orders = FileManager.loadOrders("orders.txt");
+        int deliveryCount = 0;
+
+        for (Order o : orders) {
+            if (o.getCustomerID().equals(customerID) &&
+                o.getOrderType().equalsIgnoreCase("Delivery") &&
+                !o.getVendorStatus().equalsIgnoreCase("Cancelled")) { // Exclude cancelled orders
+                deliveryCount++;
+            }
+        }
+
+        ArrayList<Voucher> vouchers = FileManager.loadVouchers("vouchers.txt");
+        int existingVouchers = 0;
+
+        for (Voucher v : vouchers) {
+            if (v.getCustomerID().equals(customerID)) {
+                existingVouchers++;
+            }
+        }
+
+        int expectedVouchers = deliveryCount / 3; // Every 3 deliveries earns 1 voucher
+        int missingVouchers = expectedVouchers - existingVouchers;
+
+        if (missingVouchers > 0) {
+            for (int i = 0; i < missingVouchers; i++) {
+                String voucherID = "V" + (vouchers.size() + 1);
+                vouchers.add(new Voucher(voucherID, customerID));
+            }
+
+            FileManager.writeVouchers("vouchers.txt", vouchers);
+
+            JOptionPane.showMessageDialog(null, 
+                "You have earned " + missingVouchers + " free shipping voucher(s)!", 
+                "Voucher Earned", 
+                JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    public static void main(String args[]) {
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 ViewMenuFrame frame = new ViewMenuFrame();
@@ -852,6 +987,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
     private javax.swing.JSpinner foodQuantity;
     private javax.swing.JFormattedTextField foodToRemove;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -879,5 +1015,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField totalAmountField;
     private javax.swing.JTable vendorListTable;
     private javax.swing.JTable vendorMenuTable;
+    private javax.swing.JButton voucher;
+    private javax.swing.JFormattedTextField voucherDiscountField;
     // End of variables declaration//GEN-END:variables
 }

@@ -126,7 +126,6 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
         clearReview = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1050, 820));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1050, 800));
 
@@ -347,8 +346,6 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        ReorderButton.getAccessibleContext().setAccessibleParent(null);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -380,12 +377,12 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
             return;
         }
 
-        String orderID = (String) OrderHistoryTable.getValueAt(selectedRow, 8); // Assuming orderID is in the 8th column
-        double totalAmount = Double.parseDouble((String) OrderHistoryTable.getValueAt(selectedRow, 1)); // Assuming price is in the 2nd column
+        String orderID = (String) OrderHistoryTable.getValueAt(selectedRow, 0); // Assuming orderID is in the 8th column
+        double totalAmount = Double.parseDouble((String) OrderHistoryTable.getValueAt(selectedRow, 2)); // Assuming price is in the 2nd column
 
         // Load existing orders using loadCancelOrders method
-        ArrayList<Order> orders = FileManager.loadCancelOrders("orders.txt");
-
+        ArrayList<Order> orders = FileManager.loadOrders("orders.txt");
+        System.out.println(orders);
         // Find the order by orderID
         Order orderToCancel = null;
         for (Order order : orders) {
@@ -394,7 +391,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
                 break; // Exit the loop once the order is found
             }
         }
-
+        System.out.println(orderToCancel);
         // Check if the order was found and if it can be canceled
         if (orderToCancel != null) {
             // Check if vendor status is "Pending"
@@ -419,12 +416,12 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
                 customer.setBalance(currentBalance + totalAmount + deliveryFee); // Update the customer's balance
 
                 for (Order order : orders) {
-                    if (order.getCustomerID().equals(customer.getUid())) {
+                    if (order.getOrderID().equals(orderToCancel.getOrderID())){
                         order.setVendorStatus("Cancelled");
                         break; // Exit the loop once the order is found
                     }
                 }
-
+                System.out.println(orders);
                 // Update the orders file
                 FileManager.writeOrders("orders.txt", orders);
 
@@ -482,10 +479,10 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
         // Check if a row is selected
         if (selectedRow != -1) {
             // Retrieve order details from the selected row
-            String foodName = (String) OrderHistoryTable.getValueAt(selectedRow, 0); // Food Name
-            String priceString = (String) OrderHistoryTable.getValueAt(selectedRow, 1); // Price
+            String foodName = (String) OrderHistoryTable.getValueAt(selectedRow, 1); // Food Name
+            String priceString = (String) OrderHistoryTable.getValueAt(selectedRow, 2); // Price
             double price = Double.parseDouble(priceString);
-            String orderType = (String) OrderHistoryTable.getValueAt(selectedRow, 2); // Order Type
+            String orderType = (String) OrderHistoryTable.getValueAt(selectedRow, 3); // Order Type
             String customerID = CurrentUser .getLoggedInUser ().getUid(); // Get logged-in customer ID
             String vendorID = (String) OrderHistoryTable.getValueAt(selectedRow, 7); // Vendor ID
             String vendorStatus = "Pending"; // Set initial vendor status

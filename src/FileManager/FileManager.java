@@ -736,4 +736,37 @@ public class FileManager {
             e.printStackTrace();
         }
     }  
+    
+// Voucher load and write methods
+    public static ArrayList<Voucher> loadVouchers(String filepath) {
+        ArrayList<Voucher> vouchers = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(":");
+                if (parts.length == 3) {
+                    String voucherID = parts[0];
+                    String customerID = parts[1];
+                    boolean isUsed = Boolean.parseBoolean(parts[2]); // Convert the string to boolean
+                    Voucher v = new Voucher(voucherID, customerID);
+                    v.setIsUsed(isUsed);
+                    vouchers.add(v);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return vouchers;
+    }
+
+    public static void writeVouchers(String filepath, ArrayList<Voucher> vouchers) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))) {
+            for (Voucher v : vouchers) {
+                bw.write(v.toString());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }    
