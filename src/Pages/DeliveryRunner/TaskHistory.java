@@ -52,7 +52,7 @@ public class TaskHistory extends javax.swing.JFrame {
 
             },
             new String [] {
-                "DeliveryID", "OrderID", "CustomerID", "Commision(RM)", "Address", "Vendor Status", "Runner Status", "Delivery Status", "DriverID", "Delivery Time"
+                "DeliveryID", "OrderID", "CustomerID", "Commision(RM)", "Address", "Delivery Status", "DriverID", "Delivery Time"
             }
         ));
         jScrollPane2.setViewportView(Tasktbl);
@@ -165,7 +165,9 @@ public class TaskHistory extends javax.swing.JFrame {
 
                     // Filter rows with "Delivered" status and matching DriverID
                     if ("Delivered".equalsIgnoreCase(completionStatus) && loggedInDriverID.equals(driverID)) {
-                        model.addRow(dataRow); // Add the row to the table
+                        Object[] rowData = { dataRow[0], dataRow[1], dataRow[2], dataRow[3], dataRow[4], dataRow[7], dataRow[8], dataRow[9] };
+
+                        model.addRow(rowData); // Add the row to the table
 
                         // Attempt to parse and sum the commission value
                         try {

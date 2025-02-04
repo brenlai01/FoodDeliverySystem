@@ -52,13 +52,12 @@ public class CurrentTask extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Delivery No.", "OrderID", "Customer ID", "Commision(RM)", "Address", "Vendor Status", "Status", "Completion Status", "DriverID", "Delivery Time"
+                "Delivery No.", "Customer ID", "Commision(RM)", "Address", "Vendor Status", "Status", "DriverID"
             }
         ));
         jScrollPane2.setViewportView(Tasktbl);
         if (Tasktbl.getColumnModel().getColumnCount() > 0) {
             Tasktbl.getColumnModel().getColumn(0).setPreferredWidth(15);
-            Tasktbl.getColumnModel().getColumn(1).setPreferredWidth(15);
         }
 
         jLabel1.setFont(new java.awt.Font("STIX Two Text", 3, 18)); // NOI18N
@@ -96,7 +95,7 @@ public class CurrentTask extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 899, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(Exitbtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -153,7 +152,9 @@ public class CurrentTask extends javax.swing.JFrame {
                     if ("Accepted".equalsIgnoreCase(status) 
                             && "Ongoing".equalsIgnoreCase(completionStatus) 
                             && loggedInDriverID.equals(driverID)) {
-                        model.addRow(dataRow); // Add the filtered row to the table
+                            Object[] rowData = { dataRow[0], dataRow[1], dataRow[3], dataRow[4], dataRow[5], dataRow[6], dataRow[8] };
+            
+                        model.addRow(rowData); // Add the filtered row to the table
                     }
                 }
             }

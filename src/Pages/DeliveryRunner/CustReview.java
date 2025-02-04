@@ -4,6 +4,7 @@
  */
 package Pages.DeliveryRunner;
 
+import FileManager.CurrentUser;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class CustReview extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Reviewtbl = new javax.swing.JTable();
         Exitbtn1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,13 +56,18 @@ public class CustReview extends javax.swing.JFrame {
 
             },
             new String [] {
-                "RiderID", "OrderID.", "Review"
+                "CustID", "ReviewID.", "VendorID", "orderID", "DriverID", "DeliveryID", "DeliveryReview", "DeliveryRating"
             }
         ));
         jScrollPane1.setViewportView(Reviewtbl);
         if (Reviewtbl.getColumnModel().getColumnCount() > 0) {
             Reviewtbl.getColumnModel().getColumn(0).setPreferredWidth(5);
             Reviewtbl.getColumnModel().getColumn(1).setPreferredWidth(5);
+            Reviewtbl.getColumnModel().getColumn(2).setPreferredWidth(8);
+            Reviewtbl.getColumnModel().getColumn(3).setPreferredWidth(8);
+            Reviewtbl.getColumnModel().getColumn(4).setPreferredWidth(8);
+            Reviewtbl.getColumnModel().getColumn(5).setPreferredWidth(8);
+            Reviewtbl.getColumnModel().getColumn(7).setPreferredWidth(8);
         }
 
         Exitbtn1.setBackground(new java.awt.Color(51, 35, 0));
@@ -73,59 +80,73 @@ public class CustReview extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Songti SC", 1, 18)); // NOI18N
+        jLabel1.setText("Reviews");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 816, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
                         .addComponent(Exitbtn1)
-                        .addGap(594, 594, 594)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Refreshbtn))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addContainerGap(7, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Refreshbtn)
-                    .addComponent(Exitbtn1))
-                .addGap(35, 35, 35))
+                    .addComponent(Exitbtn1)
+                    .addComponent(Refreshbtn))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void RefreshbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshbtnActionPerformed
-        try{
-            String filename = "riderReviews.txt";
+        try {
+            String filename = "review.txt";
             FileReader fr = new FileReader(filename);
             BufferedReader br = new BufferedReader(fr);
-            String read;
 
             DefaultTableModel model = (DefaultTableModel) Reviewtbl.getModel();
-            model.setRowCount(0);
+            model.setRowCount(0); // Clear existing table data
+            String loggedInDriverID = CurrentUser.getLoggedInUser().getUid();
+
             Object[] tableLines = br.lines().toArray();
 
-            for(int i = 0; i <tableLines.length; i++)
-            {
+            for (int i = 0; i < tableLines.length; i++) {
                 String line = tableLines[i].toString().trim();
                 String[] dataRow = line.split(":");
-                model.addRow(dataRow);
+
+                // Ensure the line has enough columns and matches the logged-in driver
+                if (dataRow.length > 3 && dataRow[6].equalsIgnoreCase(loggedInDriverID)) {  
+                    // Extract only specific columns 
+                    Object[] rowData = { dataRow[0], dataRow[1], dataRow[2], dataRow[3], dataRow[6], dataRow[7], dataRow[8], dataRow[9]};
+                    model.addRow(rowData);
+                }
             }
 
-        }catch(IOException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            br.close();
+            fr.close();
 
-        }        // TODO add your handling code here:
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
+        }      // TODO add your handling code here:
     }//GEN-LAST:event_RefreshbtnActionPerformed
 
     private void Exitbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Exitbtn1ActionPerformed
@@ -174,6 +195,7 @@ public class CustReview extends javax.swing.JFrame {
     private javax.swing.JButton Exitbtn1;
     private javax.swing.JButton Refreshbtn;
     private javax.swing.JTable Reviewtbl;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
