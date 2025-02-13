@@ -58,7 +58,7 @@ public class Vendor extends User{
         return found;
     }
     
-    public static boolean acceptDeliveryTask(String orderID, String newStatus) {
+    public static boolean acceptDeliveryTask(String orderID) {
         boolean found = false;
 
         try (BufferedReader br = new BufferedReader(new FileReader("deliveries.txt"))) {
@@ -69,7 +69,7 @@ public class Vendor extends User{
                 String[] data = line.split(":");
                 if (data.length == 10) {
                     if (data[1].equals(orderID)) {
-                        data[5] = newStatus;
+                        data[5] = "Accepted";
                         line = String.join(":", data);
                         found = true;
                     }

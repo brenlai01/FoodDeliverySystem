@@ -357,7 +357,7 @@ public class ViewOrderFrame extends javax.swing.JFrame {
                 
                 if (orderType.equals("delivery")){
                     // Now update the delivery task associated with the accepted order
-                    boolean deliveryUpdated = Vendor.acceptDeliveryTask(orderID, "Accepted"); // Call the method from FileManager
+                    boolean deliveryUpdated = Vendor.acceptDeliveryTask(orderID); // Call the method from FileManager
 
                     // Handle the result of the delivery update
                     if (deliveryUpdated) {
