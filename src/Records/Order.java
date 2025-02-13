@@ -80,44 +80,4 @@ public class Order {
         this.deliveryStatus = deliveryStatus;
     }
     
-    public void addItems(String foodName, int quantity, double price) {
-        items.add(new OrderItem(foodName, quantity, price));
-        totalAmount += quantity * price;
-    }
-    
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("OrderID: ").append(orderID)
-          .append(", CustomerID: ").append(customerID)
-          .append(", VendorID: ").append(vendorID)
-          .append(", Items: [");
-
-        for (OrderItem item : items) {
-            sb.append(item.toString()).append(", "); // Assuming OrderItem has a proper toString() method
-        }
-
-        // Remove the last comma and space if there are items
-        if (!items.isEmpty()) {
-            sb.setLength(sb.length() - 2);
-        }
-        
-        sb.append("], TotalAmount: ").append(totalAmount)
-          .append(", VendorStatus: ").append(vendorStatus)
-          .append(", DeliveryStatus: ").append(deliveryStatus);
-        return sb.toString();
-    }
-    
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true; // Check if the same reference
-        if (obj == null || getClass() != obj.getClass()) return false; // Check for null and class type
-        Order order = (Order) obj; // Cast to Order
-        return orderID.equals(order.orderID); // Compare orderID for equality
-    }
-
-    @Override
-    public int hashCode() {
-        return orderID.hashCode(); // Ensure hashCode is consistent with equals
-    }
 }
