@@ -178,4 +178,14 @@ public class Vendor extends User{
         FileManager.writeTxns("transactions.txt", txns);
     }
     
+    public static void acceptNotification(String cID, String oID,String vendorName) {
+        ArrayList<Notification> notifications = FileManager.loadNotifications("notifications.txt");
+        String nid = FileManager.getNotificationID(notifications);
+        String date = FileManager.getDateTime();
+        String msg = "Your order " + oID +" has been accepted by " + vendorName + "." ;
+        Notification notification = new Notification(nid, cID, msg, date, "Unread");
+        notifications.add(notification);
+        FileManager.writeNotifications("notifications.txt", notifications);
+    }
+    
 }

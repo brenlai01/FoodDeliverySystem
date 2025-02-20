@@ -307,7 +307,7 @@ public class ViewOrderFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_returnBtnActionPerformed
 
     private void acceptBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptBtnActionPerformed
-        String loggedInVendorId = CurrentUser .getLoggedInUser ().getUid();
+        String loggedInVendorId = CurrentUser.getLoggedInUser().getUid();
         int selectedRow = orderTable.getSelectedRow();
 
         if (selectedRow == -1) {
@@ -319,6 +319,7 @@ public class ViewOrderFrame extends javax.swing.JFrame {
         String currentVendorID = orderTable.getValueAt(selectedRow, 2).toString();
         String vendorStatus = orderTable.getValueAt(selectedRow, 7).toString().toLowerCase();
         String orderType = orderTable.getValueAt(selectedRow, 5).toString().toLowerCase();
+        String customerID = orderTable.getValueAt(selectedRow, 1).toString();
         double totalPrice = Double.parseDouble(orderTable.getValueAt(selectedRow, 4).toString());
 
         if (!vendorStatus.equals("pending")) {
@@ -353,6 +354,7 @@ public class ViewOrderFrame extends javax.swing.JFrame {
                 try (FileWriter fw = new FileWriter("orders.txt")) {
                     fw.write(updatedData.toString());
                 }
+                Vendor.acceptNotification(customerID,orderID,CurrentUser.getLoggedInUser().getUsername());
                 JOptionPane.showMessageDialog(null, "Order has been accepted successfully!");
                 
                 if (orderType.equals("delivery")){
