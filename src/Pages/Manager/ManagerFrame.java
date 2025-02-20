@@ -38,7 +38,7 @@ public class ManagerFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        ManagerMenuLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        ManagerMenuLabel.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         ManagerMenuLabel.setText("Manager Menu");
 
         VendorPerformanceLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -189,9 +189,9 @@ public class ManagerFrame extends javax.swing.JFrame {
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(141, Short.MAX_VALUE)
+                .addContainerGap(140, Short.MAX_VALUE)
                 .addComponent(ManagerMenuLabel)
-                .addGap(138, 138, 138))
+                .addGap(141, 141, 141))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
