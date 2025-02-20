@@ -770,4 +770,24 @@ public class FileManager {
             e.printStackTrace();
         }
     }
+    
+    public static ArrayList<FoodImage> loadFoodImages(String filepath){
+        ArrayList<FoodImage> foodImages = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(":");
+                if (parts.length == 2) {
+                    String foodID = parts[0];
+                    String foodImage = parts[1];
+                    FoodImage fi = new FoodImage(foodID, foodImage);
+                    foodImages.add(fi);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return foodImages;
+    }
+    
 }    
