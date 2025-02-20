@@ -4,6 +4,14 @@
  */
 package Pages.Manager;
 
+import FileManager.CurrentUser;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Chew WB
@@ -15,6 +23,7 @@ public class VendorItemsFrame extends javax.swing.JFrame {
      */
     public VendorItemsFrame() {
         initComponents();
+        refreshData();
     }
 
     /**
@@ -29,8 +38,9 @@ public class VendorItemsFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         foodTable = new javax.swing.JTable();
         jLabel17 = new javax.swing.JLabel();
-        deleteBtn3 = new javax.swing.JButton();
-        returnBtn3 = new javax.swing.JButton();
+        deleteItemButton = new javax.swing.JButton();
+        VendorItemManagementReturnButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -42,7 +52,7 @@ public class VendorItemsFrame extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Vendor ID", "Food ID", "Food Name", "Price", "Description"
+                "Food ID", "Vendor ID", "Food Name", "Price", "Description"
             }
         ));
         foodTable.getTableHeader().setReorderingAllowed(false);
@@ -51,19 +61,22 @@ public class VendorItemsFrame extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel17.setText("Vendor Item Management Dashboard");
 
-        deleteBtn3.setText("Delete");
-        deleteBtn3.addActionListener(new java.awt.event.ActionListener() {
+        deleteItemButton.setText("Delete");
+        deleteItemButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteBtn3ActionPerformed(evt);
+                deleteItemButtonActionPerformed(evt);
             }
         });
 
-        returnBtn3.setText("Return");
-        returnBtn3.addActionListener(new java.awt.event.ActionListener() {
+        VendorItemManagementReturnButton.setText("Return");
+        VendorItemManagementReturnButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                returnBtn3ActionPerformed(evt);
+                VendorItemManagementReturnButtonActionPerformed(evt);
             }
         });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setText("Options For Item Selected:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,91 +85,105 @@ public class VendorItemsFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 932, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(returnBtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(deleteBtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel17))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel17)
+                            .addComponent(deleteItemButton, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 370, Short.MAX_VALUE)
+                        .addComponent(VendorItemManagementReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(deleteBtn3)
-                    .addComponent(returnBtn3))
-                .addGap(88, 88, 88))
+                .addGap(27, 27, 27)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(VendorItemManagementReturnButton, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(deleteItemButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(48, 48, 48))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void deleteBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtn3ActionPerformed
-        String loggedInVendorId = CurrentUser .getLoggedInUser ().getUid();
+    private void refreshData() {
+        DefaultTableModel model = (DefaultTableModel) foodTable.getModel();
+        model.setRowCount(0); // Clear existing data
 
-        if (foodIDTxt.getText().trim().isEmpty()) {
+        // Load food items from the file
+        try (BufferedReader br = new BufferedReader(new FileReader("foodItems.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(":"); // Assuming data is separated by colons
+                if (data.length == 5) { // Ensure there are enough fields
+                    model.addRow(new Object[]{data[0], data[1], data[2], data[4], data[3]}); // Vendor ID, Food ID, Food Name, Price, Description
+                }
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error loading food items: " + e.getMessage());
+        }
+    }
+    
+    private void deleteItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteItemButtonActionPerformed
+        
+        // Get the selected row from the table
+        int selectedRow = foodTable.getSelectedRow();
+        
+        if (selectedRow == -1) {
             JOptionPane.showMessageDialog(null, "Please select a food item to delete!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        String foodID = foodIDTxt.getText().trim();
-        //System.out.println("Attempting to delete Food ID: " + foodID);
+        // Get the food ID from the selected row
+        String foodID = foodTable.getValueAt(selectedRow, 0).toString(); // Assuming Food ID is in the second column
+        
 
         try (BufferedReader br = new BufferedReader(new FileReader("foodItems.txt"))) {
-            StringBuilder updatedData = new StringBuilder();
-            String line;
-            boolean found = false;
-            boolean isOwner = false;
+        StringBuilder updatedData = new StringBuilder();
+        String line;
+        boolean found = false;
 
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(":");
-                if (data.length == 5) {
-                    //System.out.println("Checking line: " + line);
-                    if (data[0].equals(foodID)) {
-                        found = true;
-                        if (data[1].equals(loggedInVendorId)) {
-                            isOwner = true;
-                            //System.out.println("Food item found and marked for deletion.");
-                        } else {
-                            updatedData.append(line).append("\n");
-                        }
-                    } else {
-                        updatedData.append(line).append("\n");
-                    }
+        while ((line = br.readLine()) != null) {
+            String[] data = line.split(":");
+            if (data.length == 5) {
+                if (!data[0].equals(foodID)) { // Keep the line if it's not the selected food item
+                    updatedData.append(line).append("\n");
+                } else {
+                    found = true; // Mark as found if this is the food item to delete
                 }
             }
+        }
+
 
             if (found) {
-                if (isOwner) {
-                    try (FileWriter fw = new FileWriter("foodItems.txt")) {
-                        fw.write(updatedData.toString());
-                    }
-                    JOptionPane.showMessageDialog(null, "Food item deleted successfully!");
-                    refreshData();
-                } else {
-                    JOptionPane.showMessageDialog(null, "You do not have permission to delete this food item!", "Error", JOptionPane.ERROR_MESSAGE);
+                // Write the updated data back to the file
+                try (FileWriter fw = new FileWriter("foodItems.txt")) {
+                    fw.write(updatedData.toString());
                 }
+                JOptionPane.showMessageDialog(null, "Food item deleted successfully!");
+                refreshData(); // Refresh the table to show updated items
             } else {
                 JOptionPane.showMessageDialog(null, "Food ID not found!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error deleting food item: " + e.getMessage());
         }
-    }//GEN-LAST:event_deleteBtn3ActionPerformed
+    }//GEN-LAST:event_deleteItemButtonActionPerformed
 
-    private void returnBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnBtn3ActionPerformed
-        new VendorFrame().setVisible(true);
+    private void VendorItemManagementReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VendorItemManagementReturnButtonActionPerformed
+        new ManagerFrame().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_returnBtn3ActionPerformed
+    }//GEN-LAST:event_VendorItemManagementReturnButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,10 +221,11 @@ public class VendorItemsFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton deleteBtn3;
+    private javax.swing.JButton VendorItemManagementReturnButton;
+    private javax.swing.JButton deleteItemButton;
     private javax.swing.JTable foodTable;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton returnBtn3;
     // End of variables declaration//GEN-END:variables
 }
