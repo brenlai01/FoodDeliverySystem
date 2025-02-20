@@ -35,6 +35,7 @@ public class FileManager {
                         case "customer" -> new Customer(UID, username, password, balance);
                         case "vendor" -> new Vendor(UID, username, password, balance);
                         case "deliveryrunner" -> new DeliveryRunner(UID, username, password, balance);
+                        case "manager" -> new Manager(UID, username, password);
                         default -> null;
                     };      
                    

@@ -4,6 +4,14 @@
  */
 package Pages.Manager;
 
+import FileManager.CurrentUser;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Chew WB
@@ -15,6 +23,19 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
      */
     public CustomerComplaintsFrame() {
         initComponents();
+        refreshData(); // Load data when the frame is initialized
+
+        // Add a mouse listener to the table to populate the text area when a row is selected
+        ComplaintHistoryTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int selectedRow = ComplaintHistoryTable.getSelectedRow();
+                if (selectedRow != -1) {
+                    // Get the comment from the selected row and display it in the text area
+                    String comment = ComplaintHistoryTable.getValueAt(selectedRow, 3).toString(); // Assuming the comment is in the fourth column
+                    ComplaintInfoText.setText(comment);
+                }
+            }
+        });
     }
 
     /**
@@ -26,21 +47,229 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ComplaintHistoryTable = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ComplaintInfoText = new javax.swing.JTextArea();
+        ReplyLabel = new javax.swing.JLabel();
+        UpdateCommentButton = new javax.swing.JButton();
+        ResolvedButton = new javax.swing.JButton();
+        OptionLabel = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setText("Customer Complaint Panel");
+
+        ComplaintHistoryTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Status", "Details", "Reply"
+            }
+        ));
+        jScrollPane1.setViewportView(ComplaintHistoryTable);
+
+        ComplaintInfoText.setColumns(20);
+        ComplaintInfoText.setRows(5);
+        jScrollPane2.setViewportView(ComplaintInfoText);
+
+        ReplyLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ReplyLabel.setText("Reply:");
+
+        UpdateCommentButton.setText("Update");
+        UpdateCommentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateCommentButtonActionPerformed(evt);
+            }
+        });
+
+        ResolvedButton.setText("Resolved");
+        ResolvedButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ResolvedButtonActionPerformed(evt);
+            }
+        });
+
+        OptionLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        OptionLabel.setText("Options:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(248, 248, 248)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 591, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ReplyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(OptionLabel)
+                                    .addComponent(UpdateCommentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ResolvedButton, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ReplyLabel)
+                    .addComponent(OptionLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(UpdateCommentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ResolvedButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 78, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void refreshData() {
+    DefaultTableModel model = (DefaultTableModel) ComplaintHistoryTable.getModel();
+    model.setRowCount(0); // Clear existing data
+
+    // Load complaints from the file (assuming a file named "complaints.txt")
+    try (BufferedReader br = new BufferedReader(new FileReader("complaint.txt"))) {
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] data = line.split(":"); // Assuming data is separated by colons
+            if (data.length >= 4) { // Ensure there are enough fields
+                model.addRow(new Object[]{data[0], data[1], data[2], data[3]}); // ID, Status, Details, Reply
+            }
+        }
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(null, "Error loading complaints: " + e.getMessage());
+    }
+}
+    
+    private void UpdateCommentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateCommentButtonActionPerformed
+        // Get the selected row from the table
+        int selectedRow = ComplaintHistoryTable.getSelectedRow();
+        
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "Please select a complaint to update.", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Get the complaint ID from the selected row
+        String complaintID = ComplaintHistoryTable.getValueAt(selectedRow, 0).toString(); // Assuming ID is in the first column
+        String newComment = ComplaintInfoText.getText().trim(); // Get the new comment from the text area
+
+        if (newComment.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter a comment.", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // Update the complaint in the data source (e.g., a file)
+        try {
+            // Read the existing complaints
+            BufferedReader br = new BufferedReader(new FileReader("complaint.txt"));
+            StringBuilder updatedData = new StringBuilder();
+            String line;
+            boolean found = false;
+
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(":");
+                if (data.length >= 4) {
+                    if (data[0].equals(complaintID)) { // Check if this is the complaint to update
+                        // Update the comment (assuming it's in the fourth column)
+                        data[3] = newComment; // Update the reply/comment
+                        found = true;
+                    }
+                    // Append the updated or original line to the StringBuilder
+                    updatedData.append(String.join(":", data)).append("\n");
+                }
+            }
+            br.close();
+
+            if (found) {
+                // Write the updated data back to the file
+                FileWriter fw = new FileWriter("complaint.txt");
+                fw.write(updatedData.toString());
+                fw.close();
+                JOptionPane.showMessageDialog(null, "Comment updated successfully!");
+                refreshData(); // Refresh the table to show updated comments
+            } else {
+                JOptionPane.showMessageDialog(null, "Complaint ID not found!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error updating comment: " + e.getMessage());
+        }               
+    }//GEN-LAST:event_UpdateCommentButtonActionPerformed
+
+    private void ResolvedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResolvedButtonActionPerformed
+        // Get the selected row from the table
+    int selectedRow = ComplaintHistoryTable.getSelectedRow();
+    
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(null, "Please select a complaint to resolve.", "Warning", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    // Get the complaint ID from the selected row
+    String complaintID = ComplaintHistoryTable.getValueAt(selectedRow, 0).toString(); // Assuming ID is in the first column
+    
+    // Update the complaint status in the data source
+    try {
+        // Read the existing complaints
+        BufferedReader br = new BufferedReader(new FileReader("complaint.txt"));
+        StringBuilder updatedData = new StringBuilder();
+        String line;
+        boolean found = false;
+
+        while ((line = br.readLine()) != null) {
+            String[] data = line.split(":");
+            if (data.length >= 4) {
+                if (data[0].equals(complaintID)) { // Check if this is the complaint to resolve
+                    // Update the status to "Resolved" (assuming status is in the second column)
+                    data[1] = "Resolved"; // Change the status
+                    found = true;
+                }
+                // Append the updated or original line to the StringBuilder
+                updatedData.append(String.join(":", data)).append("\n");
+            }
+        }
+        br.close();
+        
+        if (found) {
+            // Write the updated data back to the file
+            FileWriter fw = new FileWriter("complaint.txt");
+            fw.write(updatedData.toString());
+            fw.close();
+            JOptionPane.showMessageDialog(null, "Complaint resolved successfully!");
+            refreshData(); // Refresh the table to show updated status
+        } else {
+            JOptionPane.showMessageDialog(null, "Complaint ID not found!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(null, "Error resolving complaint: " + e.getMessage());
+    }
+    }//GEN-LAST:event_ResolvedButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +307,14 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable ComplaintHistoryTable;
+    private javax.swing.JTextArea ComplaintInfoText;
+    private javax.swing.JLabel OptionLabel;
+    private javax.swing.JLabel ReplyLabel;
+    private javax.swing.JButton ResolvedButton;
+    private javax.swing.JButton UpdateCommentButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
