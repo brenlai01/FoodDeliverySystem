@@ -56,6 +56,7 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
         UpdateCommentButton = new javax.swing.JButton();
         ResolvedButton = new javax.swing.JButton();
         OptionLabel = new javax.swing.JLabel();
+        ComplaintPageReturnButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,6 +97,13 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
         OptionLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         OptionLabel.setText("Options:");
 
+        ComplaintPageReturnButton.setText("Return");
+        ComplaintPageReturnButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComplaintPageReturnButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,7 +127,8 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(OptionLabel)
                                     .addComponent(UpdateCommentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(ResolvedButton, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))))
+                                    .addComponent(ResolvedButton, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                                    .addComponent(ComplaintPageReturnButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -141,7 +150,9 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
                         .addComponent(UpdateCommentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(ResolvedButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 78, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ComplaintPageReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 31, Short.MAX_VALUE))
                     .addComponent(jScrollPane2))
                 .addContainerGap())
         );
@@ -271,6 +282,12 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_ResolvedButtonActionPerformed
 
+    private void ComplaintPageReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComplaintPageReturnButtonActionPerformed
+        ManagerFrame managerFrame = new ManagerFrame();
+        managerFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ComplaintPageReturnButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -309,6 +326,7 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ComplaintHistoryTable;
     private javax.swing.JTextArea ComplaintInfoText;
+    private javax.swing.JButton ComplaintPageReturnButton;
     private javax.swing.JLabel OptionLabel;
     private javax.swing.JLabel ReplyLabel;
     private javax.swing.JButton ResolvedButton;

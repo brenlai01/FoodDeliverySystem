@@ -46,6 +46,7 @@
                                   <Component id="OptionLabel" min="-2" max="-2" attributes="0"/>
                                   <Component id="UpdateCommentButton" alignment="0" max="32767" attributes="0"/>
                                   <Component id="ResolvedButton" pref="123" max="32767" attributes="0"/>
+                                  <Component id="ComplaintPageReturnButton" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -75,7 +76,9 @@
                       <Component id="UpdateCommentButton" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="ResolvedButton" min="-2" pref="35" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="78" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="ComplaintPageReturnButton" min="-2" pref="35" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="31" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane2" max="32767" attributes="0"/>
               </Group>
@@ -163,6 +166,14 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Options:"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="ComplaintPageReturnButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Return"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ComplaintPageReturnButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
