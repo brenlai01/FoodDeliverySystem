@@ -215,7 +215,7 @@ public class ManagerFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void RiderPerformanceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RiderPerformanceButtonActionPerformed
-        RiderPerformanceFrame riderManagement = new RiderPerformanceButton();
+        RiderPerformanceFrame riderManagement = new RiderPerformanceFrame();
         riderManagement.setVisible(true);
     }//GEN-LAST:event_RiderPerformanceButtonActionPerformed
 
@@ -236,7 +236,7 @@ public class ManagerFrame extends javax.swing.JFrame {
 
     private void VendorPerformanceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VendorPerformanceButtonActionPerformed
         RevenueDashboardFrame revenueDashboardManagement = new RevenueDashboardFrame();
-        revenueDashboardManagement.setvisible(true); 
+        revenueDashboardManagement.setVisible(true); 
     }//GEN-LAST:event_VendorPerformanceButtonActionPerformed
 
 

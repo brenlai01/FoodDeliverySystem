@@ -1,9 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Pages.Manager;
 
+import FileManager.CurrentUser;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -21,6 +19,7 @@ public class RevenueDashboardFrame extends javax.swing.JFrame {
      */
     public RevenueDashboardFrame() {
         initComponents();
+        calculateAndDisplayRevenue();
     }
 
     /**
@@ -32,164 +31,215 @@ public class RevenueDashboardFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        VendorRevenueDashboardLabel = new javax.swing.JLabel();
+        revenueTxt = new javax.swing.JLabel();
+        VRDashboardReturnButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Tasktbl = new javax.swing.JTable();
+        revenueTable = new javax.swing.JTable();
+        periodCBox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        refreshbtn = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        Exitbtn = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        RevenuetxtF = new javax.swing.JTextPane();
+        averageVendorRatings = new javax.swing.JLabel();
+        CurrentSelectedVendorLabel = new javax.swing.JLabel();
+        VendorPerformance = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(153, 255, 255));
 
-        Tasktbl.setBackground(new java.awt.Color(227, 244, 227));
-        Tasktbl.setFont(new java.awt.Font("Songti TC", 1, 13)); // NOI18N
-        Tasktbl.setModel(new javax.swing.table.DefaultTableModel(
+        VendorRevenueDashboardLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        VendorRevenueDashboardLabel.setText("Vendor Revenue Dashboard ");
+
+        revenueTxt.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
+        revenueTxt.setText("Total Revenue(RM) :");
+
+        VRDashboardReturnButton.setBackground(new java.awt.Color(225, 237, 243));
+        VRDashboardReturnButton.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
+        VRDashboardReturnButton.setText("Return");
+        VRDashboardReturnButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VRDashboardReturnButtonActionPerformed(evt);
+            }
+        });
+
+        revenueTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "DeliveryID", "OrderID", "CustomerID", "Commision(RM)", "Address", "Status", "Completion Status", "DriverID"
+                "Vendor ID", "Order ID", "Ordered Items", "Total Price", "Ordered Time"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
+        ));
+        jScrollPane1.setViewportView(revenueTable);
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(Tasktbl);
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Delivery Runner Performance");
-
-        refreshbtn.setBackground(new java.awt.Color(0, 51, 51));
-        refreshbtn.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
-        refreshbtn.setForeground(new java.awt.Color(227, 244, 227));
-        refreshbtn.setText("Refresh Table");
-        refreshbtn.addActionListener(new java.awt.event.ActionListener() {
+        periodCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "V001", "V002", "V003", "All" }));
+        periodCBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshbtnActionPerformed(evt);
+                periodCBoxActionPerformed(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
-        jLabel2.setText("Total Revenue(RM) :");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setText("Select Vendor:");
 
-        Exitbtn.setBackground(new java.awt.Color(225, 237, 243));
-        Exitbtn.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
-        Exitbtn.setText("Exit");
-        Exitbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExitbtnActionPerformed(evt);
-            }
-        });
+        averageVendorRatings.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        averageVendorRatings.setText("Vendor Average Ratings :");
 
-        jScrollPane2.setViewportView(RevenuetxtF);
+        CurrentSelectedVendorLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        CurrentSelectedVendorLabel.setText("Current Selected Vendor :");
+
+        VendorPerformance.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        VendorPerformance.setText("Performance: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(184, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(304, 304, 304))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap()))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(VendorRevenueDashboardLabel)
+                .addGap(219, 219, 219))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(102, 102, 102)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Exitbtn)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(396, 396, 396)
-                                .addComponent(refreshbtn)))
-                        .addContainerGap())))
+                        .addComponent(VendorPerformance)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(VRDashboardReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(revenueTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(CurrentSelectedVendorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(periodCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 784, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(averageVendorRatings, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 57, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap()
+                .addComponent(VendorRevenueDashboardLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CurrentSelectedVendorLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(periodCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(averageVendorRatings, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(refreshbtn)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Exitbtn)
-                .addContainerGap(159, Short.MAX_VALUE))
+                        .addComponent(revenueTxt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(VendorPerformance))
+                    .addComponent(VRDashboardReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void refreshbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshbtnActionPerformed
-        try {
-            String filename = "deliveries.txt";
-            FileReader fr = new FileReader(filename);
-            BufferedReader br = new BufferedReader(fr);
+    private void refreshRevenueTable(String selectedVendorId) {
+        DefaultTableModel model = (DefaultTableModel) revenueTable.getModel();
+        model.setRowCount(0); // Clear existing data
 
-            DefaultTableModel model = (DefaultTableModel) Tasktbl.getModel();
-            model.setRowCount(0); // Clear the table before adding new rows
+        try (BufferedReader br = new BufferedReader(new FileReader("orders.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(":"); // Assuming data is separated by colons
+                if (data.length >= 5) { // Ensure there are enough fields
+                    String vendorId = data[2]; // Vendor ID
+                    String orderId = data[0]; // Order ID
+                    String orderedItems = data[3]; // Ordered Items
+                    double totalPrice = Double.parseDouble(data[5]); // Total Price
+                    String orderedTime = data[6]; // Ordered Time
 
-            double totalCommission = 0.0; // Variable to hold the total commission
-
-            // Get the logged-in user's DriverID
-            String loggedInDriverID = CurrentUser.getLoggedInUser().getUid();
-
-            Object[] tableLines = br.lines().toArray();
-            for (Object tableLine : tableLines) {
-                String line = tableLine.toString().trim();
-                String[] dataRow = line.split(":");
-
-                // Ensure the data row has enough columns to avoid ArrayIndexOutOfBoundsException
-                if (dataRow.length >= 8) {
-                    String completionStatus = dataRow[7]; // Assuming the 7th column is "Completion Status"
-                    String driverID = dataRow[8];        // Assuming the 8th column is "DriverID"
-
-                    // Filter rows with "Delivered" status and matching DriverID
-                    if ("Delivered".equalsIgnoreCase(completionStatus) && loggedInDriverID.equals(driverID)) {
-                        model.addRow(dataRow); // Add the row to the table
-
-                        // Attempt to parse and sum the commission value
-                        try {
-                            double commission = Double.parseDouble(dataRow[3]); // Assuming the 4th column is commission
-                            totalCommission += commission;
-                        } catch (NumberFormatException e) {
-                            System.err.println("Error parsing commission: " + e.getMessage());
-                        }
+                // Check if the selected vendor matches
+                    if (selectedVendorId.equals(vendorId) || selectedVendorId.equals("All")) {
+                        model.addRow(new Object[]{vendorId, orderId, orderedItems, totalPrice, orderedTime});
                     }
                 }
             }
-
-            // Display the total commission in the text field
-            RevenuetxtF.setText(String.format("%.2f", totalCommission));
-
-            br.close(); // Close the buffered reader
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error loading order data: " + e.getMessage());
+        }
+    }
+    
+    private void calculateAndDisplayRevenue() {
+        String selectedVendorId = (String) periodCBox.getSelectedItem();
+        double totalRevenue = 0.0;
+        int orderCount = 0;
+        
+        DefaultTableModel model = (DefaultTableModel) revenueTable.getModel();
+        model.setRowCount(0); // Clear existing data
+
+        try (BufferedReader br = new BufferedReader(new FileReader("orders.txt"))) {
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] data = line.split(":"); // Assuming data is separated by colons
+            if (data.length >= 9) { // Ensure there are enough fields
+                String vendorId = data[2]; // Vendor ID is the third field
+                double price = Double.parseDouble(data[5]); // Total Price is the sixth field
+
+                System.out.println("Processing line: " + line);
+                System.out.println("Vendor ID: " + vendorId + ", Selected Vendor: " + selectedVendorId);
+                
+                // Check if the selected vendor matches
+                if (selectedVendorId.equals(vendorId) || selectedVendorId.equals("All")) {
+                    totalRevenue += price;
+                    orderCount++;
+
+                    // Add the order details to the table
+                    model.addRow(new Object[]{
+                        vendorId, // Vendor ID
+                        data[0], // Order ID
+                        data[3], // Ordered Items
+                        price, // Total Price
+                        data[6] // Order Time
+                        });
+                    }
+                }else {
+                System.out.println("Line does not have enough fields: " + line);
+                }
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error loading order data: " + e.getMessage());
+            return;
         }
 
-    }//GEN-LAST:event_refreshbtnActionPerformed
+        // Update the revenue label
+        revenueTxt.setText("Total Revenue (RM): " + totalRevenue);
 
-    private void ExitbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitbtnActionPerformed
+        // Update the vendor performance label
+        if (orderCount > 0) {
+            VendorPerformance.setText("Performance: " + (totalRevenue / orderCount));
+        } else {
+            VendorPerformance.setText("Performance: No orders found.");
+        }
+        // Update the current selected vendor label
+        CurrentSelectedVendorLabel.setText("Current Selected Vendor: " + selectedVendorId);
+
+
+        // refresh the revenue table if needed
+        refreshRevenueTable(selectedVendorId);
+    }
+    
+    private void VRDashboardReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VRDashboardReturnButtonActionPerformed
         this.dispose();
-        new DRmenu().setVisible(true);        // TODO add your handling code here:
-    }//GEN-LAST:event_ExitbtnActionPerformed
+        new ManagerFrame().setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_VRDashboardReturnButtonActionPerformed
+
+    private void periodCBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_periodCBoxActionPerformed
+        calculateAndDisplayRevenue();
+    }//GEN-LAST:event_periodCBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,13 +277,15 @@ public class RevenueDashboardFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Exitbtn;
-    private javax.swing.JTextPane RevenuetxtF;
-    private javax.swing.JTable Tasktbl;
+    private javax.swing.JLabel CurrentSelectedVendorLabel;
+    private javax.swing.JButton VRDashboardReturnButton;
+    private javax.swing.JLabel VendorPerformance;
+    private javax.swing.JLabel VendorRevenueDashboardLabel;
+    private javax.swing.JLabel averageVendorRatings;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton refreshbtn;
+    private javax.swing.JComboBox<String> periodCBox;
+    private javax.swing.JTable revenueTable;
+    private javax.swing.JLabel revenueTxt;
     // End of variables declaration//GEN-END:variables
 }
