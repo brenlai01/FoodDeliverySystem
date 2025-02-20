@@ -19,6 +19,7 @@ public class RevenueDashboardFrame extends javax.swing.JFrame {
      */
     public RevenueDashboardFrame() {
         initComponents();
+        calculateAndDisplayRevenue();
     }
 
     /**
@@ -155,11 +156,11 @@ public class RevenueDashboardFrame extends javax.swing.JFrame {
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(":"); // Assuming data is separated by colons
                 if (data.length >= 5) { // Ensure there are enough fields
-                    String vendorId = data[0]; // Vendor ID
-                    String orderId = data[1]; // Order ID
-                    String orderedItems = data[2]; // Ordered Items
-                    double totalPrice = Double.parseDouble(data[3]); // Total Price
-                    String orderedTime = data[4]; // Ordered Time
+                    String vendorId = data[2]; // Vendor ID
+                    String orderId = data[0]; // Order ID
+                    String orderedItems = data[3]; // Ordered Items
+                    double totalPrice = Double.parseDouble(data[5]); // Total Price
+                    String orderedTime = data[6]; // Ordered Time
 
                 // Check if the selected vendor matches
                     if (selectedVendorId.equals(vendorId) || selectedVendorId.equals("All")) {
@@ -184,7 +185,7 @@ public class RevenueDashboardFrame extends javax.swing.JFrame {
         String line;
         while ((line = br.readLine()) != null) {
             String[] data = line.split(":"); // Assuming data is separated by colons
-            if (data.length >= 7) { // Ensure there are enough fields
+            if (data.length >= 9) { // Ensure there are enough fields
                 String vendorId = data[2]; // Vendor ID is the third field
                 double price = Double.parseDouble(data[5]); // Total Price is the sixth field
 
