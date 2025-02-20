@@ -1,1 +1,1 @@
-C002:Resolved:CU01:123123123:ololo:Pending
+C002:Resolved:CU01:123:ololo:Pending
