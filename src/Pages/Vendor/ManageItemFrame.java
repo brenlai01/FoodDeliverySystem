@@ -2,7 +2,6 @@ package Pages.Vendor;
 
 import FileManager.*;
 import Records.FoodImage;
-import Records.Voucher;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,8 +10,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import jnafilechooser.api.JnaFileChooser;
@@ -29,6 +26,7 @@ public class ManageItemFrame extends javax.swing.JFrame {
                 foodTableMouseClicked(evt);
             }
         });
+        foodIDTxt.setText("Food ID: ");
         vendorIDLabel.setText("Current Logged In Vendor ID: " + CurrentUser.getLoggedInUser().getUid());
         refreshData();
     }
@@ -36,7 +34,7 @@ public class ManageItemFrame extends javax.swing.JFrame {
     private void foodTableMouseClicked(java.awt.event.MouseEvent evt) {                                      
         int selectedRow = foodTable.getSelectedRow();
         if (selectedRow != -1) {
-            foodIDTxt.setText((String) foodTable.getValueAt(selectedRow, 1));
+            foodIDTxt.setText("Selected Food ID: " + (String) foodTable.getValueAt(selectedRow, 1));
             foodNameTxt.setText((String) foodTable.getValueAt(selectedRow, 2));
             priceTxt.setText((String) foodTable.getValueAt(selectedRow, 3));
             descriptionTxt.setText((String) foodTable.getValueAt(selectedRow, 4));
@@ -86,8 +84,7 @@ public class ManageItemFrame extends javax.swing.JFrame {
         searchTxt = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        foodIDTxt = new javax.swing.JTextField();
+        foodIDTxt = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         foodNameTxt = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -138,13 +135,8 @@ public class ManageItemFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel1.setText("Food ID:");
-
-        foodIDTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                foodIDTxtActionPerformed(evt);
-            }
-        });
+        foodIDTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        foodIDTxt.setText("Food ID:");
 
         jLabel3.setText("Food Name:");
 
@@ -209,7 +201,6 @@ public class ManageItemFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(vendorIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -222,14 +213,12 @@ public class ManageItemFrame extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(11, 11, 11)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel7))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(foodIDTxt, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(foodNameTxt, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(priceTxt, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
@@ -238,7 +227,10 @@ public class ManageItemFrame extends javax.swing.JFrame {
                             .addGap(58, 58, 58)
                             .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(27, 27, 27)
-                            .addComponent(returnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(returnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(foodIDTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(vendorIDLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)))
                 .addContainerGap(11, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -246,10 +238,8 @@ public class ManageItemFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(vendorIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(foodIDTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(foodIDTxt)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
@@ -373,7 +363,7 @@ public class ManageItemFrame extends javax.swing.JFrame {
                 + price + "\n"
             );
             fw.close();
-            JOptionPane.showMessageDialog(null, "Successfully food informations!");
+            JOptionPane.showMessageDialog(null, "Food informations successfully added!");
             refreshData();
         }catch(IOException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -434,14 +424,15 @@ public class ManageItemFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_searchTxtKeyReleased
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-        String loggedInVendorId = CurrentUser .getLoggedInUser ().getUid();
+        String loggedInVendorId = CurrentUser.getLoggedInUser().getUid();
 
         if (foodIDTxt.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please select a food item to delete!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        String foodID = foodIDTxt.getText().trim();
+        int selectedRow = foodTable.getSelectedRow();
+        String foodID = foodTable.getValueAt(selectedRow, 1).toString();
         //System.out.println("Attempting to delete Food ID: " + foodID);
 
         try (BufferedReader br = new BufferedReader(new FileReader("foodItems.txt"))) {
@@ -497,7 +488,8 @@ public class ManageItemFrame extends javax.swing.JFrame {
             return;
         }
 
-        String foodID = foodIDTxt.getText().trim();
+        int selectedRow = foodTable.getSelectedRow();
+        String foodID = foodTable.getValueAt(selectedRow, 1).toString();
         String foodName = foodNameTxt.getText().trim();
         double price;
         try {
@@ -554,7 +546,7 @@ public class ManageItemFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_updateBtnActionPerformed
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
-        foodIDTxt.setText("");
+        foodIDTxt.setText("Food ID:");
         foodNameTxt.setText("");
         priceTxt.setText("");
         descriptionTxt.setText("");
@@ -567,13 +559,10 @@ public class ManageItemFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_returnBtnActionPerformed
 
-    private void foodIDTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodIDTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_foodIDTxtActionPerformed
-
     private void uploadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadButtonActionPerformed
-                                                  // Get Food ID from the text field
-        String foodID = foodIDTxt.getText().trim();
+        // Get Food ID from the text field
+        int selectedRow = foodTable.getSelectedRow();
+        String foodID = foodTable.getValueAt(selectedRow, 1).toString();
 
         // Validate Food ID
         if (foodID == null || foodID.isEmpty()) {
@@ -671,10 +660,9 @@ public class ManageItemFrame extends javax.swing.JFrame {
     private javax.swing.JButton createBtn;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JTextArea descriptionTxt;
-    private javax.swing.JTextField foodIDTxt;
+    private javax.swing.JLabel foodIDTxt;
     private javax.swing.JTextField foodNameTxt;
     private javax.swing.JTable foodTable;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
