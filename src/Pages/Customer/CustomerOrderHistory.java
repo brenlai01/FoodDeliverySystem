@@ -397,7 +397,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
             // Check if vendor status is "Pending"
             if (orderToCancel.getVendorStatus().equals("Pending")) {
                 // Retrieve the delivery fee from the associated delivery record
-                double deliveryFee = 0.0; // Initialize delivery fee
+                double deliveryFee = 5.0; // Initialize delivery fee
                 ArrayList<Delivery> deliveries = FileManager.loadDeliveries("deliveries.txt"); // Load deliveries
                 Delivery deliveryToRemove = null; // Initialize delivery to remove
 
