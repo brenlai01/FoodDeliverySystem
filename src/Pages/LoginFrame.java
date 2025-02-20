@@ -5,6 +5,7 @@ import FileManager.*;
 import Models.*;
 import Pages.Customer.*;
 import Pages.DeliveryRunner.DRmenu;
+import Pages.Manager.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -159,6 +160,8 @@ public class LoginFrame extends javax.swing.JFrame {
                new VendorFrame().setVisible(true);
             } else if (loggedInUser instanceof DeliveryRunner) {
                 new DRmenu().setVisible(true);
+            } else if (loggedInUser instanceof Manager) {
+                new ManagerFrame().setVisible(true);
             }
             this.dispose();
         } else {

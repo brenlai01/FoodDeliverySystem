@@ -26,21 +26,164 @@ public class RevenueDashboardFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Tasktbl = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        refreshbtn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        Exitbtn = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        RevenuetxtF = new javax.swing.JTextPane();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        Tasktbl.setBackground(new java.awt.Color(227, 244, 227));
+        Tasktbl.setFont(new java.awt.Font("Songti TC", 1, 13)); // NOI18N
+        Tasktbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "DeliveryID", "OrderID", "CustomerID", "Commision(RM)", "Address", "Status", "Completion Status", "DriverID"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(Tasktbl);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setText("Delivery Runner Performance");
+
+        refreshbtn.setBackground(new java.awt.Color(0, 51, 51));
+        refreshbtn.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
+        refreshbtn.setForeground(new java.awt.Color(227, 244, 227));
+        refreshbtn.setText("Refresh Table");
+        refreshbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshbtnActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
+        jLabel2.setText("Total Revenue(RM) :");
+
+        Exitbtn.setBackground(new java.awt.Color(225, 237, 243));
+        Exitbtn.setFont(new java.awt.Font("Songti TC", 1, 14)); // NOI18N
+        Exitbtn.setText("Exit");
+        Exitbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitbtnActionPerformed(evt);
+            }
+        });
+
+        jScrollPane2.setViewportView(RevenuetxtF);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(184, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(304, 304, 304))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap()))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Exitbtn)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(396, 396, 396)
+                                .addComponent(refreshbtn)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(refreshbtn)
+                            .addComponent(jLabel2)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Exitbtn)
+                .addContainerGap(159, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void refreshbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshbtnActionPerformed
+        try {
+            String filename = "deliveries.txt";
+            FileReader fr = new FileReader(filename);
+            BufferedReader br = new BufferedReader(fr);
+
+            DefaultTableModel model = (DefaultTableModel) Tasktbl.getModel();
+            model.setRowCount(0); // Clear the table before adding new rows
+
+            double totalCommission = 0.0; // Variable to hold the total commission
+
+            // Get the logged-in user's DriverID
+            String loggedInDriverID = CurrentUser.getLoggedInUser().getUid();
+
+            Object[] tableLines = br.lines().toArray();
+            for (Object tableLine : tableLines) {
+                String line = tableLine.toString().trim();
+                String[] dataRow = line.split(":");
+
+                // Ensure the data row has enough columns to avoid ArrayIndexOutOfBoundsException
+                if (dataRow.length >= 8) {
+                    String completionStatus = dataRow[7]; // Assuming the 7th column is "Completion Status"
+                    String driverID = dataRow[8];        // Assuming the 8th column is "DriverID"
+
+                    // Filter rows with "Delivered" status and matching DriverID
+                    if ("Delivered".equalsIgnoreCase(completionStatus) && loggedInDriverID.equals(driverID)) {
+                        model.addRow(dataRow); // Add the row to the table
+
+                        // Attempt to parse and sum the commission value
+                        try {
+                            double commission = Double.parseDouble(dataRow[3]); // Assuming the 4th column is commission
+                            totalCommission += commission;
+                        } catch (NumberFormatException e) {
+                            System.err.println("Error parsing commission: " + e.getMessage());
+                        }
+                    }
+                }
+            }
+
+            // Display the total commission in the text field
+            RevenuetxtF.setText(String.format("%.2f", totalCommission));
+
+            br.close(); // Close the buffered reader
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+    }//GEN-LAST:event_refreshbtnActionPerformed
+
+    private void ExitbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitbtnActionPerformed
+        this.dispose();
+        new DRmenu().setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_ExitbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +221,13 @@ public class RevenueDashboardFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Exitbtn;
+    private javax.swing.JTextPane RevenuetxtF;
+    private javax.swing.JTable Tasktbl;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton refreshbtn;
     // End of variables declaration//GEN-END:variables
 }
