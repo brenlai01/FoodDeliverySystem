@@ -93,7 +93,7 @@ public class RiderPerformanceFrame extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         currentSelectedDriverID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        currentSelectedDriverID.setText("Current Rider Selected:");
+        currentSelectedDriverID.setText("Current Runner Selected:");
 
         RiderAvgRatings.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         RiderAvgRatings.setText("Runner Average Ratings (Stars): ");
