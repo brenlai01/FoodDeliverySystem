@@ -188,12 +188,12 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
     DefaultTableModel model = (DefaultTableModel) ComplaintHistoryTable.getModel();
     model.setRowCount(0); // Clear existing data
 
-    // Load complaints from the file (assuming a file named "complaints.txt")
+    // Load complaints from the file  "complaints.txt"
     try (BufferedReader br = new BufferedReader(new FileReader("complaint.txt"))) {
         String line;
         while ((line = br.readLine()) != null) {
-            String[] data = line.split(":"); // Assuming data is separated by colons
-            if (data.length >= 6) { // Ensure there are enough fields
+            String[] data = line.split(":"); 
+            if (data.length >= 6) { 
                 model.addRow(new Object[]{data[0], data[1], data[4], data[3]}); // ID, Status, Details, Reply
             }
         }
@@ -203,7 +203,7 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
 }
     
     private void UpdateCommentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateCommentButtonActionPerformed
-        // Get the selected row from the table
+        
         int selectedRow = ComplaintHistoryTable.getSelectedRow();
         
         if (selectedRow == -1) {
@@ -222,7 +222,7 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
         
         // Update the complaint in the data source (e.g., a file)
         try {
-            // Read the existing complaints
+            
             BufferedReader br = new BufferedReader(new FileReader("complaint.txt"));
             StringBuilder updatedData = new StringBuilder();
             String line;
@@ -231,12 +231,12 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(":");
                 if (data.length >= 6) {
-                    if (data[0].equals(complaintID)) { // Check if this is the complaint to update
-                        // Update the comment (assuming it's in the fourth column)
-                        data[3] = newComment; // Update the reply/comment
+                    if (data[0].equals(complaintID)) { 
+                        // Update the comment 
+                        data[3] = newComment; 
                         found = true;
                     }
-                    // Append the updated or original line to the StringBuilder
+                    // Append the updated 
                     updatedData.append(String.join(":", data)).append("\n");
                 }
             }
@@ -248,7 +248,7 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
                 fw.write(updatedData.toString());
                 fw.close();
                 JOptionPane.showMessageDialog(null, "Comment updated successfully!");
-                refreshData(); // Refresh the table to show updated comments
+                refreshData(); // Refresh the table 
             } else {
                 JOptionPane.showMessageDialog(null, "Complaint ID not found!", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -269,9 +269,9 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
     // Get the complaint ID from the selected row
     String complaintID = ComplaintHistoryTable.getValueAt(selectedRow, 0).toString(); // Assuming ID is in the first column
     
-    // Update the complaint status in the data source
+    // Update the complaint status 
     try {
-        // Read the existing complaints
+        
         BufferedReader br = new BufferedReader(new FileReader("complaint.txt"));
         StringBuilder updatedData = new StringBuilder();
         String line;
@@ -280,9 +280,9 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
         while ((line = br.readLine()) != null) {
             String[] data = line.split(":");
             if (data.length >= 4) {
-                if (data[0].equals(complaintID)) { // Check if this is the complaint to resolve
-                    // Update the status to "Resolved" (assuming status is in the second column)
-                    data[1] = "Resolved"; // Change the status
+                if (data[0].equals(complaintID)) { 
+                    // Update the status to "Resolved" 
+                    data[1] = "Resolved"; 
                     found = true;
                 }
                 // Append the updated or original line to the StringBuilder

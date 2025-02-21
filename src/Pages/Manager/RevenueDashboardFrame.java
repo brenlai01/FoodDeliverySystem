@@ -172,7 +172,7 @@ public class RevenueDashboardFrame extends javax.swing.JFrame {
 
     private void VRDashboardReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VRDashboardReturnButtonActionPerformed
         this.dispose();
-        new ManagerFrame().setVisible(true);        // TODO add your handling code here:
+        new ManagerFrame().setVisible(true);        
     }//GEN-LAST:event_VRDashboardReturnButtonActionPerformed
 
     private void refreshRevenueTable(String selectedVendorId) {
@@ -182,8 +182,8 @@ public class RevenueDashboardFrame extends javax.swing.JFrame {
         try (BufferedReader br = new BufferedReader(new FileReader("orders.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] data = line.split(":"); // Assuming data is separated by colons
-                if (data.length >= 5) { // Ensure there are enough fields
+                String[] data = line.split(":"); 
+                if (data.length >= 5) { 
                     String vendorId = data[2]; // Vendor ID
                     String orderId = data[0]; // Order ID
                     String orderedItems = data[3]; // Ordered Items
@@ -208,10 +208,10 @@ public class RevenueDashboardFrame extends javax.swing.JFrame {
         try (BufferedReader br = new BufferedReader(new FileReader("review.txt"))) {
             String line;
                 while ((line = br.readLine()) != null) {
-                String[] data = line.split(":"); // Assuming data is separated by colons
+                String[] data = line.split(":"); 
                 if (data.length >= 6) { // Ensure there are enough fields
                     String reviewVendorId = data[2]; // Vendor ID is the third field
-                    double rating = Double.parseDouble(data[5]); // Rating is the sixth field
+                    double rating = Double.parseDouble(data[5]); 
 
                     // Check if the vendor ID matches
                     if (vendorId.equals(reviewVendorId)) {
@@ -226,7 +226,7 @@ public class RevenueDashboardFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error parsing rating: " + e.getMessage());
         }
 
-        // Calculate average rating
+        // To calculate average ratings of the Vendor
         if (ratingCount > 0) {
             double averageRating = totalRating / ratingCount;
             averageVendorRatings.setText("Vendor Average Ratings: " + String.format("%.2f", averageRating));
@@ -246,20 +246,20 @@ public class RevenueDashboardFrame extends javax.swing.JFrame {
         try (BufferedReader br = new BufferedReader(new FileReader("orders.txt"))) {
         String line;
         while ((line = br.readLine()) != null) {
-            String[] data = line.split(":"); // Assuming data is separated by colons
-            if (data.length >= 9) { // Ensure there are enough fields
-                String vendorId = data[2]; // Vendor ID is the third field
-                double price = Double.parseDouble(data[5]); // Total Price is the sixth field
+            String[] data = line.split(":"); 
+            if (data.length >= 9) { 
+                String vendorId = data[2]; // Vendor ID 
+                double price = Double.parseDouble(data[5]); // Total Price 
 
                 System.out.println("Processing line: " + line);
                 System.out.println("Vendor ID: " + vendorId + ", Selected Vendor: " + selectedVendorId);
                 
-                // Check if the selected vendor matches
+                // match selected vendor
                 if (selectedVendorId.equals(vendorId) || selectedVendorId.equals("All")) {
                     totalRevenue += price;
                     orderCount++;
-
-                    // Add the order details to the table
+                    
+                    // Add to the table
                     model.addRow(new Object[]{
                         vendorId, // Vendor ID
                         data[0], // Order ID
@@ -277,23 +277,21 @@ public class RevenueDashboardFrame extends javax.swing.JFrame {
             return;
         }
 
-        // Update the revenue label
+        // total revenue label
         revenueTxt.setText("Total Revenue (RM): " + totalRevenue);
 
-        // Update the vendor performance label
+        //vendor performance label
         if (orderCount > 0) {
             VendorPerformance.setText("Performance: " + (totalRevenue / orderCount));
         } else {
             VendorPerformance.setText("Performance: No orders found.");
         }
-        // Update the current selected vendor label
+        // Update the selected vendor label
         CurrentSelectedVendorLabel.setText("Current Selected Vendor: " + selectedVendorId);
 
 
-        // refresh the revenue table if needed
         refreshRevenueTable(selectedVendorId);
         
-        // Calculate and display average ratings
         calculateAverageVendorRatings(selectedVendorId);
     }
     

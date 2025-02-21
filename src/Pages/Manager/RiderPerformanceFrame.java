@@ -229,8 +229,8 @@ private void loadDeliveriesForSelectedRunner(String selectedRunner) {
         while ((line = br.readLine()) != null) {
             String[] data = line.split(":"); 
             if (data.length >= 10) {
-                String runnerID = data[8]; //  8th field is Runner ID
-                String completionStatus = data[7]; //7th field is Completion Status
+                String runnerID = data[8]; //  Runner ID
+                String completionStatus = data[7]; // Completion Status
 
                 // Check if the selected runner is "All" or matches the runner ID
                 if ("All".equals(selectedRunner) || runnerID.equals(selectedRunner)) {
@@ -355,7 +355,7 @@ private void loadDeliveriesForSelectedRunner(String selectedRunner) {
     
     private void VRDashboardReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VRDashboardReturnButtonActionPerformed
         this.dispose();
-        new ManagerFrame().setVisible(true);        // TODO add your handling code here:
+        new ManagerFrame().setVisible(true);        
     }//GEN-LAST:event_VRDashboardReturnButtonActionPerformed
 
     private void selectRiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectRiderActionPerformed
