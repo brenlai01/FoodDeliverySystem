@@ -256,8 +256,8 @@ public class ViewOrderFrame extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(20, 20, 20)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(orderIDTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel4)
@@ -307,7 +307,7 @@ public class ViewOrderFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_returnBtnActionPerformed
 
     private void acceptBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptBtnActionPerformed
-        String loggedInVendorId = CurrentUser .getLoggedInUser ().getUid();
+        String loggedInVendorId = CurrentUser.getLoggedInUser().getUid();
         int selectedRow = orderTable.getSelectedRow();
 
         if (selectedRow == -1) {
@@ -319,6 +319,7 @@ public class ViewOrderFrame extends javax.swing.JFrame {
         String currentVendorID = orderTable.getValueAt(selectedRow, 2).toString();
         String vendorStatus = orderTable.getValueAt(selectedRow, 7).toString().toLowerCase();
         String orderType = orderTable.getValueAt(selectedRow, 5).toString().toLowerCase();
+        String customerID = orderTable.getValueAt(selectedRow, 1).toString();
         double totalPrice = Double.parseDouble(orderTable.getValueAt(selectedRow, 4).toString());
 
         if (!vendorStatus.equals("pending")) {
@@ -353,11 +354,12 @@ public class ViewOrderFrame extends javax.swing.JFrame {
                 try (FileWriter fw = new FileWriter("orders.txt")) {
                     fw.write(updatedData.toString());
                 }
+                Vendor.acceptNotification(customerID,orderID,CurrentUser.getLoggedInUser().getUsername());
                 JOptionPane.showMessageDialog(null, "Order has been accepted successfully!");
                 
                 if (orderType.equals("delivery")){
                     // Now update the delivery task associated with the accepted order
-                    boolean deliveryUpdated = Vendor.acceptDeliveryTask(orderID, "Accepted"); // Call the method from FileManager
+                    boolean deliveryUpdated = Vendor.acceptDeliveryTask(orderID); // Call the method from FileManager
 
                     // Handle the result of the delivery update
                     if (deliveryUpdated) {

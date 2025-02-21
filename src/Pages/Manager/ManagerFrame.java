@@ -1,11 +1,10 @@
 
 package Pages.Manager;
 
+import Pages.LoginFrame;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
+
 
 public class ManagerFrame extends javax.swing.JFrame {
 
@@ -25,52 +24,150 @@ public class ManagerFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        VendorItemsLabel = new javax.swing.JLabel();
+        VendorItemsButton = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        CustomerComplaintsLabel = new javax.swing.JLabel();
+        CustomerComplaintsButton = new javax.swing.JButton();
+        ManagerMenuLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        VendorPerformanceLabel = new javax.swing.JLabel();
+        VendorPerformanceButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        RiderPerformanceLabel = new javax.swing.JLabel();
+        RiderPerformanceButton = new javax.swing.JButton();
+        LogoutButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Manager Menu");
+        jPanel4.setBackground(new java.awt.Color(204, 204, 255));
 
-        jLabel3.setText("Vendor Performance");
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton2.setText("Manage");
+        VendorItemsLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        VendorItemsLabel.setText("Vendor Items");
+
+        VendorItemsButton.setBackground(new java.awt.Color(204, 204, 255));
+        VendorItemsButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        VendorItemsButton.setText("Manage");
+        VendorItemsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VendorItemsButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(69, 69, 69)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(VendorItemsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(VendorItemsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(VendorItemsLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(VendorItemsButton)
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
+        CustomerComplaintsLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        CustomerComplaintsLabel.setText("Customer Complaints");
+
+        CustomerComplaintsButton.setBackground(new java.awt.Color(204, 204, 255));
+        CustomerComplaintsButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        CustomerComplaintsButton.setText("Manage");
+        CustomerComplaintsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CustomerComplaintsButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(CustomerComplaintsLabel)
+                .addContainerGap(37, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(CustomerComplaintsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(CustomerComplaintsLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CustomerComplaintsButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        ManagerMenuLabel.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        ManagerMenuLabel.setText("Manager Dashboard");
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        VendorPerformanceLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        VendorPerformanceLabel.setText("Vendor Performance");
+
+        VendorPerformanceButton.setBackground(new java.awt.Color(204, 204, 255));
+        VendorPerformanceButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        VendorPerformanceButton.setText("View");
+        VendorPerformanceButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VendorPerformanceButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(34, 34, 34))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jButton2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(VendorPerformanceLabel))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(VendorPerformanceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addComponent(VendorPerformanceLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(VendorPerformanceButton)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        jLabel2.setText("Rider Performance");
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setText("Manage");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        RiderPerformanceLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        RiderPerformanceLabel.setText("Runner Performance");
+
+        RiderPerformanceButton.setBackground(new java.awt.Color(204, 204, 255));
+        RiderPerformanceButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        RiderPerformanceButton.setText("View");
+        RiderPerformanceButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                RiderPerformanceButtonActionPerformed(evt);
             }
         });
 
@@ -79,61 +176,122 @@ public class ManagerFrame extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2))
-                .addContainerGap(45, Short.MAX_VALUE))
+                        .addGap(65, 65, 65)
+                        .addComponent(RiderPerformanceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(RiderPerformanceLabel)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
+                .addComponent(RiderPerformanceLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addComponent(RiderPerformanceButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        LogoutButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        LogoutButton.setText("Logout");
+        LogoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LogoutButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(ManagerMenuLabel)
+                        .addGap(105, 105, 105))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(LogoutButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(ManagerMenuLabel)
+                .addGap(40, 40, 40)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(LogoutButton)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(131, 131, 131)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(159, Short.MAX_VALUE))
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void RiderPerformanceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RiderPerformanceButtonActionPerformed
+        RiderPerformanceFrame riderManagement = new RiderPerformanceFrame();
+        riderManagement.setVisible(true);
+    }//GEN-LAST:event_RiderPerformanceButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void VendorItemsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VendorItemsButtonActionPerformed
+        VendorItemsFrame vendorItemsManagement = new VendorItemsFrame();
+        vendorItemsManagement.setVisible(true);
+    }//GEN-LAST:event_VendorItemsButtonActionPerformed
+
+    private void CustomerComplaintsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerComplaintsButtonActionPerformed
+        CustomerComplaintsFrame complaintsManagement;
+        complaintsManagement = new CustomerComplaintsFrame();
+        complaintsManagement.setVisible(true);
+    }//GEN-LAST:event_CustomerComplaintsButtonActionPerformed
+
+    private void VendorPerformanceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VendorPerformanceButtonActionPerformed
+        RevenueDashboardFrame revenueDashboardManagement = new RevenueDashboardFrame();
+        revenueDashboardManagement.setVisible(true); 
+    }//GEN-LAST:event_VendorPerformanceButtonActionPerformed
+
+    private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButtonActionPerformed
+        new LoginFrame().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_LogoutButtonActionPerformed
+
+
+            
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -167,12 +325,20 @@ public class ManagerFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton CustomerComplaintsButton;
+    private javax.swing.JLabel CustomerComplaintsLabel;
+    private javax.swing.JButton LogoutButton;
+    private javax.swing.JLabel ManagerMenuLabel;
+    private javax.swing.JButton RiderPerformanceButton;
+    private javax.swing.JLabel RiderPerformanceLabel;
+    private javax.swing.JButton VendorItemsButton;
+    private javax.swing.JLabel VendorItemsLabel;
+    private javax.swing.JButton VendorPerformanceButton;
+    private javax.swing.JLabel VendorPerformanceLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel6;
     // End of variables declaration//GEN-END:variables
 }

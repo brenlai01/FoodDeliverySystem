@@ -4,6 +4,14 @@
  */
 package Pages.Manager;
 
+import FileManager.CurrentUser;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Chew WB
@@ -15,6 +23,7 @@ public class VendorItemsFrame extends javax.swing.JFrame {
      */
     public VendorItemsFrame() {
         initComponents();
+        refreshData();
     }
 
     /**
@@ -26,21 +35,188 @@ public class VendorItemsFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        foodTable = new javax.swing.JTable();
+        jLabel17 = new javax.swing.JLabel();
+        deleteItemButton = new javax.swing.JButton();
+        VendorItemManagementReturnButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+
+        foodTable.setBackground(new java.awt.Color(204, 204, 255));
+        foodTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        foodTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Food ID", "Vendor ID", "Food Name", "Price", "Description"
+            }
+        ));
+        foodTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(foodTable);
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        jLabel17.setText("Vendor Item Management Dashboard");
+
+        deleteItemButton.setBackground(new java.awt.Color(153, 153, 255));
+        deleteItemButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        deleteItemButton.setText("Delete");
+        deleteItemButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteItemButtonActionPerformed(evt);
+            }
+        });
+
+        VendorItemManagementReturnButton.setBackground(new java.awt.Color(225, 237, 243));
+        VendorItemManagementReturnButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        VendorItemManagementReturnButton.setText("Return");
+        VendorItemManagementReturnButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VendorItemManagementReturnButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setText("Options For Item Selected:");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 944, Short.MAX_VALUE)
+                        .addGap(9, 9, 9))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel17)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel1)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(deleteItemButton, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(VendorItemManagementReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel17)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deleteItemButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(VendorItemManagementReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(54, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void refreshData() {
+        DefaultTableModel model = (DefaultTableModel) foodTable.getModel();
+        model.setRowCount(0); // Clear existing data
+
+        // Load food items from the file
+        try (BufferedReader br = new BufferedReader(new FileReader("foodItems.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(":"); // Assuming data is separated by colons
+                if (data.length == 5) { // Ensure there are enough fields
+                    model.addRow(new Object[]{data[0], data[1], data[2], data[4], data[3]}); // Vendor ID, Food ID, Food Name, Price, Description
+                }
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error loading food items: " + e.getMessage());
+        }
+    }
+    
+    private void deleteItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteItemButtonActionPerformed
+        
+        // Get the selected row from the table
+        int selectedRow = foodTable.getSelectedRow();
+        
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "Please select a food item to delete!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Get the food ID from the selected row
+        String foodID = foodTable.getValueAt(selectedRow, 0).toString(); // Assuming Food ID is in the second column
+        
+
+        try (BufferedReader br = new BufferedReader(new FileReader("foodItems.txt"))) {
+        StringBuilder updatedData = new StringBuilder();
+        String line;
+        boolean found = false;
+
+        while ((line = br.readLine()) != null) {
+            String[] data = line.split(":");
+            if (data.length == 5) {
+                if (!data[0].equals(foodID)) { // Keep the line if it's not the selected food item
+                    updatedData.append(line).append("\n");
+                } else {
+                    found = true; // Mark as found if this is the food item to delete
+                }
+            }
+        }
+
+
+            if (found) {
+                // Write the updated data back to the file
+                try (FileWriter fw = new FileWriter("foodItems.txt")) {
+                    fw.write(updatedData.toString());
+                }
+                JOptionPane.showMessageDialog(null, "Food item deleted successfully!");
+                refreshData(); // Refresh the table to show updated items
+            } else {
+                JOptionPane.showMessageDialog(null, "Food ID not found!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error deleting food item: " + e.getMessage());
+        }
+    }//GEN-LAST:event_deleteItemButtonActionPerformed
+
+    private void VendorItemManagementReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VendorItemManagementReturnButtonActionPerformed
+        new ManagerFrame().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_VendorItemManagementReturnButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +254,12 @@ public class VendorItemsFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton VendorItemManagementReturnButton;
+    private javax.swing.JButton deleteItemButton;
+    private javax.swing.JTable foodTable;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

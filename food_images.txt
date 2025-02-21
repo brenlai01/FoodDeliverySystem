@@ -1,0 +1,8 @@
+F001,images/F001_Nasi-Lemak-thumbnail-03.jpg
+F002,images/F002_teh-tarik.jpg
+F006,images/F006_penang-laksa.jpg
+F003,images/F003_chicken-burger.jpg
+F005,images/F005_penang-char-kuey-teow.jpg
+F004,images/F004_Chili-Pan-Mee.jpg
+F007,images/F007_Rojak.png
+F007,images/F007_Rojak.png

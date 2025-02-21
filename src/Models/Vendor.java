@@ -58,7 +58,7 @@ public class Vendor extends User{
         return found;
     }
     
-    public static boolean acceptDeliveryTask(String orderID, String newStatus) {
+    public static boolean acceptDeliveryTask(String orderID) {
         boolean found = false;
 
         try (BufferedReader br = new BufferedReader(new FileReader("deliveries.txt"))) {
@@ -69,7 +69,7 @@ public class Vendor extends User{
                 String[] data = line.split(":");
                 if (data.length == 10) {
                     if (data[1].equals(orderID)) {
-                        data[5] = newStatus;
+                        data[5] = "Accepted";
                         line = String.join(":", data);
                         found = true;
                     }
@@ -176,6 +176,16 @@ public class Vendor extends User{
         Transaction txn = new Transaction(txnID, customerID, TransactionType.REFUND, amountToRefund, date);
         txns.add(txn);
         FileManager.writeTxns("transactions.txt", txns);
+    }
+    
+    public static void acceptNotification(String cID, String oID,String vendorName) {
+        ArrayList<Notification> notifications = FileManager.loadNotifications("notifications.txt");
+        String nid = FileManager.getNotificationID(notifications);
+        String date = FileManager.getDateTime();
+        String msg = "Your order " + oID +" has been accepted by " + vendorName + "." ;
+        Notification notification = new Notification(nid, cID, msg, date, "Unread");
+        notifications.add(notification);
+        FileManager.writeNotifications("notifications.txt", notifications);
     }
     
 }

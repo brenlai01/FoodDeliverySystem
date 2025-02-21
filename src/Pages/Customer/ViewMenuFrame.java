@@ -4,7 +4,15 @@ import FileManager.*;
 import Models.*;
 import Records.*;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -14,6 +22,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
     private Customer customer;
     private String selectedVendorID;
     private String selectedOrderType = null;
+    private ArrayList<Food> vendorItems;
     
     public ViewMenuFrame() {
         this.customer = (Customer) CurrentUser.getLoggedInUser();
@@ -76,9 +85,11 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         voucherDiscountField = new javax.swing.JFormattedTextField();
         jLabel10 = new javax.swing.JLabel();
         voucher = new javax.swing.JButton();
+        ImageLabel = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(850, 750));
+        setPreferredSize(new java.awt.Dimension(740, 800));
 
         MainPanel.setPreferredSize(new java.awt.Dimension(740, 700));
         MainPanel.setRequestFocusEnabled(false);
@@ -277,6 +288,11 @@ public class ViewMenuFrame extends javax.swing.JFrame {
             }
         });
 
+        ImageLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ImageLabel.setPreferredSize(new java.awt.Dimension(200, 200));
+
+        jLabel13.setText("Picture");
+
         javax.swing.GroupLayout UserPanelLayout = new javax.swing.GroupLayout(UserPanel);
         UserPanel.setLayout(UserPanelLayout);
         UserPanelLayout.setHorizontalGroup(
@@ -288,7 +304,6 @@ public class ViewMenuFrame extends javax.swing.JFrame {
                 .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(UserPanelLayout.createSequentialGroup()
                         .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserPanelLayout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -298,7 +313,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
                                     .addGroup(UserPanelLayout.createSequentialGroup()
                                         .addGap(12, 12, 12)
                                         .addComponent(removeItemButton)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                                 .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserPanelLayout.createSequentialGroup()
                                         .addComponent(jLabel3)
@@ -336,7 +351,15 @@ public class ViewMenuFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(voucher)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(returnButton)))
+                                .addComponent(returnButton))
+                            .addGroup(UserPanelLayout.createSequentialGroup()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(UserPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel13)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(ImageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addContainerGap())
                     .addGroup(UserPanelLayout.createSequentialGroup()
                         .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -370,14 +393,19 @@ public class ViewMenuFrame extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(BalanceLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(voucher, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(returnButton)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(returnButton)
-                    .addComponent(voucher, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(ImageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -435,7 +463,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
                     .addComponent(takeAwayButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(deliveryButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(placeOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         MainPanel.add(UserPanel, java.awt.BorderLayout.CENTER);
@@ -788,13 +816,13 @@ public class ViewMenuFrame extends javax.swing.JFrame {
     }
     
     private void loadVendorItems(String vid, String vendorName) {
-        
+   
         selectedVendorID = vid;
         selectedVendorField.setText(vendorName);
         
         ArrayList<Food> foodItems = FileManager.loadFoodItems("foodItems.txt");
         
-        ArrayList<Food> vendorItems = new ArrayList<>();
+        vendorItems = new ArrayList<>();
         for (Food food : foodItems) {
             if (food.getVendorID().equals(vid)) {
                 vendorItems.add(food);
@@ -802,7 +830,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         }
         
         String[] columnNames = {"Food", "Description", "Price"};
-        int[] columnWidths = {100 ,400, 70};
+        int[] columnWidths = {100 ,300, 70};
         
         setupTable(vendorMenuTable, columnNames, columnWidths);
         
@@ -817,14 +845,21 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         }
         
         vendorMenuTable.getSelectionModel().addListSelectionListener(e -> {
-           if (!e.getValueIsAdjusting() && vendorMenuTable.getSelectedRow() != -1) {
-               int selectedRow = vendorMenuTable.getSelectedRow();
-               
-               String foodName = (String) vendorMenuTable.getValueAt(selectedRow, 0);
-               selectedFoodField.setText(foodName);
-               selectedFoodField.setEditable(false);
-               foodQuantity.setValue(1);
-           }
+            if (!e.getValueIsAdjusting() && vendorMenuTable.getSelectedRow() != -1) {
+                int selectedRow = vendorMenuTable.getSelectedRow();
+
+                if (selectedRow >= 0 && selectedRow < vendorItems.size()) { // Ensure index is valid
+                    String foodName = (String) vendorMenuTable.getValueAt(selectedRow, 0);
+                    String foodID = vendorItems.get(selectedRow).getFoodID();
+                    selectedFoodField.setText(foodName);
+                    selectedFoodField.setEditable(false);
+                    foodQuantity.setValue(1);
+
+                    displayFoodImage(foodID, ImageLabel);
+                } else {
+                    System.out.println("Invalid row index: " + selectedRow);
+                }
+            }
         });
     }
     
@@ -963,6 +998,42 @@ public class ViewMenuFrame extends javax.swing.JFrame {
                 JOptionPane.INFORMATION_MESSAGE);
         }
     }
+    
+    private String getImagePathForFoodID(String foodID) {
+        File file = new File("food_images.txt");
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",", 2); // Split by the first comma
+                if (data[0].equals(foodID)) {
+                    return data[1]; // Return the image path
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading food_images.txt: " + e.getMessage());
+        }
+        return null; // Return null if no matching FoodID is found
+    }
+
+    private void displayFoodImage(String foodID, JLabel imageLabel) {
+        // Load the image (Replace this with your logic to fetch the image path)
+        String imagePath = getImagePathForFoodID(foodID);
+        ImageIcon imageIcon = new ImageIcon(imagePath);
+
+        // Resize the image to fit the label (optional, depending on your use case)
+        Image image = imageIcon.getImage().getScaledInstance(imageLabel.getWidth(), imageLabel.getHeight(), Image.SCALE_SMOOTH);
+        imageIcon = new ImageIcon(image);
+
+        // Set the image icon on the JLabel
+        imageLabel.setIcon(imageIcon);
+
+        // Center the image in the JLabel
+        imageLabel.setHorizontalAlignment(JLabel.CENTER);
+        imageLabel.setVerticalAlignment(JLabel.CENTER);
+        
+        // Optional: Ensure the parent panel remains fixed in size
+        imageLabel.getParent().setLayout(null);
+    }
 
     public static void main(String args[]) {
 
@@ -978,6 +1049,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Admin;
     private javax.swing.JLabel BalanceLabel;
+    private javax.swing.JLabel ImageLabel;
     private javax.swing.JPanel MainPanel;
     private javax.swing.JPanel UserPanel;
     private javax.swing.JButton addToOrderButton;
@@ -989,6 +1061,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -6,3 +6,5 @@ customer:C001:customer1:123123:62.0
 customer:C002:alvin:123123:91.0
 deliveryrunner:D001:Ben:123123:35.0
 deliveryrunner:D002:Han:123123:0.0
+deliveryrunner:D003:Ali:123123:0.0
+manager:M001:wb:123123:0.0
