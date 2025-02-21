@@ -75,7 +75,7 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(ComplaintHistoryTable);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
-        jLabel1.setText("Customer Complaint Panel");
+        jLabel1.setText("Customer Complaint Management Dashboard");
 
         UpdateCommentButton.setBackground(new java.awt.Color(225, 237, 243));
         UpdateCommentButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N

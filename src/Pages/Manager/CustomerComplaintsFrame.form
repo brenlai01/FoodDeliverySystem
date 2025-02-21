@@ -146,7 +146,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="24" style="3"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Customer Complaint Panel"/>
+            <Property name="text" type="java.lang.String" value="Customer Complaint Management Dashboard"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="UpdateCommentButton">
