@@ -124,7 +124,7 @@ public class ManagerFrame extends javax.swing.JFrame {
 
         VendorPerformanceButton.setBackground(new java.awt.Color(204, 204, 255));
         VendorPerformanceButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        VendorPerformanceButton.setText("Manage");
+        VendorPerformanceButton.setText("View");
         VendorPerformanceButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 VendorPerformanceButtonActionPerformed(evt);
@@ -162,7 +162,7 @@ public class ManagerFrame extends javax.swing.JFrame {
 
         RiderPerformanceButton.setBackground(new java.awt.Color(204, 204, 255));
         RiderPerformanceButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        RiderPerformanceButton.setText("Manage");
+        RiderPerformanceButton.setText("View");
         RiderPerformanceButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RiderPerformanceButtonActionPerformed(evt);
