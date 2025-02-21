@@ -446,7 +446,12 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
                 String customerID = CurrentUser .getLoggedInUser ().getUid();
                 String date = FileManager.getDateTime();
                 String txnID = FileManager.getTxnID(txns);
-                Transaction txn = new Transaction(txnID, customerID, TransactionType.REFUND, totalAmount, date);
+
+                // Calculate the total refund amount
+                double totalRefundAmount = totalAmount + deliveryFee; // Total refund amount
+
+                // Create the transaction with the total refund amount
+                Transaction txn = new Transaction(txnID, customerID, TransactionType.REFUND, totalRefundAmount, date);
                 txns.add(txn);
                 FileManager.writeTxns("transactions.txt", txns);
 
@@ -538,6 +543,14 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
 
                     // Append the new order to the orders.txt file
                     FileManager.addReOrder("orders.txt", newOrder);
+                    
+                    // Create a new transaction record for the reorder
+                    ArrayList<Transaction> txns = FileManager.loadTxns("transactions.txt");
+                    String txnID = FileManager.getTxnID(txns); // Generate a new transaction ID
+                    String date = FileManager.getDateTime(); // Get current date and time
+                    Transaction txn = new Transaction(txnID, customerID, TransactionType.ORDER_DEDUCTION, totalAmount, date); // Create transaction
+                    txns.add(txn); // Add transaction to the list
+                    FileManager.writeTxns("transactions.txt", txns); // Write transactions back to the file
 
                     // Show a success message to the user
                     JOptionPane.showMessageDialog(null, "Order placed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
