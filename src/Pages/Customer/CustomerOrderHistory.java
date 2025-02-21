@@ -596,12 +596,18 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
         String vendorID = (String) OrderHistoryTable.getValueAt(selectedRow, 7); 
         String orderType = (String) OrderHistoryTable.getValueAt(selectedRow, 3);
         String vendorStatus = (String) OrderHistoryTable.getValueAt(selectedRow, 5);
+        String deliveryStatus = (String) OrderHistoryTable.getValueAt(selectedRow, 6);
         String deliveryID = null;
         String deliveryRunnerID = null;
         
         if (vendorStatus.equalsIgnoreCase("Pending") || vendorStatus.equalsIgnoreCase("Cancelled")) {
             JOptionPane.showMessageDialog(this, "You cannot submit a review for orders with 'Pending' or 'Cancelled' status.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
+        }
+        
+        if (orderType.equalsIgnoreCase("delivery") && !deliveryStatus.equalsIgnoreCase("Delivered")) {
+        JOptionPane.showMessageDialog(this, "You cannot submit a review for orders with delivery status not 'Delivered'.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
         }
         
         ArrayList<Review> reviews = FileManager.loadReviews("review.txt");
