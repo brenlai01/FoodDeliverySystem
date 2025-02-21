@@ -158,7 +158,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         RiderPerformanceLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        RiderPerformanceLabel.setText("Rider Performance");
+        RiderPerformanceLabel.setText("Runner Performance");
 
         RiderPerformanceButton.setBackground(new java.awt.Color(204, 204, 255));
         RiderPerformanceButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -179,7 +179,7 @@ public class ManagerFrame extends javax.swing.JFrame {
                         .addGap(65, 65, 65)
                         .addComponent(RiderPerformanceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
+                        .addGap(40, 40, 40)
                         .addComponent(RiderPerformanceLabel)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
