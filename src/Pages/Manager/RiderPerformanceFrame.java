@@ -46,10 +46,10 @@ public class RiderPerformanceFrame extends javax.swing.JFrame {
         RiderTotalCommision = new javax.swing.JLabel();
         RunnerDetailsLabel = new javax.swing.JLabel();
         RunnerName = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        RunnerPerformance = new javax.swing.JLabel();
         VRDashboardReturnButton = new javax.swing.JButton();
-        searchTxt = new javax.swing.JTextField();
         SearchRunnerLabel = new javax.swing.JLabel();
+        selectRider = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,7 +64,7 @@ public class RiderPerformanceFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "DriverID", "DeliveryID", "OrderID", "CustomerID", "Commision(RM)", "Address", "Status", "Completion Status"
+                "RunnerID", "DeliveryID", "OrderID", "CustomerID", "Commision(RM)", "Address", "Status", "Completion Status"
             }
         ) {
             Class[] types = new Class [] {
@@ -90,6 +90,8 @@ public class RiderPerformanceFrame extends javax.swing.JFrame {
             .addGap(0, 22, Short.MAX_VALUE)
         );
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
         currentSelectedDriverID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         currentSelectedDriverID.setText("Current Rider Selected:");
 
@@ -105,8 +107,8 @@ public class RiderPerformanceFrame extends javax.swing.JFrame {
         RunnerName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         RunnerName.setText("Runner Name: ");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Runner Performance: ");
+        RunnerPerformance.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        RunnerPerformance.setText("Runner Performance: ");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -120,7 +122,7 @@ public class RiderPerformanceFrame extends javax.swing.JFrame {
                     .addComponent(RunnerName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(currentSelectedDriverID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(RiderTotalCommision, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(RunnerPerformance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(268, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -137,7 +139,7 @@ public class RiderPerformanceFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(RiderTotalCommision)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(RunnerPerformance)
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -150,19 +152,15 @@ public class RiderPerformanceFrame extends javax.swing.JFrame {
             }
         });
 
-        searchTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchTxtActionPerformed(evt);
-            }
-        });
-        searchTxt.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                searchTxtKeyReleased(evt);
-            }
-        });
-
         SearchRunnerLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         SearchRunnerLabel.setText("Emter RunnerID (exp D001):");
+
+        selectRider.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "D001", "D002", "D003", "All" }));
+        selectRider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectRiderActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -178,8 +176,8 @@ public class RiderPerformanceFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(SearchRunnerLabel)
                         .addGap(18, 18, 18)
-                        .addComponent(searchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0))
+                        .addComponent(selectRider, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24))
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -195,15 +193,15 @@ public class RiderPerformanceFrame extends javax.swing.JFrame {
                     .addComponent(RiderPerformanceDashHeader)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(searchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(SearchRunnerLabel)))
-                .addGap(24, 24, 24)
+                        .addComponent(SearchRunnerLabel)
+                        .addComponent(selectRider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(21, 21, 21)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(VRDashboardReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -212,8 +210,7 @@ public class RiderPerformanceFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(19, 19, 19))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,148 +222,152 @@ public class RiderPerformanceFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void searchTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTxtKeyReleased
-    String searchText = searchTxt.getText().trim().toLowerCase();
+private void loadDeliveriesForSelectedRunner(String selectedRunner) {
     DefaultTableModel model = (DefaultTableModel) RunnerPerformanceTable.getModel();
     model.setRowCount(0); // Clear existing data
-
-    // Only proceed if the search text is not empty
-    if (searchText.isEmpty()) {
-        return; // Exit if the search text is empty
-    }
-
-    // Check if the runner ID exists in users.txt
-    String runnerId = null;
-    try (BufferedReader br = new BufferedReader(new FileReader("users.txt"))) {
-        String line;
-        while ((line = br.readLine()) != null) {
-            String[] data = line.split(":"); // Assuming data is separated by colons
-            if (data.length >= 5) {
-                String runnerType = data[0].trim(); // User type (e.g., deliveryrunner)
-                String runnerID = data[1].trim().toLowerCase(); // Runner ID (e.g., D001)
-
-                // Check if the runner ID matches
-                if (runnerID.equalsIgnoreCase(searchText) && runnerType.equals("deliveryrunner")) {
-                    runnerId = runnerID; // Store the found runner ID
-                    break; // Exit after finding the first match
-                }
-            }
-        }
-    } catch (IOException e) {
-        JOptionPane.showMessageDialog(null, "Error reading users file: " + e.getMessage());
-        return;
-    }
-
-    // If the runner ID was found, load their deliveries
-    if (runnerId != null) {
-        loadRunnerDeliveries(runnerId);
-    } else {
-        JOptionPane.showMessageDialog(null, "Runner ID not found."); // If no match is found
-    }
-    }//GEN-LAST:event_searchTxtKeyReleased
-
-    private void loadRunnerDeliveries(String riderId) {
-    DefaultTableModel model = (DefaultTableModel) RunnerPerformanceTable.getModel();
-    model.setRowCount(0); // Clear existing data
+    
 
     try (BufferedReader br = new BufferedReader(new FileReader("deliveries.txt"))) {
         String line;
-        boolean found = false; // Flag to check if any deliveries are found for the runner
+        boolean found = false; // Flag to check if any deliveries are found
         while ((line = br.readLine()) != null) {
             String[] data = line.split(":"); // Assuming data is separated by colons
-            if (data.length >= 10 && data[7].equals(riderId)) { // Check if the runner ID matches (assuming it's the 8th field)
-                model.addRow(new Object[]{
-                    data[0], // DeliveryID
-                    data[1], // OrderID
-                    data[2], // CustomerID
-                    data[3], // Rating
-                    data[4], // Address
-                    data[5], // Status
-                    data[6],
-                    data[7], // Completion Status
-                    data[8], // Runner ID
-                      // Delivery Time
-                });
-                found = true; // Set the flag to true if at least one delivery is found
+            if (data.length >= 10) {
+                String runnerID = data[8]; // Assuming the 8th field is Runner ID
+                String completionStatus = data[7]; // Assuming the 7th field is Completion Status
+
+                // Check if the selected runner is "All" or matches the runner ID
+                if ("All".equals(selectedRunner) || runnerID.equals(selectedRunner)) {
+                    model.addRow(new Object[]{
+                        runnerID,
+                        data[0], // DeliveryID
+                        data[1], // OrderID
+                        data[2], // CustomerID
+                        data[3], // Rating
+                        data[4], // Address
+                        data[5], // Status
+                        completionStatus, // Completion Status
+                        data[8]  // Delivery Time
+                    });
+                    found = true; // Set the flag to true if at least one delivery is found
+                }
             }
         }
         if (!found) {
-            JOptionPane.showMessageDialog(null, "No deliveries found for Runner ID: " + riderId);
+            JOptionPane.showMessageDialog(null, "No deliveries found for the selected runner.");
         }
     } catch (IOException e) {
-        JOptionPane.showMessageDialog(null, "Error loading runner deliveries: " + e.getMessage());
+        JOptionPane.showMessageDialog(null, "Error loading deliveries: " + e.getMessage());
     }
 }
-   private boolean loadRunnerDetails(String riderId) {
-    try (BufferedReader br = new BufferedReader(new FileReader("users.txt"))) {
-        String line;
-        boolean found = false; // Flag to check if the runner is found
-        while ((line = br.readLine()) != null) {
-            String[] data = line.split(":"); // Assuming data is separated by colons
-            if (data.length >= 5 && data[1].equalsIgnoreCase(riderId) && data[0].equals("deliveryrunner")) { // Check if the runner ID matches
-                RunnerName.setText("Runner Name: " + data[2]); // Set the runner's name
-                RiderTotalCommision.setText("Total Commission (RM): " + data[4]); // Set the total commission
-                found = true; // Set the flag to true
-                break; // Exit once the runner is found
+
+   private boolean loadRunnerDetails(String selectedRunner) {
+        if (selectedRunner.equals("All")) {
+            RunnerName.setText("Runner Name: "); // Clear the runner name
+            RiderTotalCommision.setText("Total Commission (RM): "); // Clear the total commission
+            return true; // Return true to indicate that the operation was successful
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader("users.txt"))) {
+            String line;
+            boolean found = false; // Flag to check if the runner is found
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(":"); // Assuming data is separated by colons
+                if (data.length >= 5 && data[1].equalsIgnoreCase(selectedRunner) && data[0].equals("deliveryrunner")) {
+                    RunnerName.setText("Runner Name: " + data[2]); // Set the runner's name
+                    RiderTotalCommision.setText("Total Commission (RM): " + data[4]); // Set the total commission
+                    found = true; // Set the flag to true
+                    break; // Exit once the runner is found
+                }
             }
-        }
-        if (!found) {
-            JOptionPane.showMessageDialog(null, "Runner ID not found."); // If no match is found
-        }
-        return found; // Return whether the runner was found
+            if (!found) {
+                // Do not display an error message
+                return false; // Return false to indicate that the runner was not found
+            }
+            return found; // Return whether the runner was found
         } catch (IOException e) {
-        JOptionPane.showMessageDialog(null, "Error loading runner details: " + e.getMessage());
-        return false; // Return false on error
+         // Do not display an error message
+            return false; // Return false on error
+        }
     }
-}
          
-    private void calculateAverageRating(String riderId) {
+    private void calculateAverageRating(String selectedRunner) {
         double totalRating = 0.0;
+        double totalCommission = 0.0;
         int ratingCount = 0;
+        int deliveryCount = 0;
 
         try (BufferedReader br = new BufferedReader(new FileReader("review.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] data = line.split(":");
-                if (data.length >= 6 && data[2].equals(riderId)) {
-                    totalRating += Double.parseDouble(data[5]);
-                    ratingCount++;
+                String[] data = line.split(":"); // Split the line by colons
+                // Ensure the data array has enough elements
+                if (data.length >= 10 && data[6] != null && data[6].equals(selectedRunner)) { // Check if the 8th field (index 7) matches the selected runner
+                    try {
+                        // Parse the rating from the 11th field (index 10)
+                        totalRating += Double.parseDouble(data[9]);
+                        ratingCount++;
+                    } catch (NumberFormatException e) {
+                        System.err.println("Error parsing rating: " + e.getMessage());
+                    }
                 }
             }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error calculating average rating: " + e.getMessage());
         }
-
+        
+        // Calculate total commission from deliveries
+    try (BufferedReader br = new BufferedReader(new FileReader("deliveries.txt"))) {
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] data = line.split(":");
+            if (data.length >= 10 && data[8].equals(selectedRunner)) {
+                try {
+                    totalCommission += Double.parseDouble(data[3]); // Assuming the 4th field is the commission
+                    deliveryCount++;
+                } catch (NumberFormatException e) {
+                    System.err.println("Error parsing commission: " + e.getMessage());
+                }
+            }
+        }
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(null, "Error calculating total commission: " + e.getMessage());
+    }
+        // Calculate and display the average rating
         if (ratingCount > 0) {
             double averageRating = totalRating / ratingCount;
             RiderAvgRatings.setText("Runner Average Ratings (Stars): " + String.format("%.2f", averageRating));
         } else {
             RiderAvgRatings.setText("Runner Average Ratings (Stars): No ratings found.");
         }
+    
+    
+        // Update the RunnerPerformance label
+        if (deliveryCount > 0) {
+            double performance = totalCommission / deliveryCount;
+            RunnerPerformance.setText( "Peformance: "+String.format("%.2f", performance));
+        } else {
+            RunnerPerformance.setText("Peformance: No information found.");
+        }
     }
-    
-    
-
-    
-    private void updateRiderInfo(String riderId) {
-    currentSelectedDriverID.setText("Current Rider Selected: " + riderId);
-    if (loadRunnerDetails(riderId)) { // Modify loadRunnerDetails to return a boolean
-        calculateAverageRating(riderId); // Calculate average rating only if the runner is found
-        loadRunnerDeliveries(riderId); // Load deliveries associated with this runner
+     
+    private void updateRiderInfo(String selectedRunner) {
+    currentSelectedDriverID.setText("Current Rider Selected: " + selectedRunner); // Modify loadRunnerDetails to return a boolean
+        if (loadRunnerDetails(selectedRunner)) {
+            calculateAverageRating(selectedRunner); // Calculate average rating only if the runner is found
+        }
     }
-}
     
     private void VRDashboardReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VRDashboardReturnButtonActionPerformed
         this.dispose();
         new ManagerFrame().setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_VRDashboardReturnButtonActionPerformed
 
-    private void searchTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTxtActionPerformed
-        String searchText = searchTxt.getText().trim();
-        if (!searchText.isEmpty()) {
-            loadRunnerDetails(searchText);
-        }
-    }//GEN-LAST:event_searchTxtActionPerformed
+    private void selectRiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectRiderActionPerformed
+        String selectedRunner = (String) selectRider.getSelectedItem();
+        updateRiderInfo(selectedRunner);
+        loadDeliveriesForSelectedRunner(selectedRunner);
+    }//GEN-LAST:event_selectRiderActionPerformed
 
     /**
      * @param args the command line arguments
@@ -409,15 +410,15 @@ public class RiderPerformanceFrame extends javax.swing.JFrame {
     private javax.swing.JLabel RiderTotalCommision;
     private javax.swing.JLabel RunnerDetailsLabel;
     private javax.swing.JLabel RunnerName;
+    private javax.swing.JLabel RunnerPerformance;
     private javax.swing.JTable RunnerPerformanceTable;
     private javax.swing.JLabel SearchRunnerLabel;
     private javax.swing.JButton VRDashboardReturnButton;
     private javax.swing.JLabel currentSelectedDriverID;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField searchTxt;
+    private javax.swing.JComboBox<String> selectRider;
     // End of variables declaration//GEN-END:variables
 }

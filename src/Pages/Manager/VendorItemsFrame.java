@@ -83,7 +83,7 @@ public class VendorItemsFrame extends javax.swing.JFrame {
             }
         });
 
-        VendorItemManagementReturnButton.setBackground(new java.awt.Color(153, 153, 255));
+        VendorItemManagementReturnButton.setBackground(new java.awt.Color(225, 237, 243));
         VendorItemManagementReturnButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         VendorItemManagementReturnButton.setText("Return");
         VendorItemManagementReturnButton.addActionListener(new java.awt.event.ActionListener() {
