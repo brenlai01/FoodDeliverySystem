@@ -115,7 +115,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         );
 
         ManagerMenuLabel.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
-        ManagerMenuLabel.setText("Manager Menu");
+        ManagerMenuLabel.setText("Manager Dashboard");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -201,9 +201,9 @@ public class ManagerFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 114, Short.MAX_VALUE)
                         .addComponent(ManagerMenuLabel)
-                        .addGap(135, 135, 135))
+                        .addGap(105, 105, 105))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
