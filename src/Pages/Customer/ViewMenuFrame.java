@@ -830,7 +830,7 @@ public class ViewMenuFrame extends javax.swing.JFrame {
         }
         
         String[] columnNames = {"Food", "Description", "Price"};
-        int[] columnWidths = {100 ,350, 70};
+        int[] columnWidths = {100 ,300, 70};
         
         setupTable(vendorMenuTable, columnNames, columnWidths);
         
