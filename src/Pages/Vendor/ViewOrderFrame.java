@@ -490,7 +490,7 @@ public class ViewOrderFrame extends javax.swing.JFrame {
                             totalPrice.contains(searchText) || orderType.contains(searchText) || 
                             orderTime.contains(searchText) || vendorStatus.contains(searchText) ||
                             deliveryStatus.contains(searchText)) {
-                            model.addRow(new Object[]{data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]});
+                            model.addRow(new Object[]{data[0], data[1], data[2], data[3], data[5], data[4], data[6], data[7], data[8]});
                         }
                     }
                 }
