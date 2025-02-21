@@ -193,8 +193,8 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
         String line;
         while ((line = br.readLine()) != null) {
             String[] data = line.split(":"); // Assuming data is separated by colons
-            if (data.length >= 4) { // Ensure there are enough fields
-                model.addRow(new Object[]{data[0], data[1], data[2], data[3]}); // ID, Status, Details, Reply
+            if (data.length >= 6) { // Ensure there are enough fields
+                model.addRow(new Object[]{data[0], data[1], data[4], data[3]}); // ID, Status, Details, Reply
             }
         }
     } catch (IOException e) {
@@ -230,7 +230,7 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
 
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(":");
-                if (data.length >= 4) {
+                if (data.length >= 6) {
                     if (data[0].equals(complaintID)) { // Check if this is the complaint to update
                         // Update the comment (assuming it's in the fourth column)
                         data[3] = newComment; // Update the reply/comment
