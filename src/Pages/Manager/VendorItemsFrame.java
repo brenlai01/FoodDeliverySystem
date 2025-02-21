@@ -157,7 +157,7 @@ public class VendorItemsFrame extends javax.swing.JFrame {
         try (BufferedReader br = new BufferedReader(new FileReader("foodItems.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] data = line.split(":"); // Assuming data is separated by colons
+                String[] data = line.split(":"); 
                 if (data.length == 5) { // Ensure there are enough fields
                     model.addRow(new Object[]{data[0], data[1], data[2], data[4], data[3]}); // Vendor ID, Food ID, Food Name, Price, Description
                 }
@@ -169,7 +169,7 @@ public class VendorItemsFrame extends javax.swing.JFrame {
     
     private void deleteItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteItemButtonActionPerformed
         
-        // Get the selected row from the table
+        
         int selectedRow = foodTable.getSelectedRow();
         
         if (selectedRow == -1) {
@@ -177,8 +177,7 @@ public class VendorItemsFrame extends javax.swing.JFrame {
             return;
         }
 
-        // Get the food ID from the selected row
-        String foodID = foodTable.getValueAt(selectedRow, 0).toString(); // Assuming Food ID is in the second column
+        String foodID = foodTable.getValueAt(selectedRow, 0).toString(); //Food ID 
         
 
         try (BufferedReader br = new BufferedReader(new FileReader("foodItems.txt"))) {
@@ -189,22 +188,22 @@ public class VendorItemsFrame extends javax.swing.JFrame {
         while ((line = br.readLine()) != null) {
             String[] data = line.split(":");
             if (data.length == 5) {
-                if (!data[0].equals(foodID)) { // Keep the line if it's not the selected food item
+                if (!data[0].equals(foodID)) { 
                     updatedData.append(line).append("\n");
                 } else {
-                    found = true; // Mark as found if this is the food item to delete
+                    found = true; 
                 }
             }
         }
 
 
             if (found) {
-                // Write the updated data back to the file
+                
                 try (FileWriter fw = new FileWriter("foodItems.txt")) {
                     fw.write(updatedData.toString());
                 }
                 JOptionPane.showMessageDialog(null, "Food item deleted successfully!");
-                refreshData(); // Refresh the table to show updated items
+                refreshData(); // Refresh the table 
             } else {
                 JOptionPane.showMessageDialog(null, "Food ID not found!", "Error", JOptionPane.ERROR_MESSAGE);
             }

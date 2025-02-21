@@ -220,17 +220,17 @@ public class RiderPerformanceFrame extends javax.swing.JFrame {
 
 private void loadDeliveriesForSelectedRunner(String selectedRunner) {
     DefaultTableModel model = (DefaultTableModel) RunnerPerformanceTable.getModel();
-    model.setRowCount(0); // Clear existing data
+    model.setRowCount(0); 
     
 
     try (BufferedReader br = new BufferedReader(new FileReader("deliveries.txt"))) {
         String line;
-        boolean found = false; // Flag to check if any deliveries are found
+        boolean found = false; 
         while ((line = br.readLine()) != null) {
-            String[] data = line.split(":"); // Assuming data is separated by colons
+            String[] data = line.split(":"); 
             if (data.length >= 10) {
-                String runnerID = data[8]; // Assuming the 8th field is Runner ID
-                String completionStatus = data[7]; // Assuming the 7th field is Completion Status
+                String runnerID = data[8]; //  8th field is Runner ID
+                String completionStatus = data[7]; //7th field is Completion Status
 
                 // Check if the selected runner is "All" or matches the runner ID
                 if ("All".equals(selectedRunner) || runnerID.equals(selectedRunner)) {
@@ -245,7 +245,7 @@ private void loadDeliveriesForSelectedRunner(String selectedRunner) {
                         completionStatus, // Completion Status
                         data[8]  // Delivery Time
                     });
-                    found = true; // Set the flag to true if at least one delivery is found
+                    found = true; 
                 }
             }
         }
@@ -257,33 +257,32 @@ private void loadDeliveriesForSelectedRunner(String selectedRunner) {
     }
 }
 
-   private boolean loadRunnerDetails(String selectedRunner) {
+    private boolean loadRunnerDetails(String selectedRunner) {
         if (selectedRunner.equals("All")) {
-            RunnerName.setText("Runner Name: "); // Clear the runner name
-            RiderTotalCommision.setText("Total Commission (RM): "); // Clear the total commission
-            return true; // Return true to indicate that the operation was successful
+            RunnerName.setText("Runner Name: "); 
+            RiderTotalCommision.setText("Total Commission (RM): "); 
+            return true; 
         }
 
         try (BufferedReader br = new BufferedReader(new FileReader("users.txt"))) {
             String line;
-            boolean found = false; // Flag to check if the runner is found
+            boolean found = false; 
             while ((line = br.readLine()) != null) {
-                String[] data = line.split(":"); // Assuming data is separated by colons
+                String[] data = line.split(":"); 
                 if (data.length >= 5 && data[1].equalsIgnoreCase(selectedRunner) && data[0].equals("deliveryrunner")) {
                     RunnerName.setText("Runner Name: " + data[2]); // Set the runner's name
-                    RiderTotalCommision.setText("Total Commission (RM): " + data[4]); // Set the total commission
-                    found = true; // Set the flag to true
-                    break; // Exit once the runner is found
+                    RiderTotalCommision.setText("Total Commission (RM): " + data[4]); 
+                    found = true; 
+                    break; 
                 }
             }
             if (!found) {
-                // Do not display an error message
-                return false; // Return false to indicate that the runner was not found
+                return false; 
             }
-            return found; // Return whether the runner was found
+            return found; 
+            
         } catch (IOException e) {
-         // Do not display an error message
-            return false; // Return false on error
+            return false; 
         }
     }
          
@@ -296,11 +295,11 @@ private void loadDeliveriesForSelectedRunner(String selectedRunner) {
         try (BufferedReader br = new BufferedReader(new FileReader("review.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] data = line.split(":"); // Split the line by colons
-                // Ensure the data array has enough elements
-                if (data.length >= 10 && data[6] != null && data[6].equals(selectedRunner)) { // Check if the 8th field (index 7) matches the selected runner
+                String[] data = line.split(":");
+                
+                if (data.length >= 10 && data[6] != null && data[6].equals(selectedRunner)) { //matches runner and selected runner
                     try {
-                        // Parse the rating from the 11th field (index 10)
+                        
                         totalRating += Double.parseDouble(data[9]);
                         ratingCount++;
                     } catch (NumberFormatException e) {
@@ -313,22 +312,22 @@ private void loadDeliveriesForSelectedRunner(String selectedRunner) {
         }
         
         // Calculate total commission from deliveries
-    try (BufferedReader br = new BufferedReader(new FileReader("deliveries.txt"))) {
-        String line;
-        while ((line = br.readLine()) != null) {
-            String[] data = line.split(":");
-            if (data.length >= 10 && data[8].equals(selectedRunner)) {
-                try {
-                    totalCommission += Double.parseDouble(data[3]); // Assuming the 4th field is the commission
-                    deliveryCount++;
-                } catch (NumberFormatException e) {
-                    System.err.println("Error parsing commission: " + e.getMessage());
+        try (BufferedReader br = new BufferedReader(new FileReader("deliveries.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(":");
+                if (data.length >= 10 && data[8].equals(selectedRunner)) {
+                    try {
+                        totalCommission += Double.parseDouble(data[3]);
+                        deliveryCount++;
+                    } catch (NumberFormatException e) {
+                        System.err.println("Error parsing commission: " + e.getMessage());
+                    }
                 }
             }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error calculating total commission: " + e.getMessage());
         }
-    } catch (IOException e) {
-        JOptionPane.showMessageDialog(null, "Error calculating total commission: " + e.getMessage());
-    }
         // Calculate and display the average rating
         if (ratingCount > 0) {
             double averageRating = totalRating / ratingCount;
