@@ -1,8 +1,8 @@
 admin:A001:admin1:123123:0.0
-vendor:V001:NewTown:123123:24.0
+vendor:V001:NewTown:123123:48.0
 vendor:V002:RestoranABC:123123:8.0
 vendor:V003:223PanMee:123123:24.0
 customer:C001:customer1:123123:62.0
 customer:C002:alvin:123123:91.0
-deliveryrunner:D001:Ben:123123:25.0
+deliveryrunner:D001:Ben:123123:35.0
 deliveryrunner:D002:Han:123123:0.0

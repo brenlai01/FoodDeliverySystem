@@ -14,3 +14,7 @@ N13:V003:You have a new order. Items [Chilli Pan Mee X 1 @ 12.0]:2025-02-01 22-2
 N14:V003:You have a new order. Items [Chilli Pan Mee X 1 @ 12.0]:2025-02-01 22-39-14:Unread
 N15:V001:You have a new order. Items [Laksa X 1 @ 11.0]:2025-02-01 22-54-03:Unread
 N16:V003:You have a new order. Items [Chilli Pan Mee X 1 @ 12.0]:2025-02-01 23-03-36:Unread
+N17:C001:Your order is on the way! OrderID = O2:2025-02-06 23-41-13:Unread
+N18:C001:Your order has been delivered! OrderID = O2:2025-02-06 23-42-07:Unread
+N19:C001:Your order is on the way! OrderID = O3:2025-02-19 14-19-14:Unread
+N20:C001:Your order has been delivered! OrderID = O3:2025-02-19 14-19-44:Unread

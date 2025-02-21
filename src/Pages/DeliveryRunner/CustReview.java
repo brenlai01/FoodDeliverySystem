@@ -51,6 +51,9 @@ public class CustReview extends javax.swing.JFrame {
             }
         });
 
+        Reviewtbl.setBackground(new java.awt.Color(227, 244, 227));
+        Reviewtbl.setFont(new java.awt.Font("STIX Two Text", 0, 13)); // NOI18N
+        Reviewtbl.setForeground(new java.awt.Color(42, 49, 129));
         Reviewtbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -80,7 +83,8 @@ public class CustReview extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Songti SC", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("STIX Two Text", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(42, 49, 129));
         jLabel1.setText("Reviews");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -103,7 +107,7 @@ public class CustReview extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(7, Short.MAX_VALUE)
+                .addContainerGap(11, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)

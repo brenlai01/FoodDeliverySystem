@@ -1,6 +1,6 @@
 O1:C001:V001:Laksa X 1 @ 11.0:Delivery:11.0:2025-02-01 21-53-06:Accepted:Delivered
-O2:C001:V001:Nasi Lemak X 1 @ 9.0, Teh Tarik X 1 @ 4.0:Delivery:13.0:2025-02-01 21-53-24:Cancelled:Unassigned
-O3:C001:V001:Laksa X 1 @ 11.0:Delivery:11.0:2025-02-01 21-57-12:Cancelled:Unassigned
+O2:C001:V001:Nasi Lemak X 1 @ 9.0, Teh Tarik X 1 @ 4.0:Delivery:13.0:2025-02-01 21-53-24:Cancelled:Delivered
+O3:C001:V001:Laksa X 1 @ 11.0:Delivery:11.0:2025-02-01 21-57-12:Cancelled:Delivered
 O4:C001:V001:Nasi Lemak X 1 @ 9.0:Delivery:9.0:2025-02-01 22-26-38:Accepted:Delivered
 O5:C001:V001:Teh Tarik X 1 @ 4.0:Delivery:4.0:2025-02-01 22-26-48:Accepted:Delivered
 O6:C001:V003:Chilli Pan Mee X 1 @ 12.0:Delivery:12.0:2025-02-01 23-03-36:Pending:Unassigned
