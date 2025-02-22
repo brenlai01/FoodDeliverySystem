@@ -194,7 +194,7 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
         while ((line = br.readLine()) != null) {
             String[] data = line.split(":"); 
             if (data.length >= 6) { 
-                model.addRow(new Object[]{data[0], data[1], data[4], data[3]}); // ID, Status, Details, Reply
+                model.addRow(new Object[]{data[0], data[1], data[33], data[4]}); // ID, Status, Details, Reply
             }
         }
     } catch (IOException e) {
@@ -233,7 +233,7 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
                 if (data.length >= 6) {
                     if (data[0].equals(complaintID)) { 
                         // Update the comment 
-                        data[3] = newComment; 
+                        data[4] = newComment; 
                         found = true;
                     }
                     // Append the updated 
@@ -282,7 +282,7 @@ public class CustomerComplaintsFrame extends javax.swing.JFrame {
             if (data.length >= 4) {
                 if (data[0].equals(complaintID)) { 
                     // Update the status to "Resolved" 
-                    data[1] = "Resolved"; 
+                    data[5] = "Resolved"; 
                     found = true;
                 }
                 // Append the updated or original line to the StringBuilder

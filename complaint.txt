@@ -1,0 +1,2 @@
+C001:CP01:CU01:NewTown gave me no sambal for my nasi lemak order:Sorry for the incovenience, we'll be refunding this order.:Resolved
+C001:CP01:CU02:223PanMee did not include chilli when ordering delivery::Pending
